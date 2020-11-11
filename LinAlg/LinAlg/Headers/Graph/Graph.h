@@ -1,8 +1,8 @@
 #pragma once
 #include "Rendering/Renderer.h"
 #include <unordered_map>
+#include "Vector.h"
 
-class Vector;
 class SDL_Texture;
 
 class Graph {
@@ -12,6 +12,7 @@ public:
 	void show();
 	void startDrawing();
 	void drawLine(int x1, int y1, int x2, int y2, const Color&);
+	void drawVector(const Vector&, const Color& color);
 
 private:
 	Renderer _renderer;
