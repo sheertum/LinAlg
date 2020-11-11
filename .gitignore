@@ -34,3 +34,11 @@ LinAlg/.vs/cmake.db
 LinAlg/.vs/LinAlg/v16/*
 LinAlg/LinAlg/x64/Debug/*
 LinAlg/.vs/LinAlg/v16/Browse.VC.db
+
+#junk
+*.log
+*.db
+*.recipe
+*.idb
+*.tlog
+*.suo
