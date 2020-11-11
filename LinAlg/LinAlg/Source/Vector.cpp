@@ -3,7 +3,7 @@
 #include <stdarg.h> 
 #include <iostream>
 
-// Vector::Vector(float cordinateArgs, ...){
+// Vector::Vector(int cordinateArgs, ...){
 //     va_list coordinateList;
 //     dimensions = 0;
 //     va_start(coordinateList, cordinateArgs);
@@ -12,26 +12,26 @@
 //     {
 //     }
 
-//     coordinates = std::vector<float>(dimensions, 0.0f);
+//     coordinates = std::vector<int>(dimensions, 0.0f);
 
 //     for(int i = 0; i < cordinateArgs; i++)
 //     {
-//         coordinates[i] = va_arg(coordinateList, float);
+//         coordinates[i] = va_arg(coordinateList, int);
 //     }
 
 //     va_end(coordinateList);
 //     std::cout << dimensions <<std::endl;
 // }
 
-Vector::Vector(std::vector<float> coordinateArgs){
+Vector::Vector(std::vector<int> coordinateArgs){
     if(coordinateArgs.size() < 1)
     {
         throw("NoZeroDimensionVectorsAllowed");
     }
 
-    dimensions = coordinateArgs.size();
+    _dimensions = coordinateArgs.size();
 
-    coordinates.reserve(dimensions);
+    coordinates.reserve(_dimensions);
     coordinates = coordinateArgs;
     
 }
@@ -42,8 +42,15 @@ Vector Vector::operator+(const Vector& target)
     {
         throw("DimensionsAreIncompatible");
     }
+    Vector result{std::vector<int>(_dimensions, 0.0f)};
+    for(int i = 0; i < _dimensions; i++)
+    {
+        result[i] = coordinates[i] + target[i];
+    }
 
+    return result;
 }
+
 Vector Vector::operator-(const Vector& target)
 {
     if(!hasCorrectDimension(target))
@@ -51,11 +58,28 @@ Vector Vector::operator-(const Vector& target)
         throw("DimensionsAreIncompatible");
     }
 
+    Vector result{std::vector<int>(_dimensions, 0.0f)};
+    for(int i = 0; i < _dimensions; i++)
+    {
+        result[i] = coordinates[i] - target[i];
+    }
+
+    return result;
+}
+
+const int& Vector::operator[](int target) const
+{
+    return coordinates[target];
+}
+
+const int Vector::getDimension() const
+{
+    return _dimensions;
 }
 
 bool Vector::hasCorrectDimension(const Vector& target)
 {
-    if(dimensions == target.dimensions)
+    if(_dimensions == target.getDimension())
     {
         return true;
     }

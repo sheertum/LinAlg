@@ -5,12 +5,17 @@
 class Vector
 {
 public:
-    // Vector(float coordinate, ...);
-    Vector(std::vector<float>);
+    // Vector(int coordinate, ...);
+    explicit Vector(std::vector<int>);
     Vector operator+(const Vector&);
     Vector operator-(const Vector&);
-    int dimensions;
-    std::vector<float> coordinates;
+    int& operator[](int);
+    const int& operator[](int) const;
+    const int getDimension() const;
+    void print();
+
+    std::vector<int> coordinates;
 private:
+    int _dimensions;
     bool hasCorrectDimension(const Vector&);
 };
