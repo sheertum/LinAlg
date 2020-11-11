@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinAlg", "LinAlg\LinAlg.vcxproj", "{16677312-C4CD-4280-8263-E563B48A9AD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Debug|x64.ActiveCfg = Debug|x64
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Debug|x64.Build.0 = Debug|x64
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Debug|x86.ActiveCfg = Debug|Win32
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Debug|x86.Build.0 = Debug|Win32
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Release|x64.ActiveCfg = Release|x64
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Release|x64.Build.0 = Release|x64
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Release|x86.ActiveCfg = Release|Win32
+		{16677312-C4CD-4280-8263-E563B48A9AD2}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F4767FA-9F4B-4754-BE87-DE0D9F3E4309}
+	EndGlobalSection
+EndGlobal

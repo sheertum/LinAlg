@@ -1,0 +1,4 @@
+﻿  Vector.cpp
+C:\Users\Terence\source\maths\LinAlg\LinAlg\LinAlg\Headers\Vector.h(11,24): warning C4200: nonstandard extension used: zero-sized array in struct/union
+C:\Users\Terence\source\maths\LinAlg\LinAlg\LinAlg\Headers\Vector.h(11,24): message : This member will be ignored by a defaulted constructor or copy/move assignment operator
+  LinAlg.vcxproj -> C:\Users\Terence\source\maths\LinAlg\LinAlg\x64\Debug\LinAlg.exe
