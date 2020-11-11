@@ -1,12 +1,21 @@
 #pragma once
 
+#include <vector>
+
 class Vector
 {
 public:
-    Vector(float coordinate, ...);
+    // Vector(int coordinate, ...);
+    explicit Vector(std::vector<int>);
     Vector operator+(const Vector&);
     Vector operator-(const Vector&);
+    int& operator[](int);
+    const int& operator[](int) const;
+    const int getDimension() const;
+    void print();
+
+    std::vector<int> coordinates;
 private:
     int _dimensions;
-    float _coordinate[];
+    bool hasCorrectDimension(const Vector&);
 };
