@@ -8,5 +8,8 @@ int main(int argc, char* argv[]) {
     Vector test2 {{2,3,-1}};
     Vector result =  test1 + test2;
     result.print();
+
+    Vector minResult = test1 - test2;
+    minResult.print();
     return 0;
 }

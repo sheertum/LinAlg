@@ -36,7 +36,7 @@ Vector::Vector(std::vector<int> coordinateArgs){
     
 }
 
-Vector Vector::operator+(const Vector& target)
+Vector Vector::operator+ (const Vector& target)
 {
     if(!hasCorrectDimension(target))
     {
@@ -72,6 +72,12 @@ const int& Vector::operator[](int target) const
     return coordinates[target];
 }
 
+int& Vector::operator[](int target)
+{
+     return coordinates[target];
+}
+
+
 const int Vector::getDimension() const
 {
     return _dimensions;
@@ -85,4 +91,14 @@ bool Vector::hasCorrectDimension(const Vector& target)
     }
 
     return false;
+}
+
+void Vector::print()
+{
+    std::cout << "[";
+    for(auto coord : coordinates)
+    {
+        std::cout << " " <<coord ;
+    }
+    std::cout << " ]";
 }
