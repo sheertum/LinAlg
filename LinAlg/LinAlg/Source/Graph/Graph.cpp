@@ -44,3 +44,8 @@ void Graph::drawLine(int x1, int y1, int x2, int y2, const Color& color)
 
 	_renderer.drawLine(realX1, realY1, realX2, realY2, color);
 }
+
+void Graph::drawVector(const Vector& vector, const Color& color)
+{
+	drawLine(0, 0, vector[0], vector[1], color);
+}
