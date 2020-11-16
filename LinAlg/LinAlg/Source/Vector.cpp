@@ -3,26 +3,6 @@
 #include <stdarg.h> 
 #include <iostream>
 
-// Vector::Vector(int cordinateArgs, ...){
-//     va_list coordinateList;
-//     dimensions = 0;
-//     va_start(coordinateList, cordinateArgs);
-    
-//     for(dimensions; dimensions < cordinateArgs; dimensions++)
-//     {
-//     }
-
-//     coordinates = std::vector<int>(dimensions, 0.0f);
-
-//     for(int i = 0; i < cordinateArgs; i++)
-//     {
-//         coordinates[i] = va_arg(coordinateList, int);
-//     }
-
-//     va_end(coordinateList);
-//     std::cout << dimensions <<std::endl;
-// }
-
 Vector::Vector(std::vector<int> coordinateArgs){
     if(coordinateArgs.size() < 1)
     {
