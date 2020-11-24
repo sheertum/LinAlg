@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 
-Matrix::Matrix(int width, int height) : _width(width), _height(height), _data{ width + height }{
-    if(width = 0 || height == 0){
+Matrix::Matrix(int columnCount, int rowCount) : _columnCount(columnCount), _rowCount(rowCount), _data{ columnCount +rowCount }{
+    if(columnCount = 0 || rowCount == 0){
         throw "rows or columns cant be 0";
     }
 
@@ -13,14 +13,13 @@ Matrix::Matrix(int width, int height) : _width(width), _height(height), _data{ w
 
 void Matrix::fillColumn(const std::vector<int>& column)
 {
-    if (column.size() > getHeight())
+    if (column.size() > getRowCount())
     {
         throw "column size is to big";
     }
 
-    for (size_t i = 0; i < getHeight(); i++)
+    for (size_t i = 0; i < getRowCount(); i++)
     {
-        get() 
     }
 }
 
@@ -29,16 +28,12 @@ Matrix Matrix::operator+(const Matrix& paraMatrix){
     {
         throw("MatrixesHaveIncompatibleDimensionsForAddition");
     }
-    Matrix result{_rowSize, _columnSize};
-    for(int i =0 ; i < _rowSize; i++ ){
-        std::vector<int> paraColumn {paraMatrix[i]};
-        std::vector<int> thisColumn {_coordinates[i]};
-        std::vector<int> columnSum{};
+    Matrix result{_columnCount, _rowCount};
 
-        for(int j = 0; j <_columnSize; j++){
-            columnSum.push_back(paraColumn[j]+thisColumn[j]);
+    for(int i =0 ; i < _columnCount; i++ ){
+        for(int j = 0; j <_rowCount; j++){
+            result (i, j) = _data[getIndex(i,j)] + paraMatrix(i,j);
         }
-        result[i] = columnSum;
     }
 
     return result;
@@ -50,18 +45,13 @@ Matrix Matrix::operator-(const Matrix& paraMatrix){
         throw("MatrixesHaveIncompatibleDimensionsForSubtraction");
     }
 
-    Matrix result{_rowSize, _columnSize};
-    for(int i =0 ; i < _rowSize; i++ ){
-        std::vector<int> paraColumn {paraMatrix[i]};
-        std::vector<int> thisColumn { _coordinates[i]};
-        std::vector<int> columnSum{};
+    Matrix result{_rowCount, _columnCount};
 
-        for(int j = 0; j <_columnSize; j++){
-            columnSum.push_back(paraColumn[j]-thisColumn[j]);
+    for(int i =0 ; i < _columnCount; i++ ){
+        for(int j = 0; j <_rowCount; j++){
+            result (i, j) = _data[getIndex(i,j)] - paraMatrix(i,j);
         }
-        result[i] = columnSum;
     }
-
     return result;
 }
 
@@ -70,21 +60,27 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     {
         throw("MatrixesHaveIncompatibleDimensionsForMultiplication");
     }
-    int resultcolumnSize = paraMatrix.getDimensions()[1];
-    int resultrowSize = _rowSize;
-    Matrix result{resultrowSize, resultcolumnSize};
+
+    int resultcolumnSize = paraMatrix.getColumnCount();
+    int resultrowSize = _rowCount;
+    Matrix result{resultcolumnSize, resultrowSize};
 
     for(int i = 0; i < resultrowSize; i++){
-        std::vector<int> newColumn {};
-        std::vector<int> row = _coordinates[i];
-
         for(int j = 0; j < resultcolumnSize; j++){
-            std::vector<int> column = paraMatrix.convertColumnToVector(j);
-            newColumn.push_back(VectorInproduct(row, column));
+            _data
+
         }
-        result[i] = newColumn;
     }
     return result;
+}
+
+int Matrix::inproduct(std::vector<int> first, std::vector<int> second){
+    if(first.size() != second.size())
+    {
+        return;
+    }
+    int result = 0;
+    for(int )
 }
 
 Matrix Matrix::operator*(const Vector& vector){
@@ -94,41 +90,41 @@ Matrix Matrix::operator*(const Vector& vector){
     return result;
 }
 
-int& Matrix::operator()(int row, int column)
+int& Matrix::operator()(int column, int row)
 {
-    int index  = row * _width + column
+    return _data[getIndex(column, row)];
 }
 
 int Matrix::operator()(int column, int row) const
 {
-    return 0;
+    return _data[getIndex(column, row)];
 }
 
-int Matrix::getWidth() const
+int Matrix::getColumnCount() const
 {
-    return _width;
+    return _columnCount;
 }
 
-int Matrix::getHeight() const
+int Matrix::getRowCount() const
 {
-    return _height;
+    return _rowCount;
 }
 
 std::vector<int> Matrix::convertColumnToVector(int columnNumber)const {
     std::vector<int> result{};
 
-    for(int i = 0; i < _rowSize; i++){
-        result.push_back(_coordinates[i][columnNumber]);
+    for(int i = 0; i < _rowCount; i++){
+        result.push_back(_data[i][columnNumber]);
     }
     return result;
 }
 
 bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix){
-    return( parameterMatrix.getDimensions()[1] == _rowSize);
+    return(_rowCount == parameterMatrix.getColumnCount());
 }
 
 bool Matrix::hasSameDimensions(const Matrix& parameterMatrix){
-    return (parameterMatrix.getDimensions()[1] == _columnSize && parameterMatrix.getDimensions()[0] == _rowSize);
+    return (parameterMatrix.getColumnCount() == _columnCount && parameterMatrix.getRowCount() == _rowCount);
 }
 
 int Matrix::VectorInproduct(std::vector<int> row, std::vector<int> column){
@@ -142,8 +138,20 @@ int Matrix::VectorInproduct(std::vector<int> row, std::vector<int> column){
 void Matrix::draw(){
     for(int i =0 ; i < (int)_rows.size(); i++ ){
         for(int j = 0; j < (int)_columns.size(); j++){
-            std::cout << _coordinates[i][j] << " ";
+            std::cout << _data[i][j] << " ";
         }
         std::cout << std::endl;
     }   
+}
+
+int Matrix::getIndex(int x, int y) const{
+    if(x > _columnCount || y > _rowCount){
+        throw "IndexOutOfBoundsException";
+    }
+
+    return x + ((y-1) * _rowCount);    
+}
+
+const std::vector<int> Matrix::getData() const{
+    return _data;
 }
