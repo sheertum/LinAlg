@@ -44,8 +44,12 @@ int main(int argc, char* argv[]) {
     //result.draw();
 
     std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
     
-    Matrix result = testMatrix * testVector;
+    Matrix result = (testVector * testMatrix);
     result.draw();
     //test1.draw();
     //std::cout << std::endl;

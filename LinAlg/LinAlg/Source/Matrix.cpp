@@ -65,15 +65,15 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     return result;
 }
 
-Matrix Matrix::operator*(const Vector& vector){
-   std::vector<std::vector<int>> vectormatrix {vector.coordinates};
-   Matrix paraMatrix{1, vector.getDimension()};
-   for(int i = 0; i < vector.getDimension(); i++){
-       paraMatrix(0,i) = vector[i];
-   }
-
-   return *this * paraMatrix;
-}
+//Matrix Matrix::operator*(const Vector& vector){
+//   std::vector<std::vector<int>> vectormatrix {vector.coordinates};
+//   Matrix paraMatrix{1, vector.getDimension()};
+//   for(int i = 0; i < vector.getDimension(); i++){
+//       paraMatrix(0,i) = vector[i];
+//   }
+//
+//   return *this * paraMatrix;
+//}
 
 int& Matrix::operator()(int column, int row)
 {

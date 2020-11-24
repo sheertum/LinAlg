@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Vector.h"
+
+//#include "Vector.h"
 
 class Matrix
 {
@@ -16,7 +17,7 @@ public:
     Matrix operator+(const Matrix&);
     Matrix operator-(const Matrix&);
     Matrix operator*(const Matrix&);
-    Matrix operator*(const Vector&);
+    //Matrix operator*(const Vector&);
     
     int& operator()(int row, int column);
     int operator()(int row, int column) const;
