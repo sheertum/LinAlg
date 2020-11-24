@@ -25,14 +25,27 @@ int main(int argc, char* argv[]) {
     right(0, 2) = 11;
     right(1, 2) = 12;
 
+    Matrix testMatrix(3,1);
+    testMatrix(0, 0) = 1;
+    testMatrix(1, 0) = 2;
+    testMatrix(2, 0) = 3;
+
+    Vector testVector{{ 1,2,3 }};
+
     left.draw();
 
     std::cout << std::endl;
 
     right.draw();
 
-    Matrix result = left * right;
+    std::cout << std::endl;
+    
+    //Matrix result = left * right;
+    //result.draw();
 
+    std::cout << std::endl;
+    
+    Matrix result = testMatrix * testVector;
     result.draw();
     //test1.draw();
     //std::cout << std::endl;
