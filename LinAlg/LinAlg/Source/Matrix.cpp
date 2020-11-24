@@ -64,23 +64,13 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     int resultcolumnSize = paraMatrix.getColumnCount();
     int resultrowSize = _rowCount;
     Matrix result{resultcolumnSize, resultrowSize};
-
-    for(int i = 0; i < resultrowSize; i++){
-        for(int j = 0; j < resultcolumnSize; j++){
-            _data
-
+    
+    for(int i = 0; i < _columnCount; i++){
+        for(int j = 0; j < _rowCount; j++){
+            
         }
     }
     return result;
-}
-
-int Matrix::inproduct(std::vector<int> first, std::vector<int> second){
-    if(first.size() != second.size())
-    {
-        return;
-    }
-    int result = 0;
-    for(int )
 }
 
 Matrix Matrix::operator*(const Vector& vector){

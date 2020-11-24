@@ -29,7 +29,7 @@ public:
     const std::vector<int> getData() const;
 private:
     int getIndex(int, int) const;
-
+    int inproduct(std::vector<int>, std::vector<int>);
 protected:
     bool hasMultiplicableDimension(const Matrix&);
     bool hasSameDimensions(const Matrix&);
