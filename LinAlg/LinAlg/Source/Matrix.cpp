@@ -3,11 +3,17 @@
 #include <iostream>
 
 Matrix::Matrix(int rows, int columns, std::vector<std::vector<int>> coordinates) : _rows(rows), _columns(columns), _coordinates(coordinates){
+    if(rows = 0 || columns == 0){
+        std::cout << "rows or columns cant be 0";
+    }
     _rowSize = _rows.size();
     _columnSize = _columns.size();
 }
 
 Matrix::Matrix(int rows, int columns) : _rows(rows), _columns(columns) {
+    if(rows = 0 || columns == 0){
+        std::cout << "rows or columns cant be 0";
+    }
     _rowSize = _rows.size();
     _columnSize = _columns.size();
 
@@ -93,6 +99,13 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     return result;
 }
 
+Matrix Matrix::operator*(const Vector& vector){
+    std::vector<std::vector<int>> vectormatrix {vector.coordinates};
+    Matrix paraMatrix{1, 3, vectormatrix};
+    Matrix result = *this * paraMatrix;
+    return result;
+}
+
 std::vector<int> Matrix::getDimensions() const{
     return std::vector<int>{_rowSize, _columnSize};
 }
@@ -107,11 +120,11 @@ std::vector<int> Matrix::convertColumnToVector(int columnNumber)const {
 }
 
 bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix){
-    return(parameterMatrix.getDimensions()[0] == _columnSize && parameterMatrix.getDimensions()[1] == _rowSize);
+    return( parameterMatrix.getDimensions()[1] == _rowSize);
 }
 
 bool Matrix::hasSameDimensions(const Matrix& parameterMatrix){
-    return (parameterMatrix.getDimensions()[0] == _rowSize);
+    return (parameterMatrix.getDimensions()[1] == _columnSize && parameterMatrix.getDimensions()[0] == _rowSize);
 }
 
 int Matrix::VectorInproduct(std::vector<int> row, std::vector<int> column){
