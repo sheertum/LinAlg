@@ -1,28 +1,26 @@
 #include "Matrix.h"
 
 #include <iostream>
+#include <string>
 
-Matrix::Matrix(int rows, int columns, std::vector<std::vector<int>> coordinates) : _rows(rows), _columns(columns), _coordinates(coordinates){
-    if(rows = 0 || columns == 0){
-        std::cout << "rows or columns cant be 0";
+Matrix::Matrix(int width, int height) : _width(width), _height(height), _data{ width + height }{
+    if(width = 0 || height == 0){
+        throw "rows or columns cant be 0";
     }
-    _rowSize = _rows.size();
-    _columnSize = _columns.size();
+
+    std::fill(_data.begin(), _data.end(), 0);
 }
 
-Matrix::Matrix(int rows, int columns) : _rows(rows), _columns(columns) {
-    if(rows = 0 || columns == 0){
-        std::cout << "rows or columns cant be 0";
+void Matrix::fillColumn(const std::vector<int>& column)
+{
+    if (column.size() > getHeight())
+    {
+        throw "column size is to big";
     }
-    _rowSize = _rows.size();
-    _columnSize = _columns.size();
 
-    for(int i=0 ; i < _rowSize; i++){
-        std::vector<int> newColumn{};
-        for(int j=0 ; j < _columnSize; j++){
-            newColumn.push_back(0);
-        }
-        _coordinates.push_back(newColumn);
+    for (size_t i = 0; i < getHeight(); i++)
+    {
+        get() 
     }
 }
 
@@ -44,16 +42,6 @@ Matrix Matrix::operator+(const Matrix& paraMatrix){
     }
 
     return result;
-}
-
-const  std::vector<int>& Matrix::operator[](int target) const
-{
-    return _coordinates[target];
-}
-
-std::vector<int>& Matrix::operator[](int target)
-{
-    return _coordinates[target];
 }
 
 Matrix Matrix::operator-(const Matrix& paraMatrix){
@@ -106,8 +94,24 @@ Matrix Matrix::operator*(const Vector& vector){
     return result;
 }
 
-std::vector<int> Matrix::getDimensions() const{
-    return std::vector<int>{_rowSize, _columnSize};
+int& Matrix::operator()(int row, int column)
+{
+    int index  = row * _width + column
+}
+
+int Matrix::operator()(int column, int row) const
+{
+    return 0;
+}
+
+int Matrix::getWidth() const
+{
+    return _width;
+}
+
+int Matrix::getHeight() const
+{
+    return _height;
 }
 
 std::vector<int> Matrix::convertColumnToVector(int columnNumber)const {
