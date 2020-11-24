@@ -29,7 +29,7 @@ void Graph::show()
 	_renderer.show();
 }
 
-void Graph::startDrawing()
+void Graph::drawAxes()
 {
 	_renderer.draw(*_base.get());
 }
@@ -45,7 +45,38 @@ void Graph::drawLine(int x1, int y1, int x2, int y2, const Color& color)
 	_renderer.drawLine(realX1, realY1, realX2, realY2, color);
 }
 
-void Graph::drawVector(const Vector& vector, const Color& color)
+void Graph::drawLine(const Vector& v1, const Vector& v2, const Color& color)
+{
+	drawLine(v1[0], v1[1], v2[0], v2[1], color);
+}
+
+void Graph::drawLine(const std::vector<int>& v1, const std::vector<int>& v2, const Color& color)
+{
+	Vector vector1{ v1 };
+	Vector vector2{ v2 };
+	drawLine(vector1, vector2, color);
+}
+
+void Graph::drawLine(const Vector& vector, const Color& color)
 {
 	drawLine(0, 0, vector[0], vector[1], color);
+}
+
+void Graph::drawMatrix(const Matrix& matrix, const Color& color, bool loopBack)
+{
+	if (matrix.getDimensions()[0] < 2)
+	{
+		throw "To draw a matrix you need atleast 2 vectors";
+	}
+
+	int i;
+	for (i = 1; i < matrix.getDimensions()[0]; i++)
+	{
+		drawLine(matrix[i - 1], matrix[i], color);
+	}
+
+	if (loopBack)
+	{
+		drawLine(matrix[i - 1], matrix[0], color);
+	}
 }

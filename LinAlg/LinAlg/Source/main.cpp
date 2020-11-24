@@ -13,33 +13,34 @@ int main(int argc, char* argv[]) {
     
     std::vector<int> first3d { 1,4};
     std::vector<int> second3d { 2,5};
-    std::vector<int> third3d { 3,6};
+    std::vector<int> third3d { 5, -3};
 
 
     Matrix test1 {2, 3, {first, second}};
     Matrix test2 {2, 3, {first, second}};
     Matrix test3 {3, 2, {first3d, second3d, third3d}};
 
-    Matrix sum = test1 +test2;
+    Matrix sum = test1 + test2;
     Matrix multi = test1 * test3;
 
-    test1.draw();
-    std::cout << std::endl;
-    test3.draw();
-    std::cout << std::endl;
-    multi.draw();
-    std::cout << std::endl;
-    sum.draw();
-    // Graph graph{ 500,500, 20, 20 };
-    // graph.startDrawing();
+    //test1.draw();
+    //std::cout << std::endl;
+    //test3.draw();
+    //std::cout << std::endl;
+    //multi.draw();
+    //std::cout << std::endl;
+    //sum.draw();
 
-    // graph.drawVector(test1, {100,255,0});
-    // graph.drawVector(test2, {0,255,100});
-    // graph.drawVector(result, {100,0,100});
-    // result = test1 - test2;
-    // graph.drawVector(result, { 255,100,100 });
+     Graph graph{ 500,500, 20, 20 };
+     graph.drawAxes();
+     graph.drawMatrix(test3, {100, 255, 0 });
+     //graph.drawVector(test1, {100,255,0});
+     //graph.drawVector(test2, {0,255,100});
+     //graph.drawVector(result, {100,0,100});
+     //result = test1 - test2;
+     //graph.drawVector(result, { 255,100,100 });
 
-    // graph.show();
+     graph.show();
 
     while (true)
     {

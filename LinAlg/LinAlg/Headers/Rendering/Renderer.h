@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Vector.h"
+#include "Matrix.h"
+
 #include <memory>
 
 class SDL_Window;
@@ -21,6 +24,7 @@ public:
 	Renderer(unsigned int width, unsigned int height);
 
 	void drawLine(int x1, int y1, int x2, int y2, const Color&);
+
 	void draw(SDL_Texture&);
 	void show();
 
