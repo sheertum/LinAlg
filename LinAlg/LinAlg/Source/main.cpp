@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
     
 
     matrix.draw();
-    matrix.scale(2,-2,2);
+    matrix.rotate(90);
     matrix.draw();
     
     // left(0, 0) = 1

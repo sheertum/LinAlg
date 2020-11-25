@@ -20,6 +20,7 @@ public:
 
     void translate ( int, int, int);
     void scale ( int, int, int);
+    void rotate(double);
     int& operator()(int row, int column);
     int operator()(int row, int column) const;
 
@@ -28,6 +29,7 @@ public:
 
 private:
     int getIndex(int, int) const;
+    void itirativeMiltiply(Matrix);
 
 protected:
     bool hasMultiplicableDimension(const Matrix&);

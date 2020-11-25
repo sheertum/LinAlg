@@ -145,21 +145,7 @@ void Matrix::translate (int x, int y, int z){
 
     translateMatrix(_rowCount, 0) = x;
 
-    for (int i = 0; i < _columnCount; i++) {
-        Matrix temp = { 1, _rowCount+1 };
-        
-        for (int j = 0; j < _rowCount; j++) {
-            temp(0, j) = this->operator()(i, j);
-        }
-
-        temp(0, _rowCount) = 1;
-
-        temp = translateMatrix * temp;
-
-        for (int j = 0; j < _rowCount; j++) {
-            this->operator()(i, j) = temp(0, j);
-        }
-    }
+    itirativeMiltiply(translateMatrix);
 }
 
 void Matrix::scale(int x, int y, int z){
@@ -174,9 +160,29 @@ void Matrix::scale(int x, int y, int z){
 
     translateMatrix(0, 0) = x;
 
-    for (int i = 0; i < _columnCount; i++) {
-        Matrix temp = { 1, _rowCount+1 };
-        
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::rotate(double alpha) {
+    UnitaryMatrix translateMatrix{ _rowCount + 1 };
+    // if (_rowCount > 2) {
+    //     translateMatrix(2, 2) = z;
+    // }
+
+    if (_rowCount > 1) {
+        translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
+        translateMatrix(0, 1) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 0) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
+    }
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::itirativeMiltiply(Matrix translateMatrix){
+        for (int i = 0; i < _columnCount; i++) {
+        Matrix temp = { 1, _rowCount + 1 };
+
         for (int j = 0; j < _rowCount; j++) {
             temp(0, j) = this->operator()(i, j);
         }
