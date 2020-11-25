@@ -1,80 +1,47 @@
 #include "Matrix.h"
+#include "UnitaryMatrix.h"
 
 #include <iostream>
+#include <string>
 
-Matrix::Matrix(int rows, int columns, std::vector<std::vector<int>> coordinates) : _rows(rows), _columns(columns), _coordinates(coordinates){
-    if(rows = 0 || columns == 0){
-        std::cout << "rows or columns cant be 0";
+Matrix::Matrix(int columnCount, int rowCount) : _columnCount(columnCount), _rowCount(rowCount){
+    if(columnCount < 1 || rowCount < 1){
+        throw "rows or columns cant be 0";
     }
-    _rowSize = _rows.size();
-    _columnSize = _columns.size();
-}
 
-Matrix::Matrix(int rows, int columns) : _rows(rows), _columns(columns) {
-    if(rows = 0 || columns == 0){
-        std::cout << "rows or columns cant be 0";
-    }
-    _rowSize = _rows.size();
-    _columnSize = _columns.size();
-
-    for(int i=0 ; i < _rowSize; i++){
-        std::vector<int> newColumn{};
-        for(int j=0 ; j < _columnSize; j++){
-            newColumn.push_back(0);
-        }
-        _coordinates.push_back(newColumn);
-    }
+    _data.resize(columnCount * rowCount);
 }
 
 Matrix Matrix::operator+(const Matrix& paraMatrix){
-    if(!hasSameDimensions(paraMatrix))
-    {
-        throw("MatrixesHaveIncompatibleDimensionsForAddition");
-    }
-    Matrix result{_rowSize, _columnSize};
-    for(int i =0 ; i < _rowSize; i++ ){
-        std::vector<int> paraColumn {paraMatrix[i]};
-        std::vector<int> thisColumn {_coordinates[i]};
-        std::vector<int> columnSum{};
+   if(!hasSameDimensions(paraMatrix))
+   {
+       throw("MatrixesHaveIncompatibleDimensionsForAddition");
+   }
+   Matrix result{_columnCount, _rowCount};
 
-        for(int j = 0; j <_columnSize; j++){
-            columnSum.push_back(paraColumn[j]+thisColumn[j]);
-        }
-        result[i] = columnSum;
-    }
+   for(int i =0 ; i < _columnCount; i++ ){
+       for(int j = 0; j <_rowCount; j++){
+           result (i, j) = _data[getIndex(i,j)] + paraMatrix(i,j);
+       }
+   }
 
-    return result;
-}
-
-const  std::vector<int>& Matrix::operator[](int target) const
-{
-    return _coordinates[target];
-}
-
-std::vector<int>& Matrix::operator[](int target)
-{
-    return _coordinates[target];
+   return result;
 }
 
 Matrix Matrix::operator-(const Matrix& paraMatrix){
-    if(!hasSameDimensions(paraMatrix))
-    {
-        throw("MatrixesHaveIncompatibleDimensionsForSubtraction");
-    }
+   if(!hasSameDimensions(paraMatrix))
+   {
+       throw("MatrixesHaveIncompatibleDimensionsForSubtraction");
+   }
 
-    Matrix result{_rowSize, _columnSize};
-    for(int i =0 ; i < _rowSize; i++ ){
-        std::vector<int> paraColumn {paraMatrix[i]};
-        std::vector<int> thisColumn { _coordinates[i]};
-        std::vector<int> columnSum{};
+   Matrix result{_rowCount, _columnCount};
 
-        for(int j = 0; j <_columnSize; j++){
-            columnSum.push_back(paraColumn[j]-thisColumn[j]);
-        }
-        result[i] = columnSum;
-    }
-
-    return result;
+   for(int i =0 ; i < _columnCount; i++ ){
+       for(int j = 0; j <_rowCount; j++){
+           result (i, j) = _data[getIndex(i,j)] - paraMatrix(i,j);
+       }
+   }
+   return result;
 }
 
 Matrix Matrix::operator*(const Matrix& paraMatrix){
@@ -82,49 +49,59 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     {
         throw("MatrixesHaveIncompatibleDimensionsForMultiplication");
     }
-    int resultcolumnSize = paraMatrix.getDimensions()[1];
-    int resultrowSize = _rowSize;
-    Matrix result{resultrowSize, resultcolumnSize};
 
+    int resultcolumnSize = paraMatrix.getColumnCount();
+    int resultrowSize = _rowCount;
+    Matrix result{resultcolumnSize, resultrowSize};
+    
     for(int i = 0; i < resultrowSize; i++){
-        std::vector<int> newColumn {};
-        std::vector<int> row = _coordinates[i];
-
         for(int j = 0; j < resultcolumnSize; j++){
-            std::vector<int> column = paraMatrix.convertColumnToVector(j);
-            newColumn.push_back(VectorInproduct(row, column));
+            int sum = 0;
+            for(int q = 0; q < _columnCount; q++){
+                sum += _data[getIndex(q,i)]*paraMatrix(j,q);
+            }
+            result(j,i ) = sum;
         }
-        result[i] = newColumn;
     }
     return result;
 }
 
 Matrix Matrix::operator*(const Vector& vector){
-    std::vector<std::vector<int>> vectormatrix {vector.coordinates};
-    Matrix paraMatrix{1, 3, vectormatrix};
-    Matrix result = *this * paraMatrix;
-    return result;
+   std::vector<std::vector<int>> vectormatrix {vector.coordinates};
+   Matrix paraMatrix{1, vector.getDimension()};
+   for(int i = 0; i < vector.getDimension(); i++){
+       paraMatrix(0,i) = vector[i];
+   }
+
+   return *this * paraMatrix;
 }
 
-std::vector<int> Matrix::getDimensions() const{
-    return std::vector<int>{_rowSize, _columnSize};
+int& Matrix::operator()(int column, int row)
+{
+    return _data[getIndex(column, row)];
 }
 
-std::vector<int> Matrix::convertColumnToVector(int columnNumber)const {
-    std::vector<int> result{};
+int Matrix::operator()(int column, int row) const
+{
+    return _data[getIndex(column, row)];
+}
 
-    for(int i = 0; i < _rowSize; i++){
-        result.push_back(_coordinates[i][columnNumber]);
-    }
-    return result;
+int Matrix::getColumnCount() const
+{
+    return _columnCount;
+}
+
+int Matrix::getRowCount() const
+{
+    return _rowCount;
 }
 
 bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix){
-    return( parameterMatrix.getDimensions()[1] == _rowSize);
+    return(_columnCount == parameterMatrix.getRowCount());
 }
 
 bool Matrix::hasSameDimensions(const Matrix& parameterMatrix){
-    return (parameterMatrix.getDimensions()[1] == _columnSize && parameterMatrix.getDimensions()[0] == _rowSize);
+    return (parameterMatrix.getColumnCount() == _columnCount && parameterMatrix.getRowCount() == _rowCount);
 }
 
 int Matrix::VectorInproduct(std::vector<int> row, std::vector<int> column){
@@ -136,10 +113,86 @@ int Matrix::VectorInproduct(std::vector<int> row, std::vector<int> column){
 }
 
 void Matrix::draw(){
-    for(int i =0 ; i < (int)_rows.size(); i++ ){
-        for(int j = 0; j < (int)_columns.size(); j++){
-            std::cout << _coordinates[i][j] << " ";
+    for(int i =0 ; i < _rowCount; i++ ){
+        for(int j = 0; j < _columnCount; j++){
+            std::cout << this->operator()(j, i) << " ";
         }
         std::cout << std::endl;
     }   
+}
+
+int Matrix::getIndex(int x, int y) const{
+    if(x > _columnCount || y > _rowCount){
+        throw "IndexOutOfBoundsException";
+    }
+
+    return x + (y * _columnCount);    
+}
+
+const std::vector<int> Matrix::getData() const{
+    return _data;
+}
+
+void Matrix::translate (int x, int y, int z){
+    UnitaryMatrix translateMatrix {_rowCount +1};
+    if(_rowCount > 2){
+        translateMatrix(_rowCount , 2 ) = z;
+    }
+
+    if(_rowCount > 1){
+        translateMatrix(_rowCount, 1) = y;
+    }
+
+    translateMatrix(_rowCount, 0) = x;
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::scale(int x, int y, int z){
+     UnitaryMatrix translateMatrix {_rowCount +1};
+    if(_rowCount > 2){
+        translateMatrix(2, 2 ) = z;
+    }
+
+    if(_rowCount > 1){
+        translateMatrix(1, 1) = y;
+    }
+
+    translateMatrix(0, 0) = x;
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::rotate(double alpha) {
+    UnitaryMatrix translateMatrix{ _rowCount + 1 };
+    // if (_rowCount > 2) {
+    //     translateMatrix(2, 2) = z;
+    // }
+
+    if (_rowCount > 1) {
+        translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
+        translateMatrix(0, 1) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 0) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
+    }
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::itirativeMiltiply(Matrix translateMatrix){
+        for (int i = 0; i < _columnCount; i++) {
+        Matrix temp = { 1, _rowCount + 1 };
+
+        for (int j = 0; j < _rowCount; j++) {
+            temp(0, j) = this->operator()(i, j);
+        }
+
+        temp(0, _rowCount) = 1;
+
+        temp = translateMatrix * temp;
+
+        for (int j = 0; j < _rowCount; j++) {
+            this->operator()(i, j) = temp(0, j);
+        }
+    }
 }

@@ -6,27 +6,37 @@
 class Matrix
 {
 public:
-    Matrix(int rows, int columns, std::vector<std::vector<int>>);
-    Matrix(int rows, int columns);
+    Matrix(int width, int height);
+
+    //void setData(const std::vector<int>&);
+
+    int getColumnCount() const;
+    int getRowCount() const;
 
     Matrix operator+(const Matrix&);
     Matrix operator-(const Matrix&);
     Matrix operator*(const Matrix&);
     Matrix operator*(const Vector&);
-    std::vector<int>& operator[](int);
-    const std::vector<int>& operator[](int) const;
-    void draw();
 
-    std::vector<int> getDimensions() const;
+    void translate ( int, int, int);
+    void scale ( int, int, int);
+    void rotate(double);
+    int& operator()(int row, int column);
+    int operator()(int row, int column) const;
+
+    void draw();
+    const std::vector<int> getData() const;
+
+private:
+    int getIndex(int, int) const;
+    void itirativeMiltiply(Matrix);
+
 protected:
     bool hasMultiplicableDimension(const Matrix&);
     bool hasSameDimensions(const Matrix&);
-    std::vector<int> convertColumnToVector(int) const;
     int VectorInproduct(std::vector<int>, std::vector<int>);
 
-    std::vector<std::vector<int>> _rows;
-    std::vector<int> _columns;
-    std::vector<std::vector<int>> _coordinates;
-    int _rowSize;
-    int _columnSize;
+    std::vector<int> _data;
+    int _columnCount;
+    int _rowCount;
 };
