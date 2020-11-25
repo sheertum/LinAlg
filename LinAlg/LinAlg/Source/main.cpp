@@ -25,12 +25,20 @@ int main(int argc, char* argv[]) {
     right(0, 2) = 11;
     right(1, 2) = 12;
 
-    Matrix testMatrix(3,1);
+    Matrix testMatrix(3,3);
     testMatrix(0, 0) = 1;
     testMatrix(1, 0) = 2;
     testMatrix(2, 0) = 3;
 
-    Vector testVector{{ 1,2,3 }};
+    testMatrix(0, 1) = 1;
+    testMatrix(1, 1) = 2;
+    testMatrix(2, 1) = 3;
+
+    testMatrix(0, 2) = 1;
+    testMatrix(1, 2) = 2;
+    testMatrix(2, 2) = 3;
+
+    Vector testVector{{ 1,2,3 } };
 
     left.draw();
 

@@ -1,4 +1,5 @@
 #include "Vector.h"
+#include "Matrix.h"
 
 #include <stdarg.h> 
 #include <iostream>
@@ -45,6 +46,12 @@ Vector Vector::operator-(const Vector& target)
     }
 
     return result;
+}
+
+Matrix Vector::operator*(const Matrix& matrix)
+{
+
+    return matrix;
 }
 
 const int& Vector::operator[](int target) const

@@ -105,7 +105,7 @@ int Matrix::getRowCount() const
 //}
 
 bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix){
-    return(_rowCount == parameterMatrix.getColumnCount());
+    return(_columnCount == parameterMatrix.getRowCount());
 }
 
 bool Matrix::hasSameDimensions(const Matrix& parameterMatrix){

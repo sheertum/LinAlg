@@ -251,6 +251,7 @@
     <ClInclude Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives_font.h" />
     <ClInclude Include="Dependencies\SDL_GFX\SDL2_imageFilter.h" />
     <ClInclude Include="Dependencies\SDL_GFX\SDL2_rotozoom.h" />
+    <ClInclude Include="Headers\Figure.h" />
     <ClInclude Include="Headers\Graph\Graph.h" />
     <ClInclude Include="Headers\Matrix.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />

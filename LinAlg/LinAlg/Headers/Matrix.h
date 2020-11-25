@@ -17,7 +17,7 @@ public:
     Matrix operator-(const Matrix&);
     Matrix operator*(const Matrix&);
     Matrix operator*(const Vector&);
-    
+
     int& operator()(int row, int column);
     int operator()(int row, int column) const;
 

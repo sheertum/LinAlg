@@ -2,6 +2,8 @@
 
 #include <vector>
 
+class Matrix;
+
 class Vector
 {
 public:
@@ -9,6 +11,9 @@ public:
     explicit Vector(std::vector<int>);
     Vector operator+(const Vector&);
     Vector operator-(const Vector&);
+
+    Matrix operator*(const Matrix&);
+
     int& operator[](int);
     const int& operator[](int) const;
     const int getDimension() const;
