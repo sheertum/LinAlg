@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include "UnitaryMatrix.h"
 
 #include <iostream>
 #include <string>
@@ -95,15 +96,6 @@ int Matrix::getRowCount() const
     return _rowCount;
 }
 
-//std::vector<int> Matrix::convertColumnToVector(int columnNumber)const {
-//    std::vector<int> result{};
-//
-//    for(int i = 0; i < _rowCount; i++){
-//        result.push_back(_data[i][columnNumber]);
-//    }
-//    return result;
-//}
-
 bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix){
     return(_columnCount == parameterMatrix.getRowCount());
 }
@@ -139,4 +131,68 @@ int Matrix::getIndex(int x, int y) const{
 
 const std::vector<int> Matrix::getData() const{
     return _data;
+}
+
+void Matrix::translate (int x, int y, int z){
+    UnitaryMatrix translateMatrix {_rowCount +1};
+    if(_rowCount > 2){
+        translateMatrix(_rowCount , 2 ) = z;
+    }
+
+    if(_rowCount > 1){
+        translateMatrix(_rowCount, 1) = y;
+    }
+
+    translateMatrix(_rowCount, 0) = x;
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::scale(int x, int y, int z){
+     UnitaryMatrix translateMatrix {_rowCount +1};
+    if(_rowCount > 2){
+        translateMatrix(2, 2 ) = z;
+    }
+
+    if(_rowCount > 1){
+        translateMatrix(1, 1) = y;
+    }
+
+    translateMatrix(0, 0) = x;
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::rotate(double alpha) {
+    UnitaryMatrix translateMatrix{ _rowCount + 1 };
+    // if (_rowCount > 2) {
+    //     translateMatrix(2, 2) = z;
+    // }
+
+    if (_rowCount > 1) {
+        translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
+        translateMatrix(0, 1) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 0) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
+    }
+
+    itirativeMiltiply(translateMatrix);
+}
+
+void Matrix::itirativeMiltiply(Matrix translateMatrix){
+        for (int i = 0; i < _columnCount; i++) {
+        Matrix temp = { 1, _rowCount + 1 };
+
+        for (int j = 0; j < _rowCount; j++) {
+            temp(0, j) = this->operator()(i, j);
+        }
+
+        temp(0, _rowCount) = 1;
+
+        temp = translateMatrix * temp;
+
+        for (int j = 0; j < _rowCount; j++) {
+            this->operator()(i, j) = temp(0, j);
+        }
+    }
 }

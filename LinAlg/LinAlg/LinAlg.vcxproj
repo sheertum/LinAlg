@@ -160,6 +160,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Matrix.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
+    <ClCompile Include="Source\UnitaryMatrix.cpp" />
     <ClCompile Include="Source\Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +257,7 @@
     <ClInclude Include="Headers\Graph\Graph.h" />
     <ClInclude Include="Headers\Matrix.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />
+    <ClInclude Include="Headers\UnitaryMatrix.h" />
     <ClInclude Include="Headers\Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

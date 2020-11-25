@@ -18,6 +18,9 @@ public:
     Matrix operator*(const Matrix&);
     Matrix operator*(const Vector&);
 
+    void translate ( int, int, int);
+    void scale ( int, int, int);
+    void rotate(double);
     int& operator()(int row, int column);
     int operator()(int row, int column) const;
 
@@ -26,11 +29,11 @@ public:
 
 private:
     int getIndex(int, int) const;
+    void itirativeMiltiply(Matrix);
 
 protected:
     bool hasMultiplicableDimension(const Matrix&);
     bool hasSameDimensions(const Matrix&);
-    //std::vector<int> convertColumnToVector(int) const;
     int VectorInproduct(std::vector<int>, std::vector<int>);
 
     std::vector<int> _data;
