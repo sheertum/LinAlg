@@ -42,6 +42,9 @@
     <ClCompile Include="Source\Matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Headers\Figure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\UnitaryMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
