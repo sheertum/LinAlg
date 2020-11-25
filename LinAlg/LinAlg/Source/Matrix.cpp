@@ -135,15 +135,15 @@ const std::vector<int> Matrix::getData() const{
 
 void Matrix::translate (int x, int y, int z){
     UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2)
+    if(_rowCount > 2){
         translateMatrix(_rowCount , 2 ) = z;
+    }
 
-    if(_rowCount > 1)
+    if(_rowCount > 1){
         translateMatrix(_rowCount, 1) = y;
+    }
 
     translateMatrix(_rowCount, 0) = x;
-    translateMatrix.draw();
-    std::cout << std::endl;
 
     for (int i = 0; i < _columnCount; i++) {
         Matrix temp = { 1, _rowCount+1 };
@@ -159,8 +159,6 @@ void Matrix::translate (int x, int y, int z){
         for (int j = 0; j < _rowCount; j++) {
             this->operator()(i, j) = temp(0, j);
         }
-        this->draw();
-        std::cout << std::endl;
     }
     
 }

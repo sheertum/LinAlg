@@ -9,30 +9,25 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    Matrix matrix{ 6, 3 };
+    Matrix matrix{ 6, 2 };
     matrix(0, 0) = 1;
     matrix(0, 1) = 1;
-    matrix(0, 2) = 1;
 
     matrix(1, 0) = 4;
     matrix(1, 1) = 4;
-    matrix(1, 2) = 4;
     
     matrix(2, 0) = 5;
     matrix(2, 1) = 5;
-    matrix(2, 2) = 5;
 
     matrix(3, 0) = 6;
     matrix(3, 1) = 6;
-    matrix(3, 2) = 6;
 
     matrix(4, 0) = 7;
     matrix(4, 1) = 7;
-    matrix(4, 2) = 7;
 
     matrix(5, 0) = 8;
     matrix(5, 1) = 8;
-    matrix(5, 2) = 8;
+    
 
     matrix.draw();
     matrix.translate(1,1,1);
