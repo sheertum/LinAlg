@@ -4,7 +4,7 @@
 #include <stdarg.h> 
 #include <iostream>
 
-Vector::Vector(std::vector<int> coordinateArgs){
+Vector::Vector(std::vector<double> coordinateArgs){
     if(coordinateArgs.size() < 1)
     {
         throw("NoZeroDimensionVectorsAllowed");
@@ -23,7 +23,7 @@ Vector Vector::operator+ (const Vector& target)
     {
         throw("DimensionsAreIncompatible");
     }
-    Vector result{std::vector<int>(_dimensions, 0.0f)};
+    Vector result{std::vector<double>(_dimensions, 0.0f)};
     for(int i = 0; i < _dimensions; i++)
     {
         result[i] = coordinates[i] + target[i];
@@ -39,7 +39,7 @@ Vector Vector::operator-(const Vector& target)
         throw("DimensionsAreIncompatible");
     }
 
-    Vector result{std::vector<int>(_dimensions, 0.0f)};
+    Vector result{std::vector<double>(_dimensions, 0.0f)};
     for(int i = 0; i < _dimensions; i++)
     {
         result[i] = coordinates[i] - target[i];
@@ -54,12 +54,12 @@ Matrix Vector::operator*(const Matrix& matrix)
     return matrix;
 }
 
-const int& Vector::operator[](int target) const
+const double& Vector::operator[](int target) const
 {
     return coordinates[target];
 }
 
-int& Vector::operator[](int target)
+double& Vector::operator[](int target)
 {
      return coordinates[target];
 }

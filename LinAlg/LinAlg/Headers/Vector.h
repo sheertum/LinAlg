@@ -8,18 +8,18 @@ class Vector
 {
 public:
     // Vector(int coordinate, ...);
-    explicit Vector(std::vector<int>);
+    explicit Vector(std::vector<double>);
     Vector operator+(const Vector&);
     Vector operator-(const Vector&);
 
     Matrix operator*(const Matrix&);
 
-    int& operator[](int);
-    const int& operator[](int) const;
+    double& operator[](int);
+    const double& operator[](int) const;
     const int getDimension() const;
     void print();
 
-    std::vector<int> coordinates;
+    std::vector<double> coordinates;
 private:
     int _dimensions;
     bool hasCorrectDimension(const Vector&);

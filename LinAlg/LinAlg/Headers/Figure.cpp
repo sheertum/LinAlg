@@ -16,7 +16,7 @@ Figure::Figure(const std::vector<Vector>& vectors) : Matrix(vectors.size(), vect
 
 Vector Figure::getVector(int index) const
 {
-	std::vector<int> v;
+	std::vector<double> v;
 	v.resize(_rowCount);
 	Vector vector{ v };
 

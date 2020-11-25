@@ -67,7 +67,7 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
 }
 
 Matrix Matrix::operator*(const Vector& vector){
-   std::vector<std::vector<int>> vectormatrix {vector.coordinates};
+   std::vector<std::vector<double>> vectormatrix {vector.coordinates};
    Matrix paraMatrix{1, vector.getDimension()};
    for(int i = 0; i < vector.getDimension(); i++){
        paraMatrix(0,i) = vector[i];
@@ -76,12 +76,12 @@ Matrix Matrix::operator*(const Vector& vector){
    return *this * paraMatrix;
 }
 
-int& Matrix::operator()(int column, int row)
+double& Matrix::operator()(int column, int row)
 {
     return _data[getIndex(column, row)];
 }
 
-int Matrix::operator()(int column, int row) const
+double Matrix::operator()(int column, int row) const
 {
     return _data[getIndex(column, row)];
 }
@@ -104,8 +104,8 @@ bool Matrix::hasSameDimensions(const Matrix& parameterMatrix){
     return (parameterMatrix.getColumnCount() == _columnCount && parameterMatrix.getRowCount() == _rowCount);
 }
 
-int Matrix::VectorInproduct(std::vector<int> row, std::vector<int> column){
-    int result = 0;
+double Matrix::VectorInproduct(std::vector<double> row, std::vector<double> column){
+    double result = 0;
     for(int i = 0; i < (int)row.size(); i++){
         result += row[i]*column[i];
     }
@@ -129,11 +129,11 @@ int Matrix::getIndex(int x, int y) const{
     return x + (y * _columnCount);    
 }
 
-const std::vector<int> Matrix::getData() const{
+const std::vector<double> Matrix::getData() const{
     return _data;
 }
 
-void Matrix::translate (int x, int y, int z){
+void Matrix::translate (double x, double y, double z){
     UnitaryMatrix translateMatrix {_rowCount +1};
     if(_rowCount > 2){
         translateMatrix(_rowCount , 2 ) = z;
@@ -148,7 +148,7 @@ void Matrix::translate (int x, int y, int z){
     itirativeMiltiply(translateMatrix);
 }
 
-void Matrix::scale(int x, int y, int z){
+void Matrix::scale(double x, double y, double z){
      UnitaryMatrix translateMatrix {_rowCount +1};
     if(_rowCount > 2){
         translateMatrix(2, 2 ) = z;

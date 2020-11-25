@@ -15,7 +15,7 @@ public:
 	void drawLine(int x1, int y1, int x2, int y2, const Color&);
 
 	void drawLine(const Vector&, const Vector&, const Color&);
-	void drawLine(const std::vector<int>&, const std::vector<int>&, const Color&);
+	void drawLine(const std::vector<double>&, const std::vector<double>&, const Color&);
 	void drawLine(const Vector&, const Color&);
 
 	void draw(const Figure&, const Color&, bool loopBack = true);
