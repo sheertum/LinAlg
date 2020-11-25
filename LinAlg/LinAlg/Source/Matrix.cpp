@@ -163,11 +163,23 @@ void Matrix::scale(double x, double y, double z){
     itirativeMiltiply(translateMatrix);
 }
 
+void Matrix::scale(double x){
+     UnitaryMatrix translateMatrix {_rowCount +1};
+    if(_rowCount > 2){
+        translateMatrix(2, 2 ) = x;
+    }
+
+    if(_rowCount > 1){
+        translateMatrix(1, 1) = x;
+    }
+
+    translateMatrix(0, 0) = x;
+
+    itirativeMiltiply(translateMatrix);
+}
+
 void Matrix::rotate(double alpha) {
     UnitaryMatrix translateMatrix{ _rowCount + 1 };
-    // if (_rowCount > 2) {
-    //     translateMatrix(2, 2) = z;
-    // }
 
     if (_rowCount > 1) {
         translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
@@ -179,7 +191,7 @@ void Matrix::rotate(double alpha) {
     itirativeMiltiply(translateMatrix);
 }
 
-void Matrix::itirativeMiltiply(Matrix translateMatrix){
+void Matrix::itirativeMiltiply(Matrix changeMatrix){
         for (int i = 0; i < _columnCount; i++) {
         Matrix temp = { 1, _rowCount + 1 };
 
@@ -189,7 +201,7 @@ void Matrix::itirativeMiltiply(Matrix translateMatrix){
 
         temp(0, _rowCount) = 1;
 
-        temp = translateMatrix * temp;
+        temp = changeMatrix * temp;
 
         for (int j = 0; j < _rowCount; j++) {
             this->operator()(i, j) = temp(0, j);

@@ -20,6 +20,7 @@ public:
 
     void translate (double, double, double);
     void scale (double, double, double);
+    void scale (double);
     void rotate(double);
     double& operator()(int row, int column);
     double operator()(int row, int column) const;
