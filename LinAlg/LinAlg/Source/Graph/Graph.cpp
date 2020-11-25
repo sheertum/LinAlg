@@ -51,7 +51,7 @@ void Graph::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 	drawLine(v1[0], v1[1], v2[0], v2[1], color);
 }
 
-void Graph::drawLine(const std::vector<int>& v1, const std::vector<int>& v2, const Color& color)
+void Graph::drawLine(const std::vector<double>& v1, const std::vector<double>& v2, const Color& color)
 {
 	Vector vector1{ v1 };
 	Vector vector2{ v2 };
