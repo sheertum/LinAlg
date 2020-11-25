@@ -9,4 +9,7 @@ public:
 
 	Vector getVector(int index) const;
 	int size() const;
+
+private:
+	std::vector<double> _center;
 };

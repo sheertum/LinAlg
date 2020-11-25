@@ -10,6 +10,7 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
+
     Vector p1{ {0, 0} };
     Vector p2{ {50, 0}};
     Vector p3{{50, 50}};
@@ -29,5 +30,6 @@ int main(int argc, char* argv[]) {
     {
 
     }
+
     return 0;
 }
