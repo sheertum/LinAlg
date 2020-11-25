@@ -160,5 +160,33 @@ void Matrix::translate (int x, int y, int z){
             this->operator()(i, j) = temp(0, j);
         }
     }
-    
+}
+
+void Matrix::scale(int x, int y, int z){
+     UnitaryMatrix translateMatrix {_rowCount +1};
+    if(_rowCount > 2){
+        translateMatrix(2, 2 ) = z;
+    }
+
+    if(_rowCount > 1){
+        translateMatrix(1, 1) = y;
+    }
+
+    translateMatrix(0, 0) = x;
+
+    for (int i = 0; i < _columnCount; i++) {
+        Matrix temp = { 1, _rowCount+1 };
+        
+        for (int j = 0; j < _rowCount; j++) {
+            temp(0, j) = this->operator()(i, j);
+        }
+
+        temp(0, _rowCount) = 1;
+
+        temp = translateMatrix * temp;
+
+        for (int j = 0; j < _rowCount; j++) {
+            this->operator()(i, j) = temp(0, j);
+        }
+    }
 }
