@@ -34,7 +34,7 @@ private:
 protected:
     bool hasMultiplicableDimension(const Matrix&);
     bool hasSameDimensions(const Matrix&);
-    int VectorInproduct(std::vector<double>, std::vector<double>);
+    double VectorInproduct(std::vector<double>, std::vector<double>);
 
     std::vector<double> _data;
     int _columnCount;
