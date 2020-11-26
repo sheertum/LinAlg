@@ -6,6 +6,7 @@
 #include "UnitaryMatrix.h"
 
 #include "Figure.h"
+#include "Input.h"
 
 #undef main
 #include <iostream>
@@ -16,7 +17,7 @@ int main(int argc, char* argv[]) {
     Vector p2{ {50, 0}};
     Vector p3{{50, 50}};
     Vector p4{{0, 50}};
-
+   
     Figure figure({ p1, p2, p3, p4 });
     figure.draw();
 
@@ -50,8 +51,24 @@ int main(int argc, char* argv[]) {
     matrix.rotate(90);
     matrix.draw();
     
+    std::function<void()> rotate = [&]() {
+        figure.rotate(5);
+    };
+
+    std::function<void()> scaleUp = [&]() {
+        figure.scaleFromOrigin(1.2, 1.2, 1.2);
+    };
+
+    std::function<void()> scaleDown = [&]() {
+        figure.scaleFromOrigin(0.8, 0.8, 0.8);
+    };
+
+    Input input;
+    input.addBinding(SDLK_r, rotate);
+    input.addBinding(SDLK_p, scaleUp);
+    input.addBinding(SDLK_m, scaleDown);
     // left(0, 0) = 1
-    ;
+    
     // left(1, 0) = 2;
     // left(2, 0) = 3;
     // left(0, 1) = 4;
@@ -114,10 +131,18 @@ int main(int argc, char* argv[]) {
 
      //graph.show();
 
+
     while (true)
     {
+        input.pollEvents();
+        input.handleEvents();
 
+        graph.drawAxes();
+        graph.draw(figure, { 255,255,255 });
+
+        graph.show();
     }
+        SDL_Quit();
 
     return 0;
 }
