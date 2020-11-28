@@ -14,6 +14,9 @@ public:
 
     Matrix operator*(const Matrix&);
     Vector operator*(const double);
+    double operator*(Vector inproductVector);
+    double getLength();
+    Vector crossProduct(const Vector& target);
 
     double& operator[](int);
     const double& operator[](int) const;
