@@ -48,7 +48,30 @@ double Vector::getLength(){
 }
 
 Vector Vector::crossProduct(const Vector& target){
-    
+    if(_dimensions < 3){
+        throw("CrossProductIsOnlyPossibleInThreeDimensions");
+    }
+
+    Vector result {{0,0,0}};
+    int j = 0;
+    int k = 0;
+
+    for(int i = 0; i < _dimensions; i++){
+        j = i +1;
+        k = i +2;
+        if(j >= _dimensions){
+            j = 0;
+            k = j + 1;
+        }
+
+        if(k >= _dimensions){
+            k = 0;
+        }
+
+        result[i] = coordinates[j]*target[k] - coordinates[k]*target[j];
+    }
+
+    return result;
 }
 
 Vector Vector::operator-(const Vector& target)
