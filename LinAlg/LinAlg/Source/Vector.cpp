@@ -56,10 +56,10 @@ Matrix Vector::operator*(const Matrix& matrix)
 
 Vector Vector::operator*(const double scalar)
 {
-    Vector result{std::vector<double>()};
     for(auto& coordinate : coordinates){
         coordinate = coordinate*scalar;
     }
+    return *this;
 }
 
 const double& Vector::operator[](int target) const
