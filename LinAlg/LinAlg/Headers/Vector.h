@@ -13,6 +13,7 @@ public:
     Vector operator-(const Vector&);
 
     Matrix operator*(const Matrix&);
+    Vector operator*(const double);
 
     double& operator[](int);
     const double& operator[](int) const;
