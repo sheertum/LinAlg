@@ -21,7 +21,6 @@ int main(int argc, char* argv[]) {
     Figure figure({ p1, p2, p3, p4 });
     figure.draw();
     figure.translate(-31.5, -31.5, 1);
-    //figure.rotate(35);
     figure.scale(0.5);
     figure.translate(31.5, 31.5, 1);
 
@@ -50,11 +49,11 @@ int main(int argc, char* argv[]) {
     
 
     matrix.draw();
-    matrix.rotate(90);
+    matrix.zRotate(90);
     matrix.draw();
     
     std::function<void()> rotate = [&]() {
-        figure.rotate(5);
+        figure.zRotate(5);
     };
 
     std::function<void()> scaleUp = [&]() {
