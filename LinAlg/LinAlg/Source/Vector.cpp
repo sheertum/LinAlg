@@ -102,9 +102,10 @@ Vector Vector::operator*(const double scalar)
     for(auto& coordinate : coordinates){
         coordinate = coordinate*scalar;
     }
+    return result;
 }
 
-double Vector::operator*(Vector inproductVector)
+double Vector::operator*(const Vector inproductVector)
 {
     double result= 0;
     for(int i = 0; i < this->getDimension(); i++){
