@@ -54,6 +54,14 @@ Matrix Vector::operator*(const Matrix& matrix)
     return matrix;
 }
 
+Vector Vector::operator*(const double scalar)
+{
+    Vector result{std::vector<double>()};
+    for(auto& coordinate : coordinates){
+        coordinate = coordinate*scalar;
+    }
+}
+
 const double& Vector::operator[](int target) const
 {
     return coordinates[target];

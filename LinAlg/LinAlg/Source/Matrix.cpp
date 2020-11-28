@@ -145,7 +145,7 @@ void Matrix::translate (double x, double y, double z){
 
     translateMatrix(_rowCount, 0) = x;
 
-    itirativeMiltiply(translateMatrix);
+    itirativeMultiply(translateMatrix);
 }
 
 void Matrix::scale(double x, double y, double z){
@@ -160,7 +160,7 @@ void Matrix::scale(double x, double y, double z){
 
     translateMatrix(0, 0) = x;
 
-    itirativeMiltiply(translateMatrix);
+    itirativeMultiply(translateMatrix);
 }
 
 void Matrix::scale(double x){
@@ -175,10 +175,10 @@ void Matrix::scale(double x){
 
     translateMatrix(0, 0) = x;
 
-    itirativeMiltiply(translateMatrix);
+    itirativeMultiply(translateMatrix);
 }
 
-void Matrix::rotate(double alpha) {
+void Matrix::zRotate(double alpha) {
     UnitaryMatrix translateMatrix{ _rowCount + 1 };
 
     if (_rowCount > 1) {
@@ -188,10 +188,79 @@ void Matrix::rotate(double alpha) {
         translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
     }
 
-    itirativeMiltiply(translateMatrix);
+    itirativeMultiply(translateMatrix);
 }
 
-void Matrix::itirativeMiltiply(Matrix changeMatrix){
+void Matrix::yRotate(double alpha) {
+    UnitaryMatrix translateMatrix{ _rowCount + 1 };
+
+    if (_rowCount > 1) {
+        translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
+        translateMatrix(0, 2) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(2, 0) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(2, 2) = cos(alpha * 3.14159265 / 180.0 );
+    }
+
+    itirativeMultiply(translateMatrix);
+}
+
+void Matrix::xRotate(double alpha) {
+    UnitaryMatrix translateMatrix{ _rowCount + 1 };
+
+    if (_rowCount > 1) {
+        translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 2) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(2, 1) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(2, 2) = cos(alpha * 3.14159265 / 180.0 );
+    }
+
+    itirativeMultiply(translateMatrix);
+}
+
+void Matrix::originLineRotate(Vector line, double alpha){
+    double x = line.coordinates[0];
+    double y = line.coordinates[1];
+    double z = line.coordinates[2];
+    double x2z2 = sqrt(x*x+z*z);
+    double x2y2z2 = sqrt(x*x+y*y+z*z);
+
+    Matrix M5 = UnitaryMatrix(4);
+    M5(0, 0) = x / x2z2;
+    M5(0, 2) = -z / x2z2;
+    M5(2, 0) = z / x2z2;
+    M5(2, 2) = x / x2z2;
+
+    Matrix M4 = UnitaryMatrix(4);
+    M4(0, 0) = x2z2 / x2y2z2;
+    M4(0, 1) = -y / x2z2;
+    M4(1, 0) = y / x2z2;
+    M4(1, 1) = x2z2 / x2y2z2;
+
+    Matrix M2 = M4;
+    M2(1,0) = M2(1,0)*-1;
+    M2(0,1) = M2(1,0)*-1;
+
+    Matrix M1 = M5;
+    M1(2,0) = M1(1,0)*-1;
+    M1(0,2) = M1(1,0)*-1;
+
+    itirativeMultiply(M5);
+    itirativeMultiply(M4);
+    xRotate(alpha);
+    itirativeMultiply(M2);
+    itirativeMultiply(M1);
+}
+
+void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
+    translate(first.coordinates[0], first.coordinates[1], first.coordinates[2]);
+    Vector originLine = second - first;
+    originLineRotate(originLine, alpha);
+    first = first * -1;
+    translate(first.coordinates[0], first.coordinates[1], first.coordinates[2]);
+}
+
+
+void Matrix::itirativeMultiply(Matrix changeMatrix){
         for (int i = 0; i < _columnCount; i++) {
         Matrix temp = { 1, _rowCount + 1 };
 

@@ -21,7 +21,11 @@ public:
     void translate (double, double, double);
     void scale (double, double, double);
     void scale (double);
-    void rotate(double);
+    void xRotate(double);
+    void yRotate(double);
+    void zRotate(double);
+    void originLineRotate(Vector, double);
+    void randomLineRotate(Vector, Vector, double);
     double& operator()(int row, int column);
     double operator()(int row, int column) const;
 
@@ -30,7 +34,7 @@ public:
 
 private:
     int getIndex(int, int) const;
-    void itirativeMiltiply(Matrix);
+    void itirativeMultiply(Matrix);
 
 protected:
     bool hasMultiplicableDimension(const Matrix&);
