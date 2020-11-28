@@ -155,7 +155,7 @@
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_imageFilter.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_rotozoom.c" />
-    <ClCompile Include="Headers\Figure.cpp" />
+    <ClCompile Include="Source\Figure.cpp" />
     <ClCompile Include="Headers\Input.cpp" />
     <ClCompile Include="Source\Graph\Graph.cpp" />
     <ClCompile Include="Source\main.cpp" />
