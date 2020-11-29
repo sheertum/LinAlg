@@ -161,6 +161,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Matrix.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
+    <ClCompile Include="Source\Shape.cpp" />
     <ClCompile Include="Source\UnitaryMatrix.cpp" />
     <ClCompile Include="Source\Vector.cpp" />
   </ItemGroup>
@@ -259,6 +260,7 @@
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\Matrix.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />
+    <ClInclude Include="Headers\Shape.h" />
     <ClInclude Include="Headers\UnitaryMatrix.h" />
     <ClInclude Include="Headers\Vector.h" />
   </ItemGroup>

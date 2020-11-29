@@ -66,3 +66,13 @@ void Figure::moveBack()
 {
 	Matrix::translate(_center[0], _center[1], _center[2]);
 }
+
+void Figure::createShape(std::vector<int> indices)
+{
+	_shapes.push_back({indices});
+}
+
+const std::vector<Shape>& Figure::getShapes() const
+{
+	return _shapes;
+}
