@@ -48,7 +48,8 @@ double Vector::getLength(){
 }
 
 Vector Vector::crossProduct(const Vector& target){
-    
+    //TODO:
+    return target;
 }
 
 Vector Vector::operator-(const Vector& target)
