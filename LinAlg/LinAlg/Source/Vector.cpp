@@ -46,9 +46,9 @@ double Vector::getLength(){
 
     return sqrt(result);
 }
-
+//TODO remove
 Vector Vector::crossProduct(const Vector& target){
-    
+    return Vector{ {0,0,0} };
 }
 
 Vector Vector::operator-(const Vector& target)
