@@ -10,6 +10,11 @@ Vector::Vector(std::vector<double> coordinateArgs){
         throw("NoZeroDimensionVectorsAllowed");
     }
 
+    if(coordinateArgs.size() < 2)
+    {
+        throw("NoSingleDimensionVectorsAllowed");
+    }
+
     _dimensions = coordinateArgs.size();
 
     coordinates.reserve(_dimensions);
@@ -30,6 +35,20 @@ Vector Vector::operator+ (const Vector& target)
     }
 
     return result;
+}
+
+double Vector::getLength(){
+    double result = std::pow(coordinates[0], 2) + std::pow(coordinates[1], 2);
+
+    if(getDimension() == 3){
+        result += std::pow(coordinates[2], 2);
+    }
+
+    return sqrt(result);
+}
+
+Vector Vector::crossProduct(const Vector& target){
+    
 }
 
 Vector Vector::operator-(const Vector& target)
@@ -63,6 +82,15 @@ Vector Vector::operator*(const double scalar)
 
     //TODO: remove
     return Vector({0});
+}
+
+double Vector::operator*(Vector inproductVector)
+{
+    double result= 0;
+    for(int i = 0; i < this->getDimension(); i++){
+        result += coordinates[i]*inproductVector[i];
+    }
+    return result;
 }
 
 const double& Vector::operator[](int target) const
