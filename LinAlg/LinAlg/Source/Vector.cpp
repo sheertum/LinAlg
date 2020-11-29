@@ -60,6 +60,9 @@ Vector Vector::operator*(const double scalar)
     for(auto& coordinate : coordinates){
         coordinate = coordinate*scalar;
     }
+
+    //TODO: remove
+    return Vector({0});
 }
 
 const double& Vector::operator[](int target) const

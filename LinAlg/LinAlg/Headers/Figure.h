@@ -15,6 +15,8 @@ public:
 	void updateCenter();
 	void calculateCenter();
 
+	void moveToOrigin();
+	void moveBack();
 private:
 	std::vector<double> _center;
 };

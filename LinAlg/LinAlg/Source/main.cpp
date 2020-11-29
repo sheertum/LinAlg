@@ -13,16 +13,22 @@
 
 int main(int argc, char* argv[]) {
 
-    Vector p1{ {0, 0} };
-    Vector p2{ {63, 0}};
-    Vector p3{{63, 63}};
-    Vector p4{{0, 63}};
+    Vector p1{ {-50, -50, -50} };
+    Vector p2{ {50, -50, -50} };
+    Vector p3{ {50, 50, -50} };
+    Vector p4{ {-50, 50, -50} };
 
-    Figure figure({ p1, p2, p3, p4 });
-    figure.draw();
+    Vector p5{ {-50, -50, 0} };
+    Vector p6{ {50, -50, 0} };
+    Vector p7{ {50, 50, 0} };
+    Vector p8{ {-50, 50, 0} };
+
+    //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
+    Figure figure({ p5, p6, p7, p8 });
+
     figure.translate(-31.5, -31.5, 1);
-    figure.scale(0.5);
-    figure.translate(31.5, 31.5, 1);
+    figure.calculateCenter();
+    //figure.translate(31.5, 31.5, 1);
 
      Graph graph{ 500,500, 500, 500 };
      graph.draw(figure, { 255,255,255 });
@@ -53,15 +59,31 @@ int main(int argc, char* argv[]) {
     matrix.draw();
     
     std::function<void()> rotate = [&]() {
+        figure.moveToOrigin();
+        figure.yRotate(5);
+        figure.moveBack();
+
+        figure.moveToOrigin();
         figure.zRotate(5);
+        figure.moveBack();
+        
+        figure.moveToOrigin();
+        figure.xRotate(5);
+        figure.moveBack();
+        
     };
 
     std::function<void()> scaleUp = [&]() {
-        figure.scaleFromOrigin(1.2, 1.2, 1.2);
+        //figure.scaleFromOrigin(1.2, 1.2, 1.2);
+        figure.moveToOrigin();
+        figure.scale(1.2, 1.2, 1.2);
+        figure.moveBack();
     };
 
     std::function<void()> scaleDown = [&]() {
-        figure.scaleFromOrigin(0.8, 0.8, 0.8);
+        figure.moveToOrigin();
+        figure.scale(0.8, 0.8, 0.8);
+        figure.moveBack();
     };
 
     Input input;

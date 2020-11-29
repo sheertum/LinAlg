@@ -56,7 +56,7 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     
     for(int i = 0; i < resultrowSize; i++){
         for(int j = 0; j < resultcolumnSize; j++){
-            int sum = 0;
+            double sum = 0;
             for(int q = 0; q < _columnCount; q++){
                 sum += _data[getIndex(q,i)]*paraMatrix(j,q);
             }
@@ -262,7 +262,7 @@ void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
 
 void Matrix::itirativeMultiply(Matrix changeMatrix){
         for (int i = 0; i < _columnCount; i++) {
-        Matrix temp = { 1, _rowCount + 1 };
+        Matrix temp{ 1, _rowCount + 1 };
 
         for (int j = 0; j < _rowCount; j++) {
             temp(0, j) = this->operator()(i, j);
