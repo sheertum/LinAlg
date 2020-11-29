@@ -13,8 +13,8 @@ public:
     Vector operator-(const Vector&);
 
     Matrix operator*(const Matrix&);
+    double operator*(const Vector);
     Vector operator*(const double);
-    double operator*(Vector inproductVector);
     double getLength();
     Vector crossProduct(const Vector& target);
 
