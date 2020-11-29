@@ -1,4 +1,5 @@
 #include "Graph/Graph.h"
+#include <math.h>
 
 Graph::Graph(unsigned int width, unsigned int height, unsigned int xCount, unsigned int yCount) :
 	_renderer(width, height), _base{ nullptr,nullptr}, _width{width}, _height{height}
@@ -81,4 +82,32 @@ void Graph::draw(const Figure& figure, const Color& color, bool loopBack)
 		}
 		drawLine(figure.getVector(firstIndex), figure.getVector(previousIndex), color);
 	}
+}
+
+Vector Graph::applyPerspective(const Vector& v)
+{
+	Matrix P{ 4,4 }; //Projection matrix
+	Matrix V{ 1, 4 };
+	Matrix result{ 1, 3 };
+
+	double near = -50;
+	double far = -200;
+	double fovy = 3.14159265358979323846 / 3;
+	double scale = near * std::tan(fovy*0.5);
+	double w = 0;
+
+	P(0, 0) = scale;
+	P(1, 1) = scale;
+	P(2, 2) = -far/(far-near);
+	P(3, 2) = -far/(far-near);
+	P(2, 3) = (-far*near)/(far-near);
+
+	V(0, 0) = v[0];
+	V(0, 1) = v[1];
+	V(0, 2) = v[2];
+	V(0, 3) = 0;
+
+	//TODO: result[0] = 500/2 + 
+
+	return ;
 }

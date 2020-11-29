@@ -19,6 +19,7 @@ public:
 	void drawLine(const Vector&, const Color&);
 
 	void draw(const Figure&, const Color&, bool loopBack = true);
+	Vector applyPerspective(const Vector&);
 
 private:
 	Renderer _renderer;

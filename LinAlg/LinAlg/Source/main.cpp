@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
      graph.show();
     Matrix matrix{ 6, 2 };
     matrix(0, 0) = 1;
-    matrix(0, 1) = 1;
+    matrix(0, 1) = 2;
 
     matrix(1, 0) = 4;
     matrix(1, 1) = 4;
@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
     
 
     matrix.draw();
+    std::cout << std::endl;
     matrix.zRotate(90);
     matrix.draw();
     

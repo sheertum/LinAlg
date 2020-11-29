@@ -10,6 +10,7 @@ Matrix::Matrix(int columnCount, int rowCount) : _columnCount(columnCount), _rowC
     }
 
     _data.resize(columnCount * rowCount);
+    std::fill(_data.begin(), _data.end(), 0);
 }
 
 Matrix Matrix::operator+(const Matrix& paraMatrix){
