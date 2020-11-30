@@ -46,7 +46,8 @@ LinAlg/.vs/LinAlg/v16/Browse.VC.db
 Aantekeningen.org
 .vs/ProjectSettings.json
 .vs/slnx.sqlite
-LinAlg/LinAlg/Debug/*
 .vs/VSWorkspaceState.json
+LinAlg/LinAlg/Debug/*
+LinAlg/LinAlg/x64/Debug/*
 LinAlg/LinAlg-tests/x64/Debug/*
 .vscode/settings.json
