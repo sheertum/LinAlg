@@ -2,6 +2,9 @@
 
 #include "Matrix.h"
 #include "Vector.h"
+#include "Shape.h"
+
+#include <map>
 
 class Figure : public Matrix {
 public:
@@ -15,6 +18,13 @@ public:
 	void updateCenter();
 	void calculateCenter();
 
+	void moveToOrigin();
+	void moveBack();
+
+	void createShape(std::vector<int> indices);
+	const std::vector<Shape>& getShapes() const;
+
 private:
 	std::vector<double> _center;
+	std::vector<Shape> _shapes;
 };

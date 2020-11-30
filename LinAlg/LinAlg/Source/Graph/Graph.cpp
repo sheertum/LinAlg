@@ -65,14 +65,20 @@ void Graph::drawLine(const Vector& vector, const Color& color)
 
 void Graph::draw(const Figure& figure, const Color& color, bool loopBack)
 {
-	int i = 1;
-	for (; i < figure.size(); i++)
+	for (const auto& shape : figure.getShapes())
 	{
-		drawLine(figure.getVector(i-1), figure.getVector(i), color);
-	}
-
-	if (loopBack)
-	{
-		drawLine(figure.getVector(i - 1), figure.getVector(0), color);
+		int previousIndex = -1;
+		int firstIndex = -1;
+		for (int index : shape._indices)
+		{
+			if (previousIndex >= 0) {
+				drawLine(figure.getVector(previousIndex), figure.getVector(index), color);
+			}
+			else {
+				firstIndex = index;
+			}
+			previousIndex = index;
+		}
+		drawLine(figure.getVector(firstIndex), figure.getVector(previousIndex), color);
 	}
 }
