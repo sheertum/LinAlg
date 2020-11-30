@@ -67,8 +67,9 @@ Vector Vector::crossProduct(const Vector& target){
         if(k >= _dimensions){
             k = 0;
         }
-
-        result[i] = coordinates[j]*target[k] - coordinates[k]*target[j];
+        double alfa = coordinates[j] * target[k];
+        double beta = coordinates[k] * target[j];
+        result[i] = alfa - beta;
     }
 
     return result;
@@ -98,10 +99,15 @@ Matrix Vector::operator*(const Matrix& matrix)
 
 Vector Vector::operator*(const double scalar)
 {
-    Vector result{std::vector<double>()};
-    for(auto& coordinate : coordinates){
-        coordinate = coordinate*scalar;
+    Vector result{ {0,0} };
+    if (coordinates.size() > 2) {
+        result = Vector{ {0,0,0} };
     }
+
+    for (int i = 0; i < coordinates.size(); i++) {
+        result[i] = coordinates[i]*scalar;
+    }
+
     return result;
 }
 

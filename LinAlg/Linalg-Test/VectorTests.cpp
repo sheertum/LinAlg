@@ -80,16 +80,16 @@ TEST_F(VectorTest, InProduct157) {
 }
 
 TEST_F(VectorTest, CrossProduct1) {
-    result = V1.crossProduct(negative);
-    EXPECT_EQ(result[0], 1);
-    EXPECT_EQ(result[1], -2);
-    EXPECT_EQ(result[2], 1);
+    result = V1.crossProduct(oneFiveSeven);
+    EXPECT_EQ(result[0], -1);
+    EXPECT_EQ(result[1], -4);
+    EXPECT_EQ(result[2], 3);
 }
 
 TEST_F(VectorTest, CrossProduct2) {
     V1 = Vector {{-1, -2 ,3}};
     Vector V2 = Vector {{4, 0 ,-8}};
-    result = V1.crossProduct(negative);
+    result = V1.crossProduct(V2);
     EXPECT_EQ(result[0], 16);
     EXPECT_EQ(result[1], 4);
     EXPECT_EQ(result[2], 8);
