@@ -16,8 +16,6 @@ class VectorTest : public ::testing::Test {
   Vector oneFiveSeven{{0,0,0}};
   Vector negative{{0,0,0}};
   Vector result{{0,0,0}};
-
-  // void TearDown() override {}
 };
 
 TEST_F(VectorTest, Addition) {

@@ -48,4 +48,5 @@ Aantekeningen.org
 .vs/slnx.sqlite
 LinAlg/LinAlg/Debug/vc142.pdb
 .vs/VSWorkspaceState.json
-LinAlg/Linalg-Test/x64/Debug/vc142.pdb
+LinAlg/Linalg-Test/x64/Debug/*
+
