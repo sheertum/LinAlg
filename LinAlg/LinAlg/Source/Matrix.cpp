@@ -151,18 +151,8 @@ void Matrix::scale(double x, double y, double z){
 }
 
 void Matrix::scale(double x){
-     UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2){
-        translateMatrix(2, 2 ) = x;
-    }
-
-    if(_rowCount > 1){
-        translateMatrix(1, 1) = x;
-    }
-
-    translateMatrix(0, 0) = x;
-
-    itirativeMultiply(translateMatrix);
+     ScalarMatrix scalarMatrix {x,x,x};
+    itirativeMultiply(scalarMatrix);
 }
 
 void Matrix::zRotate(double alpha) {
