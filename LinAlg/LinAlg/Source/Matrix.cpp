@@ -1,5 +1,7 @@
 #include "Matrix.h"
 #include "UnitaryMatrix.h"
+#include "TranslateMatrix.h"
+#include "ScalarMatrix.h"
 
 #include <iostream>
 #include <string>
@@ -139,33 +141,13 @@ const std::vector<double> Matrix::getData() const{
 }
 
 void Matrix::translate (double x, double y, double z){
-    UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2){
-        translateMatrix(_rowCount , 2 ) = z;
-    }
-
-    if(_rowCount > 1){
-        translateMatrix(_rowCount, 1) = y;
-    }
-
-    translateMatrix(_rowCount, 0) = x;
-
+    TranslateMatrix translateMatrix{x,y,z};
     itirativeMultiply(translateMatrix);
 }
 
 void Matrix::scale(double x, double y, double z){
-     UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2){
-        translateMatrix(2, 2 ) = z;
-    }
-
-    if(_rowCount > 1){
-        translateMatrix(1, 1) = y;
-    }
-
-    translateMatrix(0, 0) = x;
-
-    itirativeMultiply(translateMatrix);
+     ScalarMatrix scalarMatrix {x,y,z};
+    itirativeMultiply(scalarMatrix);
 }
 
 void Matrix::scale(double x){
