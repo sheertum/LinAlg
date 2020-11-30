@@ -7,9 +7,10 @@ class Matrix
 {
 public:
     Matrix(int width, int height);
+    Matrix(int width, int height, std::vector<double>);
 
     //void setData(const std::vector<int>&);
-
+    
     int getColumnCount() const;
     int getRowCount() const;
 

@@ -12,6 +12,11 @@ Matrix::Matrix(int columnCount, int rowCount) : _columnCount(columnCount), _rowC
     _data.resize(columnCount * rowCount);
 }
 
+Matrix::Matrix(int width, int height, std::vector<double> data) : Matrix(width, height)
+{
+    _data = data;
+}
+
 Matrix Matrix::operator+(const Matrix& paraMatrix){
    if(!hasSameDimensions(paraMatrix))
    {
