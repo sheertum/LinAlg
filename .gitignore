@@ -51,3 +51,4 @@ LinAlg/LinAlg/Debug/*
 LinAlg/LinAlg/x64/*
 LinAlg/LinAlg-tests/x64/*
 .vscode/settings.json
+LinAlg/Linalg-Test/x64/Debug/*
