@@ -48,6 +48,6 @@ Aantekeningen.org
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
 LinAlg/LinAlg/Debug/*
-LinAlg/LinAlg/x64/Debug/*
-LinAlg/LinAlg-tests/x64/Debug/*
+LinAlg/LinAlg/x64/*
+LinAlg/LinAlg-tests/x64/*
 .vscode/settings.json
