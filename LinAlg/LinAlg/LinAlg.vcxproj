@@ -163,10 +163,12 @@
     <ClCompile Include="Source\Graph\Graph.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Matrix.cpp" />
+    <ClCompile Include="Source\ProjectionMatrix.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
     <ClCompile Include="Source\Shape.cpp" />
     <ClCompile Include="Source\UnitaryMatrix.cpp" />
     <ClCompile Include="Source\Vector.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\SDL2\include\begin_code.h" />
@@ -262,10 +264,12 @@
     <ClInclude Include="Headers\Graph\Graph.h" />
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\Matrix.h" />
+    <ClInclude Include="Headers\ProjectionMatrix.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />
     <ClInclude Include="Headers\Shape.h" />
     <ClInclude Include="Headers\UnitaryMatrix.h" />
     <ClInclude Include="Headers\Vector.h" />
+    <ClInclude Include="Headers\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,6 +15,7 @@ public:
 	void drawLine(int x1, int y1, int x2, int y2, const Color&);
 
 	void drawLine(const Vector&, const Vector&, const Color&);
+	void drawLine(const Matrix&, const Matrix&, const Color&);
 	void drawLine(const std::vector<double>&, const std::vector<double>&, const Color&);
 	void drawLine(const Vector&, const Color&);
 
