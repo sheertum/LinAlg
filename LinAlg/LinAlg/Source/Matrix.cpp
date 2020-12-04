@@ -160,11 +160,10 @@ void Matrix::zRotate(double alpha) {
 
     if (_rowCount > 1) {
         translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
-        translateMatrix(0, 1) = -sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(1, 0) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(0, 1) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 0) = -sin(alpha * 3.14159265 / 180.0 );
         translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
     }
-
     itirativeMultiply(translateMatrix);
 }
 
@@ -173,8 +172,8 @@ void Matrix::yRotate(double alpha) {
 
     if (_rowCount > 1) {
         translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
-        translateMatrix(0, 2) = sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(2, 0) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(0, 2) = -sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(2, 0) = sin(alpha * 3.14159265 / 180.0 );
         translateMatrix(2, 2) = cos(alpha * 3.14159265 / 180.0 );
     }
 
@@ -186,8 +185,8 @@ void Matrix::xRotate(double alpha) {
 
     if (_rowCount > 1) {
         translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
-        translateMatrix(1, 2) = -sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(2, 1) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(1, 2) = sin(alpha * 3.14159265 / 180.0 );
+        translateMatrix(2, 1) = -sin(alpha * 3.14159265 / 180.0 );
         translateMatrix(2, 2) = cos(alpha * 3.14159265 / 180.0 );
     }
 
