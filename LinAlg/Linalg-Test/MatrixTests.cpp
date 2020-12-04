@@ -171,3 +171,13 @@ TEST_F(MatrixTest, 60DegRotateZAxis) {
 
 	compareVector(expected, matrix3);
 }
+
+TEST_F(MatrixTest, RotateThroughVectorOnXAxis) {
+	Vector vec{ {100,0,0} };
+	Matrix expected = matrix3;
+	expected.xRotate(60);
+
+	matrix3.originLineRotate(vec, 60);
+
+	compareVector(expected, matrix3);
+}
