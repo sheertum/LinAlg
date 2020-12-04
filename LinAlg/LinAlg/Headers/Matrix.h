@@ -34,10 +34,10 @@ public:
     const std::vector<double> getData() const;
 
 private:
-    int getIndex(int, int) const;
     void itirativeMultiply(Matrix);
 
 protected:
+    int getIndex(int, int) const;
     bool hasMultiplicableDimension(const Matrix&);
     bool hasSameDimensions(const Matrix&);
     double VectorInproduct(std::vector<double>, std::vector<double>);

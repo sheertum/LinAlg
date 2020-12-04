@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -164,9 +164,14 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Matrix.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
+    <ClCompile Include="Source\ScalarMatrix.cpp" />
     <ClCompile Include="Source\Shape.cpp" />
+    <ClCompile Include="Source\TranslateMatrix.cpp" />
     <ClCompile Include="Source\UnitaryMatrix.cpp" />
     <ClCompile Include="Source\Vector.cpp" />
+    <ClCompile Include="Source\XRotateMatrix.cpp" />
+    <ClCompile Include="Source\YRotateMatrix.cpp" />
+    <ClCompile Include="Source\ZRotateMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\SDL2\include\begin_code.h" />
@@ -263,9 +268,14 @@
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\Matrix.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />
+    <ClInclude Include="Headers\ScalarMatrix.h" />
     <ClInclude Include="Headers\Shape.h" />
+    <ClInclude Include="Headers\TranslateMatrix.h" />
     <ClInclude Include="Headers\UnitaryMatrix.h" />
     <ClInclude Include="Headers\Vector.h" />
+    <ClInclude Include="Headers\XRotateMatrix.h" />
+    <ClInclude Include="Headers\YRotateMatrix.h" />
+    <ClInclude Include="Headers\ZRotateMatrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

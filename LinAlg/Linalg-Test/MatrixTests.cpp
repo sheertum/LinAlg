@@ -4,7 +4,9 @@ class MatrixTest : public ::testing::Test {
 protected:
 	void SetUp() override {
 		matrix1 = Matrix{3, 3, {1,1,1,1,1,1,1,1,1}};
-		matrix2 = Matrix{3, 3, {2,2,2,2,2,2,2,2,2}};
+		matrix2 = Matrix{ 3, 3, {2,2,2,2,2,2,2,2,2} };
+		matrix3 = Matrix{ 3, 3, {1,2,3,4,5,6,7,8,9} };
+		matrix4 = Matrix{3, 3, {34,5,76,2,9,1,0,-9,-87}};
 
 		decimalMatrix1 = Matrix{3, 3, { 0.01, 0.002, 0, 0.01, 0.002, 0, 0.01, 0.002, 0 }};
 		decimalMatrix2 = Matrix{3, 3, { 0.01, 0.007, 1, 0.01, 0.007, 1, 0.01, 0.007, 1 }};
@@ -20,7 +22,9 @@ protected:
 	Matrix rowMatrix{1, 3, {0,0,0}};
 	Matrix columnMatrix1{3, 1, {0,0,0}};
 	Matrix matrix1{3, 3, {0,0,0,0,0,0,0,0,0}};
-	Matrix matrix2{3, 3, {0,0,0,0,0,0,0,0,0}};
+	Matrix matrix2{ 3, 3, {0,0,0,0,0,0,0,0,0} };
+	Matrix matrix3{ 3, 3, {0,0,0,0,0,0,0,0,0} };
+	Matrix matrix4{3, 3, {0,0,0,0,0,0,0,0,0}};
 
 	Matrix decimalMatrix1{3, 3, {0,0,0,0,0,0,0,0,0}};
 	Matrix decimalMatrix2{3, 3, {0,0,0,0,0,0,0,0,0}};
@@ -115,6 +119,14 @@ TEST_F(MatrixTest, DecimalMinus) {
 /*
 * MULTIPLY START
 */
+TEST_F(MatrixTest, ComplexMultiply) {
+
+	Matrix expected(3, 3, { {38, -4,-183,146,11,-213,254,26,-243} });
+
+	Matrix result = matrix3 * matrix4;
+	compareVector(expected, result);
+}
+
 TEST_F(MatrixTest, SimpleMultiply) {
 
 	Matrix expected(3, 3, { {6,6,6,6,6,6,6,6,6} });
@@ -142,4 +154,30 @@ TEST_F(MatrixTest, ColumnTimesRow) {
 	EXPECT_EQ(result.getRowCount(), 1);
 	EXPECT_EQ(result.getColumnCount(), 1);
 	compareVector(expected, result);
+}
+
+TEST_F(MatrixTest, 90DegRotateZAxis) {
+	Matrix expected{ 3,3, {{-4,-5,-6,1,2,3,7,8,9}} };
+
+	matrix3.zRotate(90);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, 60DegRotateZAxis) {
+	Matrix expected{ 3,3, {{-2.964,-3.330,-3.696,2.866,4.232,5.598,7,8,9}} };
+
+	matrix3.zRotate(60);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, RotateThroughVectorOnXAxis) {
+	Vector vec{ {100,0,0} };
+	Matrix expected = matrix3;
+	expected.xRotate(60);
+
+	matrix3.originLineRotate(vec, 60);
+
+	compareVector(expected, matrix3);
 }
