@@ -15,17 +15,76 @@
 
 int main() {
 	World world{ 1000,1000,1000 };
-	Vector v1{ {0, 0, 0} };
-	Vector v2{ {1, 1, 0} };
+	
+	Vector p1{ {-0.5, -0.5,  -4.5 } };
+    Vector p2{ { 0.5, -0.5,  -4.5 } };
+    Vector p3{ { 0.5,  0.5,  -4.5 } };
+    Vector p4{ {-0.5,  0.5,  -4.5 } };
 
-	world.drawLine(v1, v2, { 255,255,255 });
-	world.show();
+    Vector p5{ {-0.5, -0.5, -5 } };
+    Vector p6{ { 0.5, -0.5, -5 } };
+    Vector p7{ { 0.5,  0.5, -5 } };
+    Vector p8{ {-0.5,  0.5, -5 } };
+
+	Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
+    figure.createShape({ 0, 1, 2, 3 });
+    figure.createShape({ 4, 5, 6, 7 });
+    figure.createShape({ 0, 4});
+    figure.createShape({ 1, 5});
+    figure.createShape({ 2, 6});
+    figure.createShape({ 3, 7});
+
+    std::function<void()> moveBack = [&]() {
+        figure.translate(0, 0, -0.01);
+        figure.calculateCenter();
+    };
+
+    std::function<void()> moveForward = [&]() {
+        figure.translate(0, 0, 0.01);
+        figure.calculateCenter();
+    };
+
+    std::function<void()> rotateY = [&]() {
+        figure.moveToOrigin();
+        figure.yRotate(5);
+        figure.moveBack();
+    };
+
+    std::function<void()> rotateZ = [&]() {
+        figure.moveToOrigin();
+        figure.zRotate(5);
+        figure.moveBack();
+    };
+
+    std::function<void()> rotateX = [&]() {
+        figure.moveToOrigin();
+        figure.xRotate(5);
+        figure.moveBack();
+
+    };
+
+    std::function<void()> quit = [&]() {
+        SDL_Quit();
+    };
+
+    Input input;
+    input.addBinding(SDLK_b, moveBack);
+    input.addBinding(SDLK_v, moveForward);
+
+    input.addBinding(SDLK_y, rotateY);
+    input.addBinding(SDLK_x, rotateX);
+    input.addBinding(SDLK_z, rotateZ);
 
 	while (true)
 	{
-
+		input.pollEvents();
+        input.handleEvents();
+		world.draw(figure, { 255,255,255 });
+		world.show();
 	}
+
 	SDL_Quit();
+
 	return 0;
 }
 

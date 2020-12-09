@@ -10,4 +10,6 @@ public:
 
 private:
 	Matrix _data;
+	double _width;
+	double _height;
 };

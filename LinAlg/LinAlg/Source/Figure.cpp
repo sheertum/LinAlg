@@ -7,7 +7,7 @@ Figure::Figure(const std::vector<Vector>& vectors) : Matrix(vectors.size(), vect
 	for (const auto& vector : vectors)
 	{
 		int rowIndex = 0;
-		for (int i : vector.coordinates) {
+		for (double i : vector.coordinates) {
 			this->operator()(columnIndex, rowIndex++) = i;
 		}
 
