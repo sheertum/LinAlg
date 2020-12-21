@@ -36,6 +36,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoundingBoxTests.cpp" />
     <ClCompile Include="MatrixTests.cpp" />
     <ClCompile Include="VectorTests.cpp" />
     <ClCompile Include="pch.cpp">
