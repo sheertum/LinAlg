@@ -54,8 +54,8 @@ TEST_F(BoundingBoxTest, BoxWithinABox) {
 	EXPECT_EQ(expected, result);
 }
 
-TEST_F(BoundingBoxTest, BoxWithinABox) {
-	bool expected = true;
+TEST_F(BoundingBoxTest, BoxWithinABoxReversed) {
+	bool expected = false;
 	bool result = box5.isInside(box1);
 
 	EXPECT_EQ(expected, result);
