@@ -4,6 +4,7 @@
 class BoundingBox : public Matrix {
 public:
     BoundingBox(std::vector<double>);
+    BoundingBox(Matrix);
     BoundingBox();
     void calculateBoundingBox(std::vector<double> data);
     void changeBounds(double& min, double& max, double value);

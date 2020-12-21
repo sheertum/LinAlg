@@ -6,6 +6,11 @@ BoundingBox::BoundingBox(std::vector<double> data) : Matrix{ 8,3 }, _isVisible{f
     calculateBoundingBox(data);
 }
 
+BoundingBox::BoundingBox(Matrix data) : Matrix{ 8,3 }, _isVisible{false}, _maxX{0}, _maxY {0}, _maxZ {0}, _minX {0}, _minY {0} ,_minZ {0} {
+    checkBoundingLimits(data.getData());
+    calculateBoundingBox(data.getData());
+}
+
 void BoundingBox::calculateBoundingBox(std::vector<double> data){
     checkBoundingLimits(data);
     
@@ -16,7 +21,7 @@ void BoundingBox::calculateBoundingBox(std::vector<double> data){
 	double minY = data[1];
 	double minZ = data[2];
 
-	for(int i = 1; i < 3; i++){
+	for(int i = 1; i < (data.size()/3); i++){
 		double x = data[0+3*i];
 		changeBounds(minX, maxX, x);
 
