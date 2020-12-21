@@ -1,7 +1,7 @@
 #include "World.h"
 #include <math.h>
 
-World::World(unsigned int width, unsigned int height, unsigned int depth) : _renderer{ width, height }, _projectionMatrix{ width, height, 90, -0.1, -1000 }
+World::World(unsigned int width, unsigned int height, unsigned int depth) : _renderer{ width, height }, _projectionMatrix{ width, height, 90, -0.1, -1000 }, _camera{ Vector{{0.01, -0.1, -0.1, 1}}, Vector{{0, 0, -0.001, 1}}, Limit{-0.1, 1000} }
 {
 	_widthFactor	= width  / 2;
 	_heightFactor	= height / 2;
@@ -10,20 +10,22 @@ World::World(unsigned int width, unsigned int height, unsigned int depth) : _ren
 
 void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 {
-	Vector realV1 = _projectionMatrix*v1;
-	Vector realV2 = _projectionMatrix*v2;
+	Vector projected1 = _projectionMatrix * v1;
+	Vector projected2 = _projectionMatrix * v2;
 
-	realV1[0] += 1;
-	realV1[1] += 1;
+	projected1[0] += 1;
+	projected1[1] += 1;
 	//realV1[0] *= _widthFactor;
-	//realV1[1] *= _heightFactor;
+//realV1[1] *= _heightFactor;
 
-	realV2[0] += 1;
-	realV2[1] += 1;
+	projected2[0] += 1;
+	projected2[1] += 1;
 	//realV2[0] *= _widthFactor;
-	//realV2[1] *= _heightFactor;
+//realV2[1] *= _heightFactor;
 
-	_renderer.drawLine(realV1[0], realV1[1], realV2[0], realV2[1], color);
+	std::vector<Vector> result = _camera.toCameraPerspective(projected1, projected2);
+
+	_renderer.drawLine(result[0][0], result[0][1], result[1][0], result[1][1], color);
 }
 
 void World::draw(const Figure& figure, const Color& color, bool loopBack)
@@ -50,5 +52,10 @@ void World::show()
 {
 	_renderer.show();
 	_renderer.startDrawing();
+}
+
+Camera& World::getCamera()
+{
+	return _camera;
 }
 

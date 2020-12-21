@@ -39,28 +39,50 @@ void Camera::update(const Vector& position, const Vector& lookAt)
 {
 	_position = position;
 	_lookAt = lookAt;
+	update();
+}
 
+void Camera::update()
+{
 	Vector direction = _position - _lookAt;
 	Vector up{ {0,1,0,1} };
 	Vector right = up.crossProduct(direction);
 	up = direction.crossProduct(right);
 
-	right.normalise({ _xLimit, _yLimit, _zLimit, _zLimit });
-	up.normalise({ _xLimit, _yLimit, _zLimit, _zLimit });
-	direction.normalise({ _xLimit, _yLimit, _zLimit, _zLimit });
+	right.normalise();
+	up.normalise();
+	direction.normalise();
 
 	updateTranslation(right, up, direction);
 }
 
+void Camera::rotate(double x, double y, double z)
+{
+	Matrix temp = _lookAt.toMatrix();
+
+	temp.translate(-_position[0], -_position[1], -_position[2]);
+	
+	temp.xRotate(x);
+	temp.yRotate(y);
+	temp.zRotate(z);
+
+	temp.translate(_position[0], _position[1], _position[2]);
+
+	_lookAt = temp.toVector();
+}
+
 std::vector<Vector> Camera::toCameraPerspective(const Vector& vector1, const Vector& vector2) const
 {
-	std::vector<Vector> results(2);
+	Vector result1{ vector1 };
+	result1.pushBack(1.0);
 
-	Matrix result1{ 1, vector1.getDimension() };
-	Matrix result2{ 1, vector2.getDimension() };
+	Vector result2{ vector2 };
+	result2.pushBack(1.0);
 
+	result1 = (_translation * result1).toVector();
+	result2 = (_translation * result2).toVector();
 
-	return result;
+	return std::vector<Vector>{result1, result2};
 }
 
 void Camera::updateTranslation(const Vector& right, const Vector& up, const Vector& direction)

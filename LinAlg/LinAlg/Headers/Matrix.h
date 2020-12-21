@@ -13,10 +13,10 @@ public:
     int getColumnCount() const;
     int getRowCount() const;
 
-    Matrix operator+(const Matrix&);
-    Matrix operator-(const Matrix&);
-    Matrix operator*(const Matrix&);
-    Matrix operator*(const Vector&);
+    Matrix operator+(const Matrix&) const;
+    Matrix operator-(const Matrix&) const;
+    Matrix operator*(const Matrix&) const;
+    Matrix operator*(const Vector&) const;
 
     void translate (double, double, double);
     void scale (double, double, double);
@@ -32,14 +32,16 @@ public:
     void draw();
     const std::vector<double> getData() const;
 
+    Vector toVector();
+
 private:
     int getIndex(int, int) const;
     void itirativeMultiply(Matrix);
 
 protected:
-    bool hasMultiplicableDimension(const Matrix&);
-    bool hasSameDimensions(const Matrix&);
-    double VectorInproduct(std::vector<double>, std::vector<double>);
+    bool hasMultiplicableDimension(const Matrix&) const;
+    bool hasSameDimensions(const Matrix&) const;
+    double VectorInproduct(std::vector<double>, std::vector<double>) const;
 
     std::vector<double> _data;
     int _columnCount;

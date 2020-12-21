@@ -84,6 +84,21 @@ int main() {
 
     };
 
+    std::function<void()> rotateCamY = [&]() {
+        world.getCamera().rotate(0, 5, 0);
+        world.getCamera().update();
+    };
+
+    std::function<void()> rotateCamZ = [&]() {
+        world.getCamera().rotate(0, 0, 5);
+        world.getCamera().update();
+    };
+
+    std::function<void()> rotateCamX = [&]() {
+        world.getCamera().rotate(5, 0, 0);
+        world.getCamera().update();
+    };
+
     std::function<void()> quit = [&]() {
         SDL_Quit();
     };
@@ -95,6 +110,10 @@ int main() {
     input.addBinding(SDLK_y, rotateY);
     input.addBinding(SDLK_x, rotateX);
     input.addBinding(SDLK_z, rotateZ);
+
+    input.addBinding(SDLK_1, rotateCamX);
+    input.addBinding(SDLK_2, rotateCamY);
+    input.addBinding(SDLK_3, rotateCamZ);
 
 	while (true)
 	{

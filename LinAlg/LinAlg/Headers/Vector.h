@@ -25,12 +25,17 @@ public:
     const int getDimension() const;
     void print();
 
-    void normalise(const std::vector<Limit>&);
+    void normalise();
+
+    void pushBack(double);
+
+    double length() const;
+
+    Matrix toMatrix() const;
 
 public:
     std::vector<double> coordinates;
 
 private:
-    int _dimensions;
     bool hasCorrectDimension(const Vector&);
 };

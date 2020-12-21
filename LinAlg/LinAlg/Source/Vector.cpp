@@ -15,11 +15,7 @@ Vector::Vector(std::vector<double> coordinateArgs){
         throw("NoSingleDimensionVectorsAllowed");
     }
 
-    _dimensions = coordinateArgs.size();
-
-    coordinates.reserve(_dimensions);
     coordinates = coordinateArgs;
-    
 }
 
 Vector Vector::operator+ (const Vector& target)
@@ -28,8 +24,8 @@ Vector Vector::operator+ (const Vector& target)
     {
         throw("DimensionsAreIncompatible");
     }
-    Vector result{std::vector<double>(_dimensions, 0.0f)};
-    for(int i = 0; i < _dimensions; i++)
+    Vector result{std::vector<double>(getDimension(), 0.0f)};
+    for(int i = 0; i < getDimension(); i++)
     {
         result[i] = coordinates[i] + target[i];
     }
@@ -48,7 +44,7 @@ double Vector::getLength(){
 }
 
 Vector Vector::crossProduct(const Vector& target){
-    if(_dimensions < 3){
+    if(getDimension() < 3){
         throw("CrossProductIsOnlyPossibleInThreeDimensions");
     }
 
@@ -58,15 +54,15 @@ Vector Vector::crossProduct(const Vector& target){
     int j = 0;
     int k = 0;
 
-    for(int i = 0; i < _dimensions; i++){
+    for(int i = 0; i < getDimension(); i++){
         j = i +1;
         k = i +2;
-        if(j >= _dimensions){
+        if(j >= getDimension()){
             j = 0;
             k = j + 1;
         }
 
-        if(k >= _dimensions){
+        if(k >= getDimension()){
             k = 0;
         }
 
@@ -83,8 +79,8 @@ Vector Vector::operator-(const Vector& target)
         throw("DimensionsAreIncompatible");
     }
 
-    Vector result{std::vector<double>(_dimensions, 0.0f)};
-    for(int i = 0; i < _dimensions; i++)
+    Vector result{std::vector<double>(getDimension(), 0.0f)};
+    for(int i = 0; i < getDimension(); i++)
     {
         result[i] = coordinates[i] - target[i];
     }
@@ -129,12 +125,12 @@ double& Vector::operator[](int target)
 
 const int Vector::getDimension() const
 {
-    return _dimensions;
+    return coordinates.size();
 }
 
 bool Vector::hasCorrectDimension(const Vector& target)
 {
-    if(_dimensions == target.getDimension())
+    if(getDimension() == target.getDimension())
     {
         return true;
     }
@@ -152,30 +148,40 @@ void Vector::print()
     std::cout << " ]";
 }
 
-void Vector::normalise(const std::vector<Limit>& limits)
+void Vector::normalise()
 {
-    if (limits.size() != coordinates.size())
-    {
-        throw("normalise: limit sizes do not match");
+    double magnitude = getLength();
+
+    for (auto& i : coordinates) {
+        i /= magnitude;
     }
+}
+
+void Vector::pushBack(double data)
+{
+    coordinates.push_back(data);
+}
+
+double Vector::length() const
+{
+    double lengthSum = 0.0;
 
     for (size_t i = 0; i < coordinates.size(); i++)
     {
-        Limit limit = limits[i];
-
-        if (limit.min > limit.max)
-        {
-            throw("normalise: limit.min may not be bigger than limit.max");
-        }
-
-        if (coordinates[i] < limit.min)
-        {
-            throw("normalise: coordinate is smaller than limit.min");
-        }
-        else if(coordinates[i] > limit.max){
-            throw("normalise: coordinate is bigger than limit.max");
-        }
-
-        coordinates[i] = (coordinates[i] - limit.min) / (limit.max - limit.min);
+        lengthSum += coordinates[i] * coordinates[i];
     }
+
+    return std::sqrt(lengthSum);
+}
+
+Matrix Vector::toMatrix() const
+{
+    Matrix result{ 1, getDimension() };
+
+    for (size_t i = 0; i < getDimension(); i++)
+    {
+        result(0, i) = coordinates[i];
+    }
+
+    return result;
 }

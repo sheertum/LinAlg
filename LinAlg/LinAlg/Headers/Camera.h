@@ -15,6 +15,9 @@ public:
 	void setLimits (const Limit& limit);
 
 	void update(const Vector& position, const Vector& lookAt);
+	void update();
+
+	void rotate(double x, double y, double z);
 
 	std::vector<Vector> toCameraPerspective(const Vector& vector1, const Vector& vector2) const;
 

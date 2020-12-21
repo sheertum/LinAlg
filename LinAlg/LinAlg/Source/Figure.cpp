@@ -79,6 +79,3 @@ const std::vector<Shape>& Figure::getShapes() const
 	return _shapes;
 }
 
-void Figure::rotate(const Matrix&)
-{
-}
