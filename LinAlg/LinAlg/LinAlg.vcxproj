@@ -158,6 +158,7 @@
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_imageFilter.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_rotozoom.c" />
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Figure.cpp" />
     <ClCompile Include="Headers\Input.cpp" />
     <ClCompile Include="Source\Graph\Graph.cpp" />
@@ -260,9 +261,11 @@
     <ClInclude Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives_font.h" />
     <ClInclude Include="Dependencies\SDL_GFX\SDL2_imageFilter.h" />
     <ClInclude Include="Dependencies\SDL_GFX\SDL2_rotozoom.h" />
+    <ClInclude Include="Headers\Camera.h" />
     <ClInclude Include="Headers\Figure.h" />
     <ClInclude Include="Headers\Graph\Graph.h" />
     <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\Limit.h" />
     <ClInclude Include="Headers\Matrix.h" />
     <ClInclude Include="Headers\ProjectionMatrix.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />

@@ -52,7 +52,9 @@ Vector Vector::crossProduct(const Vector& target){
         throw("CrossProductIsOnlyPossibleInThreeDimensions");
     }
 
-    Vector result {{0,0,0}};
+    Vector result {target.coordinates};
+    std::fill(result.coordinates.begin(), result.coordinates.end(), 0);
+
     int j = 0;
     int k = 0;
 
@@ -148,4 +150,32 @@ void Vector::print()
         std::cout << " " <<coord ;
     }
     std::cout << " ]";
+}
+
+void Vector::normalise(const std::vector<Limit>& limits)
+{
+    if (limits.size() != coordinates.size())
+    {
+        throw("normalise: limit sizes do not match");
+    }
+
+    for (size_t i = 0; i < coordinates.size(); i++)
+    {
+        Limit limit = limits[i];
+
+        if (limit.min > limit.max)
+        {
+            throw("normalise: limit.min may not be bigger than limit.max");
+        }
+
+        if (coordinates[i] < limit.min)
+        {
+            throw("normalise: coordinate is smaller than limit.min");
+        }
+        else if(coordinates[i] > limit.max){
+            throw("normalise: coordinate is bigger than limit.max");
+        }
+
+        coordinates[i] = (coordinates[i] - limit.min) / (limit.max - limit.min);
+    }
 }

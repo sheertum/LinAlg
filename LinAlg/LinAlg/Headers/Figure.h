@@ -24,6 +24,8 @@ public:
 	void createShape(std::vector<int> indices);
 	const std::vector<Shape>& getShapes() const;
 
+	//void rotate(const Matrix&);
+
 private:
 	std::vector<double> _center;
 	std::vector<Shape> _shapes;

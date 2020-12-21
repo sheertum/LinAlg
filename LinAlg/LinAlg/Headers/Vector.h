@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "Limit.h"
+
 class Matrix;
 
 class Vector
@@ -23,7 +25,11 @@ public:
     const int getDimension() const;
     void print();
 
+    void normalise(const std::vector<Limit>&);
+
+public:
     std::vector<double> coordinates;
+
 private:
     int _dimensions;
     bool hasCorrectDimension(const Vector&);

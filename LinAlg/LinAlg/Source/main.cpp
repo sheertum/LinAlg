@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "Matrix.h"
 #include "UnitaryMatrix.h"
+#include "Camera.h"
 
 #include "Figure.h"
 #include "Input.h"
@@ -34,8 +35,28 @@ int main() {
     figure.createShape({ 2, 6});
     figure.createShape({ 3, 7});
 
+    Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
+
+    //Vector p9{ {-0.5, -0.5,  -4.5 } };
+    //Vector p10{ { 0.5, -0.5,  -4.5 } };
+    //Vector p11{ { 0.5,  0.5,  -4.5 } };
+    //Vector p12{ {-0.5,  0.5,  -4.5 } };
+
+    //Vector p13{ {-0.5, -0.5, -5 } };
+    //Vector p6{ { 0.5, -0.5, -5 } };
+    //Vector p7{ { 0.5,  0.5, -5 } };
+    //Vector p8{ {-0.5,  0.5, -5 } };
+
+    //Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
+    //figure.createShape({ 0, 1, 2, 3 });
+    //figure.createShape({ 4, 5, 6, 7 });
+    //figure.createShape({ 0, 4 });
+    //figure.createShape({ 1, 5 });
+    //figure.createShape({ 2, 6 });
+    //figure.createShape({ 3, 7 });
+
     std::function<void()> moveBack = [&]() {
-        figure.translate(0, 0, -0.01);
+        figure.translate(-.01, -0.01, -0.01);
         figure.calculateCenter();
     };
 

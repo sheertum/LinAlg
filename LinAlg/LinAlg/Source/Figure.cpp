@@ -44,6 +44,8 @@ int Figure::size() const
 void Figure::calculateCenter()
 {
 	int coordinateCounter = 0;
+	std::fill(_center.begin(), _center.end(), 0);
+
 	for (size_t i = 0; i < _columnCount; i++, coordinateCounter++)
 	{
 		for (size_t j = 0; j < _rowCount; j++) {
@@ -75,4 +77,8 @@ void Figure::createShape(std::vector<int> indices)
 const std::vector<Shape>& Figure::getShapes() const
 {
 	return _shapes;
+}
+
+void Figure::rotate(const Matrix&)
+{
 }
