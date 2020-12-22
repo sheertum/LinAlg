@@ -3,10 +3,10 @@ Triangle::Triangle(Vector a, Vector b, Vector c) : Matrix{ 3,3 }, _boundingBox{}
 	std::vector<Vector> points{ a,b,c };
 	int i = 0;
 	for (auto point : points) {
-		for (int j = 0; j < 3; j++) {
-			_data[(i + j)] = point[j];
+		for (int j = 0; j < _rowCount; j++) {
+			this->operator()(j, i) = point[j];
 		}
-		i = i + 3;
+		i++;
 	}
 	_boundingBox = BoundingBox{_data};
 }
@@ -33,13 +33,25 @@ Triangle::Triangle(std::vector<double> data) : Matrix { 3, 3 }, _boundingBox{dat
 	}
 }
 
+std::vector<Vector> Triangle::getVectors() const{
+	std::vector<Vector> result{};
+	for (int i = 0; i < _columnCount; i++) {
+		std::vector<double> newCoordinates{};
+		for (int j = 0; j < _rowCount; j++) {
+			newCoordinates.push_back(this->operator()(j, i));
+		}
+		result.push_back(Vector{ newCoordinates });
+	}
+	return result;
+}
+
 std::vector<Vector> Triangle::convertToVectors(Matrix input)
 {
 	std::vector<Vector> result{};
 	for (int i = 0; i < 3; i++) {
 		std::vector<double> newCoordinates{};
 		for (int j = 0; j < 3; j++) {
-			newCoordinates.push_back(input(i, j));
+			newCoordinates.push_back(input(j, i));
 		}
 		result.push_back(Vector{ newCoordinates });
 	}

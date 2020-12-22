@@ -14,26 +14,28 @@
 
 int main(int argc, char* argv[]) {
 
-    Vector p1{ {-50, -50, -50} };
-    Vector p2{ {50, -50, -50} };
-    Vector p3{ {50, 50, -50} };
-    Vector p4{ {-50, 50, -50} };
 
-    Vector p5{ {-50, -50, 50} };
-    Vector p6{ {50, -50, 50} };
-    Vector p7{ {50, 50, 50} };
-    Vector p8{ {-50, 50, 50} };
+    Vector p1{ {0,0,0} };
+    Vector p2{ {0,100,100} };
+    Vector p3{ {100,0,100} };
+    Vector p4{ {100,100,100} };
+    Triangle triangle1{ p1, p2, p3 };
+    Triangle triangle2{ p4, p2, p3 };
+    //Vector p5{ {-50, -50, 50} };
+    //Vector p6{ {50, -50, 50} };
+    //Vector p7{ {50, 50, 50} };
+    //Vector p8{ {-50, 50, 50} };
 
     //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
-    Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
-    figure.createShape({ 0, 1, 2, 3 });
-    figure.createShape({ 4, 5, 6, 7 });
-    figure.createShape({ 0, 4});
-    figure.createShape({ 1, 5});
-    figure.createShape({ 2, 6});
-    figure.createShape({ 3, 7});
+    Figure figure({ triangle1, triangle2 });
+    //figure.createShape({ 0, 1, 2, 3 });
+    //figure.createShape({ 4, 5, 6, 7 });
+    //figure.createShape({ 0, 4});
+    //figure.createShape({ 1, 5});
+    //figure.createShape({ 2, 6});
+    //figure.createShape({ 3, 7});
 
-    figure.translate(-31.5, -31.5, 1);
+    figure.translate(-50, -50, -50);
     figure.calculateCenter();
     //figure.translate(31.5, 31.5, 1);
 
