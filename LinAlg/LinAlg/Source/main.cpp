@@ -8,6 +8,7 @@
 
 #include "Figure.h"
 #include "Input.h"
+#include "Triangle.h"
 
 #include "World.h"
 

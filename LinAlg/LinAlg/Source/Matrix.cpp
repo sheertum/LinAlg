@@ -1,5 +1,10 @@
 #include "Matrix.h"
 #include "UnitaryMatrix.h"
+#include "TranslateMatrix.h"
+#include "ScalarMatrix.h"
+#include "XRotateMatrix.h"
+#include "YRotateMatrix.h"
+#include "ZRotateMatrix.h"
 
 #include <iostream>
 #include <string>
@@ -11,6 +16,11 @@ Matrix::Matrix(int columnCount, int rowCount) : _columnCount(columnCount), _rowC
 
     _data.resize(columnCount * rowCount);
     std::fill(_data.begin(), _data.end(), 0);
+}
+
+Matrix::Matrix(int width, int height, std::vector<double> data) : Matrix(width, height)
+{
+    _data = data;
 }
 
 Matrix Matrix::operator+(const Matrix& paraMatrix) const{
@@ -140,87 +150,30 @@ Vector Matrix::toVector()
 }
 
 void Matrix::translate (double x, double y, double z){
-    UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2){
-        translateMatrix(_rowCount , 2 ) = z;
-    }
-
-    if(_rowCount > 1){
-        translateMatrix(_rowCount, 1) = y;
-    }
-
-    translateMatrix(_rowCount, 0) = x;
-
+    TranslateMatrix translateMatrix{x,y,z};
     itirativeMultiply(translateMatrix);
 }
 
 void Matrix::scale(double x, double y, double z){
-     UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2){
-        translateMatrix(2, 2 ) = z;
-    }
-
-    if(_rowCount > 1){
-        translateMatrix(1, 1) = y;
-    }
-
-    translateMatrix(0, 0) = x;
-
-    itirativeMultiply(translateMatrix);
+     ScalarMatrix scalarMatrix {x,y,z};
+    itirativeMultiply(scalarMatrix);
 }
 
 void Matrix::scale(double x){
-     UnitaryMatrix translateMatrix {_rowCount +1};
-    if(_rowCount > 2){
-        translateMatrix(2, 2 ) = x;
-    }
-
-    if(_rowCount > 1){
-        translateMatrix(1, 1) = x;
-    }
-
-    translateMatrix(0, 0) = x;
-
-    itirativeMultiply(translateMatrix);
+     ScalarMatrix scalarMatrix {x,x,x};
+    itirativeMultiply(scalarMatrix);
 }
 
 void Matrix::zRotate(double alpha) {
-    UnitaryMatrix translateMatrix{ _rowCount + 1 };
-
-    if (_rowCount > 1) {
-        translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
-        translateMatrix(0, 1) = -sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(1, 0) = sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
-    }
-
-    itirativeMultiply(translateMatrix);
+    itirativeMultiply(ZRotateMatrix(alpha, _rowCount));
 }
 
 void Matrix::yRotate(double alpha) {
-    UnitaryMatrix translateMatrix{ _rowCount + 1 };
-
-    if (_rowCount > 1) {
-        translateMatrix(0, 0) = cos(alpha * 3.14159265 / 180.0 );
-        translateMatrix(0, 2) = sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(2, 0) = -sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(2, 2) = cos(alpha * 3.14159265 / 180.0 );
-    }
-
-    itirativeMultiply(translateMatrix);
+    itirativeMultiply(YRotateMatrix(alpha, _rowCount));
 }
 
 void Matrix::xRotate(double alpha) {
-    UnitaryMatrix translateMatrix{ _rowCount + 1 };
-
-    if (_rowCount > 1) {
-        translateMatrix(1, 1) = cos(alpha * 3.14159265 / 180.0 );
-        translateMatrix(1, 2) = -sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(2, 1) = sin(alpha * 3.14159265 / 180.0 );
-        translateMatrix(2, 2) = cos(alpha * 3.14159265 / 180.0 );
-    }
-
-    itirativeMultiply(translateMatrix);
+    itirativeMultiply(XRotateMatrix(alpha, _rowCount));
 }
 
 void Matrix::originLineRotate(Vector line, double alpha){

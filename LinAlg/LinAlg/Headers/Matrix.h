@@ -7,9 +7,10 @@ class Matrix
 {
 public:
     Matrix(int width, int height);
+    Matrix(int width, int height, std::vector<double>);
 
     //void setData(const std::vector<int>&);
-
+    
     int getColumnCount() const;
     int getRowCount() const;
 
@@ -35,13 +36,13 @@ public:
     Vector toVector();
 
 private:
-    int getIndex(int, int) const;
     void itirativeMultiply(Matrix);
 
 protected:
     bool hasMultiplicableDimension(const Matrix&) const;
     bool hasSameDimensions(const Matrix&) const;
     double VectorInproduct(std::vector<double>, std::vector<double>) const;
+    int getIndex(int, int) const;
 
     std::vector<double> _data;
     int _columnCount;
