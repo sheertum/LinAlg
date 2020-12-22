@@ -24,7 +24,7 @@ public:
 private:
 	void updateTranslation(const Vector& right, const Vector& up, const Vector& direction);
 
-private:
+public:
 	Limit _xLimit;
 	Limit _yLimit;
 	Limit _zLimit;

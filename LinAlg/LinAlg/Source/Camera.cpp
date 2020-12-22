@@ -108,7 +108,7 @@ void Camera::updateTranslation(const Vector& right, const Vector& up, const Vect
 
 	_translation = _translation * eye;
 
-	_translation.draw();
+	//_translation.draw();
 }
 
 

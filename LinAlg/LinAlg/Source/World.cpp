@@ -1,7 +1,7 @@
 #include "World.h"
 #include <math.h>
 
-World::World(unsigned int width, unsigned int height, unsigned int depth) : _renderer{ width, height }, _projectionMatrix{ width, height, 90, -0.1, -1000 }, _camera{ Vector{{0.01, -0.1, -0.1, 1}}, Vector{{0, 0, -0.001, 1}}, Limit{-0.1, 1000} }
+World::World(unsigned int width, unsigned int height, unsigned int depth) : _renderer{ width, height }, _projectionMatrix{ width, height, 90, -0.1, -1000 }, _camera{ Vector{{0, -0, -0, 1}}, Vector{{1, 0, -1, 1}}, Limit{-0.1, 1000} }
 {
 	_widthFactor	= width  / 2;
 	_heightFactor	= height / 2;

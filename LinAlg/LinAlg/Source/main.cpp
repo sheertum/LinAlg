@@ -81,22 +81,52 @@ int main() {
         figure.moveToOrigin();
         figure.xRotate(5);
         figure.moveBack();
-
     };
 
-    std::function<void()> rotateCamY = [&]() {
-        world.getCamera().rotate(0, 5, 0);
-        world.getCamera().update();
+    std::function<void()> print = [&]() {
+        std::cout << world.getCamera()._position[0] << "\t"
+            << world.getCamera()._position[1] << "\t"
+            << world.getCamera()._position[2] << "\t" << "\n";
+        std::cout << world.getCamera()._lookAt[0] << "\t"
+            << world.getCamera()._lookAt[1] << "\t"
+            << world.getCamera()._lookAt[2] << "\t" << "\n" << "\n";
     };
 
-    std::function<void()> rotateCamZ = [&]() {
-        world.getCamera().rotate(0, 0, 5);
+    std::function<void()> camXPos = [&]() {
+        world.getCamera()._position[0] += 0.1;
         world.getCamera().update();
+        print();
     };
 
-    std::function<void()> rotateCamX = [&]() {
-        world.getCamera().rotate(5, 0, 0);
+    std::function<void()> camXNeg = [&]() {
+        world.getCamera()._position[0] -= 0.1;
         world.getCamera().update();
+        print();
+    };
+
+    std::function<void()> camYPos = [&]() {
+        world.getCamera()._position[1] += 0.1;
+        world.getCamera().update();
+        print();
+    };
+
+    std::function<void()> camYNeg = [&]() {
+        world.getCamera()._position[1] -= 0.1;
+        world.getCamera().update();
+        print();
+    };
+
+
+    std::function<void()> camZPos = [&]() {
+        world.getCamera()._position[2] += 0.1;
+        world.getCamera().update();
+        print();
+    };
+
+    std::function<void()> camZNeg = [&]() {
+        world.getCamera()._position[2] -= 0.1;
+        world.getCamera().update();
+        print();
     };
 
     std::function<void()> quit = [&]() {
@@ -111,9 +141,16 @@ int main() {
     input.addBinding(SDLK_x, rotateX);
     input.addBinding(SDLK_z, rotateZ);
 
-    input.addBinding(SDLK_1, rotateCamX);
-    input.addBinding(SDLK_2, rotateCamY);
-    input.addBinding(SDLK_3, rotateCamZ);
+    input.addBinding(SDLK_1, camXPos);
+    input.addBinding(SDLK_2, camXNeg);
+
+    input.addBinding(SDLK_3, camYPos);
+    input.addBinding(SDLK_4, camYNeg);
+
+    input.addBinding(SDLK_5, camZPos);
+    input.addBinding(SDLK_6, camZNeg);
+
+    input.addBinding(SDLK_p, print);
 
 	while (true)
 	{
