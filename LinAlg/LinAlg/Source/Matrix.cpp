@@ -149,6 +149,27 @@ Vector Matrix::toVector()
     return Vector{ _data };
 }
 
+void Matrix::simpleInverse()
+{
+    Matrix matrix(4,4);
+    
+    for (size_t i = 0; i < 3; i++)
+    {
+        for (size_t y = 0; y < 3; y++)
+        {
+            matrix(i, y) = this->operator()(y, i);
+            matrix(3, y) = 0.0;
+        }
+    }
+
+    matrix(0,3) = -(this->operator()(0,3) * matrix(0,0) + this->operator()(1, 3) * matrix(0, 1) + this->operator()(2, 3) * matrix(0, 2));
+    matrix(0,3) = -(this->operator()(0,3) * matrix(1,0) + this->operator()(1, 3) * matrix(1, 1) + this->operator()(2, 3) * matrix(1, 2));
+    matrix(0,3) = -(this->operator()(0,3) * matrix(2,0) + this->operator()(1, 3) * matrix(2, 1) + this->operator()(2, 3) * matrix(2, 2));
+    matrix(3, 3) = 1;
+
+    _data = matrix.getData();
+}
+
 void Matrix::translate (double x, double y, double z){
     TranslateMatrix translateMatrix{x,y,z};
     itirativeMultiply(translateMatrix);

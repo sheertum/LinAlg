@@ -35,6 +35,9 @@ public:
 
     Vector toVector();
 
+    //Only for rotation and translation matrices
+    void simpleInverse();
+
 private:
     void itirativeMultiply(Matrix);
 

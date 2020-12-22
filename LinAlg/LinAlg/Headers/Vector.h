@@ -17,6 +17,9 @@ public:
     Matrix operator*(const Matrix&) const;
     double operator*(const Vector) const;
     Vector operator*(const double) const;
+
+    bool operator!=(const Vector&) const;
+
     double getLength() const;
     Vector crossProduct(const Vector& target);
 

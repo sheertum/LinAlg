@@ -85,47 +85,55 @@ int main() {
     };
 
     std::function<void()> print = [&]() {
-        std::cout << world.getCamera()._position[0] << "\t"
-            << world.getCamera()._position[1] << "\t"
-            << world.getCamera()._position[2] << "\t" << "\n";
-        std::cout << world.getCamera()._lookAt[0] << "\t"
-            << world.getCamera()._lookAt[1] << "\t"
-            << world.getCamera()._lookAt[2] << "\t" << "\n" << "\n";
+        //std::cout << world.getCamera()._position[0] << "\t"
+        //    << world.getCamera()._position[1] << "\t"
+        //    << world.getCamera()._position[2] << "\t" << "\n";
+        //std::cout << world.getCamera()._direction[0] << "\t"
+        //    << world.getCamera()._direction[1] << "\t"
+        //    << world.getCamera()._direction[2] << "\t" << "\n" << "\n";
     };
 
-    std::function<void()> camXPos = [&]() {
-        world.getCamera()._position[0] += 0.1;
+#define CAMERA_MOVEMENT 0.01
+
+    std::function<void()> camRotX = [&]() {
+        world.getCamera()._direction[0] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
-    std::function<void()> camXNeg = [&]() {
-        world.getCamera()._position[0] -= 0.1;
+    std::function<void()> camRotY = [&]() {
+        world.getCamera()._direction[1] += CAMERA_MOVEMENT;
+        world.getCamera().update();
+        print();
+    };
+
+    std::function<void()> camRotZ = [&]() {
+        world.getCamera()._direction[2] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camYPos = [&]() {
-        world.getCamera()._position[1] += 0.1;
+        world.getCamera()._position[1] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camYNeg = [&]() {
-        world.getCamera()._position[1] -= 0.1;
+        world.getCamera()._position[1] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
 
     std::function<void()> camZPos = [&]() {
-        world.getCamera()._position[2] += 0.1;
+        world.getCamera()._position[2] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camZNeg = [&]() {
-        world.getCamera()._position[2] -= 0.1;
+        world.getCamera()._position[2] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
@@ -142,8 +150,9 @@ int main() {
     input.addBinding(SDLK_x, rotateX);
     input.addBinding(SDLK_z, rotateZ);
 
-    input.addBinding(SDLK_1, camXPos);
-    input.addBinding(SDLK_2, camXNeg);
+    input.addBinding(SDLK_F1, camRotX);
+    input.addBinding(SDLK_F2, camRotY);
+    input.addBinding(SDLK_F3, camRotZ);
 
     input.addBinding(SDLK_3, camYPos);
     input.addBinding(SDLK_4, camYNeg);
@@ -165,118 +174,3 @@ int main() {
 
 	return 0;
 }
-
-//int main(int argc, char* argv[]) {
-//
-//    Vector p1{ {-50, -50, -50} };
-//    Vector p2{ {50, -50, -50} };
-//    Vector p3{ {50, 50, -50} };
-//    Vector p4{ {-50, 50, -50} };
-//
-//    Vector p5{ {-50, -50, -100} };
-//    Vector p6{ {50, -50, -100} };
-//    Vector p7{ {50, 50, -100} };
-//    Vector p8{ {-50, 50, -100} };
-//
-//    //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
-//    Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
-//    figure.createShape({ 0, 1, 2, 3 });
-//    figure.createShape({ 4, 5, 6, 7 });
-//    figure.createShape({ 0, 4});
-//    figure.createShape({ 1, 5});
-//    figure.createShape({ 2, 6});
-//    figure.createShape({ 3, 7});
-//
-//    figure.translate(-31.5, -31.5, 1);
-//    figure.calculateCenter();
-//    //figure.translate(31.5, 31.5, 1);
-//
-//     Graph graph{ 500,500, 500, 500 };
-//     graph.draw(figure, { 255,255,255 });
-//
-//     graph.show();
-//    Matrix matrix{ 6, 2 };
-//    matrix(0, 0) = 1;
-//    matrix(0, 1) = 2;
-//
-//    matrix(1, 0) = 4;
-//    matrix(1, 1) = 4;
-//    
-//    matrix(2, 0) = 5;
-//    matrix(2, 1) = 5;
-//
-//    matrix(3, 0) = 6;
-//    matrix(3, 1) = 6;
-//
-//    matrix(4, 0) = 7;
-//    matrix(4, 1) = 7;
-//
-//    matrix(5, 0) = 8;
-//    matrix(5, 1) = 8;
-//    
-//
-//    matrix.draw();
-//    std::cout << std::endl;
-//    matrix.zRotate(90);
-//    matrix.draw();
-//    
-//    std::function<void()> rotate1 = [&]() {
-//        //figure.moveToOrigin();
-//        figure.yRotate(5);
-//        //figure.moveBack();
-//    };
-//
-//    std::function<void()> rotate2 = [&]() {
-//        //figure.moveToOrigin();
-//        figure.zRotate(5);
-//        //figure.moveBack();
-//    };
-//
-//    std::function<void()> rotate3 = [&]() {
-//        //figure.moveToOrigin();
-//        figure.xRotate(5);
-//        //figure.moveBack();
-//
-//    };
-//    std::function<void()> scaleUp = [&]() {
-//        //figure.scaleFromOrigin(1.2, 1.2, 1.2);
-//        figure.moveToOrigin();
-//        figure.scale(1.2, 1.2, 1.2);
-//        figure.moveBack();
-//    };
-//
-//    std::function<void()> scaleDown = [&]() {
-//        figure.moveToOrigin();
-//        figure.scale(0.8, 0.8, 0.8);
-//        figure.moveBack();
-//    };
-//
-//    std::function<void()> moveBack = [&]() {
-//        figure.moveToOrigin();
-//        figure.translate(0, 0, -5);
-//        figure.calculateCenter();
-//        figure.moveBack();
-//    };
-//
-//    Input input;
-//    input.addBinding(SDLK_y, rotate1);
-//    input.addBinding(SDLK_z, rotate2);
-//    input.addBinding(SDLK_x, rotate3);
-//    input.addBinding(SDLK_p, scaleUp);
-//    input.addBinding(SDLK_m, scaleDown);
-//    input.addBinding(SDLK_b, moveBack);
-//   
-//    while (true)
-//    {
-//        input.pollEvents();
-//        input.handleEvents();
-//
-//        //graph.drawAxes();
-//        graph.draw(figure, { 255,255,255 });
-//
-//        graph.show();
-//    }
-//        SDL_Quit();
-//
-//    return 0;
-//}

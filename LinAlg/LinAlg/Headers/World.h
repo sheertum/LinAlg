@@ -3,7 +3,7 @@
 #include "ProjectionMatrix.h"
 #include "Vector.h"
 #include "Figure.h"
-#include "Camera.h"
+#include "newCamera.h"
 
 class World {
 public:
@@ -14,12 +14,15 @@ public:
 
 	void show();
 
-	Camera& getCamera();
+	Eye& getCamera();
+
+	Vector view1;
+	Vector view2;
 
 private:
 	double _widthFactor, _heightFactor, _depthFactor;
 	double _aspectRatio, _fieldOfView, _zNormalization;
 	Renderer _renderer;
 	ProjectionMatrix _projectionMatrix;
-	Camera _camera;
+	Eye _camera;
 };

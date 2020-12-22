@@ -97,16 +97,24 @@ Matrix Vector::operator*(const Matrix& matrix) const
 
 Vector Vector::operator*(const double scalar) const
 {
-    Vector result{ {0,0} };
-    if (coordinates.size() > 2) {
-        result = Vector{ {0,0,0} };
-    }
+    std::vector<double> buffer;
+    buffer.resize(coordinates.size());
+    Vector result{ buffer };
 
     for (int i = 0; i < coordinates.size(); i++) {
         result[i] = coordinates[i]*scalar;
     }
 
     return result;
+}
+
+bool Vector::operator!=(const Vector& other) const
+{
+    //if (other.coordinates.size() != coordinates.size())
+    //{
+    //    return true;
+    //}
+    return !(coordinates == other.coordinates);
 }
 
 double Vector::operator*(const Vector inproductVector) const
@@ -156,7 +164,7 @@ void Vector::print()
 
 void Vector::normalise()
 {
-    double magnitude = getLength();
+    double magnitude = length();
 
     for (auto& i : coordinates) {
         i /= magnitude;
