@@ -94,6 +94,7 @@ void BoundingBox::checkBoundingLimits(std::vector<double> data){
     }
 }
 
+//TODO: move to collision class
 bool BoundingBox::isInside(BoundingBox target){
 	Vector targetMax = target.getMax();
 	Vector targetMin = target.getMin();
