@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BoundingBox.cpp" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_framerate.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_imageFilter.c" />
@@ -172,8 +173,10 @@
     <ClCompile Include="Source\XRotateMatrix.cpp" />
     <ClCompile Include="Source\YRotateMatrix.cpp" />
     <ClCompile Include="Source\ZRotateMatrix.cpp" />
+    <ClCompile Include="Source\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\BoundingBox.h" />
     <ClInclude Include="Dependencies\SDL2\include\begin_code.h" />
     <ClInclude Include="Dependencies\SDL2\include\close_code.h" />
     <ClInclude Include="Dependencies\SDL2\include\SDL.h" />
@@ -276,6 +279,7 @@
     <ClInclude Include="Headers\XRotateMatrix.h" />
     <ClInclude Include="Headers\YRotateMatrix.h" />
     <ClInclude Include="Headers\ZRotateMatrix.h" />
+    <ClInclude Include="Headers\Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

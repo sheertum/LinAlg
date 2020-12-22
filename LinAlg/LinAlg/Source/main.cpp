@@ -7,6 +7,7 @@
 
 #include "Figure.h"
 #include "Input.h"
+#include "Triangle.h"
 
 #undef main
 #include <iostream>
