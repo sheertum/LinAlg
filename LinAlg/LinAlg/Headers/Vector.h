@@ -11,13 +11,13 @@ class Vector
 public:
     // Vector(int coordinate, ...);
     explicit Vector(std::vector<double>);
-    Vector operator+(const Vector&);
-    Vector operator-(const Vector&);
+    Vector operator+(const Vector&) const;
+    Vector operator-(const Vector&) const;
 
-    Matrix operator*(const Matrix&);
-    double operator*(const Vector);
-    Vector operator*(const double);
-    double getLength();
+    Matrix operator*(const Matrix&) const;
+    double operator*(const Vector) const;
+    Vector operator*(const double) const;
+    double getLength() const;
     Vector crossProduct(const Vector& target);
 
     double& operator[](int);
@@ -37,5 +37,5 @@ public:
     std::vector<double> coordinates;
 
 private:
-    bool hasCorrectDimension(const Vector&);
+    bool hasCorrectDimension(const Vector&) const;
 };

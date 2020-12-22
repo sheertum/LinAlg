@@ -18,7 +18,7 @@ Vector::Vector(std::vector<double> coordinateArgs){
     coordinates = coordinateArgs;
 }
 
-Vector Vector::operator+ (const Vector& target)
+Vector Vector::operator+ (const Vector& target) const
 {
     if(!hasCorrectDimension(target))
     {
@@ -33,7 +33,7 @@ Vector Vector::operator+ (const Vector& target)
     return result;
 }
 
-double Vector::getLength(){
+double Vector::getLength() const {
     double result = std::pow(coordinates[0], 2) + std::pow(coordinates[1], 2);
 
     if(getDimension() == 3){
@@ -72,7 +72,7 @@ Vector Vector::crossProduct(const Vector& target){
     return result;
 }
 
-Vector Vector::operator-(const Vector& target)
+Vector Vector::operator-(const Vector& target) const
 {
     if(!hasCorrectDimension(target))
     {
@@ -88,13 +88,13 @@ Vector Vector::operator-(const Vector& target)
     return result;
 }
 
-Matrix Vector::operator*(const Matrix& matrix)
+Matrix Vector::operator*(const Matrix& matrix) const
 {
 
     return matrix;
 }
 
-Vector Vector::operator*(const double scalar)
+Vector Vector::operator*(const double scalar) const
 {
     Vector result{std::vector<double>()};
     for(auto& coordinate : coordinates){
@@ -103,7 +103,7 @@ Vector Vector::operator*(const double scalar)
     return result;
 }
 
-double Vector::operator*(const Vector inproductVector)
+double Vector::operator*(const Vector inproductVector) const
 {
     double result= 0;
     for(int i = 0; i < this->getDimension(); i++){
@@ -128,7 +128,7 @@ const int Vector::getDimension() const
     return coordinates.size();
 }
 
-bool Vector::hasCorrectDimension(const Vector& target)
+bool Vector::hasCorrectDimension(const Vector& target) const
 {
     if(getDimension() == target.getDimension())
     {
