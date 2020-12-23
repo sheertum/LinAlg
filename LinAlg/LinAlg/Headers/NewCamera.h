@@ -14,6 +14,6 @@ public:
 
 	Vector _position;
 	Vector _direction;
-	double _viewAngle;
+	double _yaw;
 	Matrix _view;
 };

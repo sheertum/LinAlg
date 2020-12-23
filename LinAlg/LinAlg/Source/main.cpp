@@ -18,10 +18,10 @@
 int main() {
 	World world{ 1000,1000,1000 };
 	
-	Vector p1{ {-0.5, -0.5,  -4.5 } };
-    Vector p2{ { 0.5, -0.5,  -4.5 } };
-    Vector p3{ { 0.5,  0.5,  -4.5 } };
-    Vector p4{ {-0.5,  0.5,  -4.5 } };
+	Vector p1{ {-0.5, -0.5,  -4.8 } };
+    Vector p2{ { 0.5, -0.5,  -4.8 } };
+    Vector p3{ { 0.5,  0.5,  -4.8 } };
+    Vector p4{ {-0.5,  0.5,  -4.8 } };
 
     Vector p5{ {-0.5, -0.5, -5 } };
     Vector p6{ { 0.5, -0.5, -5 } };
@@ -113,6 +113,19 @@ int main() {
         print();
     };
 
+
+    std::function<void()> camXPos = [&]() {
+        world.getCamera()._yaw += 0.1;
+        world.getCamera().update();
+        //print();
+    };
+
+    std::function<void()> camXNeg = [&]() {
+        world.getCamera()._position[0] -= CAMERA_MOVEMENT;
+        world.getCamera().update();
+        print();
+    };
+
     std::function<void()> camYPos = [&]() {
         world.getCamera()._position[1] += CAMERA_MOVEMENT;
         world.getCamera().update();
@@ -153,6 +166,9 @@ int main() {
     input.addBinding(SDLK_F1, camRotX);
     input.addBinding(SDLK_F2, camRotY);
     input.addBinding(SDLK_F3, camRotZ);
+
+    input.addBinding(SDLK_1, camXPos);
+    input.addBinding(SDLK_2, camXNeg);
 
     input.addBinding(SDLK_3, camYPos);
     input.addBinding(SDLK_4, camYNeg);
