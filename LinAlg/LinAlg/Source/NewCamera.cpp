@@ -8,41 +8,31 @@ Eye::Eye() : _position{{0,0,0}}, _direction{{0,0,1}}, _view{4,4}, _yaw{0}
 	update();
 }
 
-Matrix Eye::pointAt(const Vector& position, const Vector& target, const Vector& up)
+Matrix Eye::pointAt(const Vector& position, const Vector& direction, const Vector& up)
 {
-	Vector newForward = target - position;
-	newForward.normalise();
-	//newForward.pushBack(1);
+	Vector camRight = direction.crossProduct(up);
+	camRight.normalise();
 
-	double i = (up * newForward);
-	Vector a = newForward * (up*newForward);
-	Vector newUp = up - a;
-	newUp.normalise();
+	Vector camUp = camRight.crossProduct(direction);
 
-	Vector newRight = newUp.crossProduct(newForward);
+	Matrix R(4, 4);
+	Matrix translation(4, 4);
 
-	Matrix pointAt(4, 4);
+	for (size_t i = 0; i < 3; i++)
+	{
+		R(0, i) = camRight[i];
+		R(1, i) = camUp[i];
+		R(2, i) = -direction[i];
+	}
 
-	pointAt(0, 0) = newRight[0];
-	pointAt(1, 0) = newRight[1];
-	pointAt(2, 0) = newRight[2];
+	Matrix result(4, 4);
+	result(0, 0, camRight);
+	result(1, 0, camUp);
+	result(2, 0, direction * -1);
+	result(3, 0, position);
+	result.simpleInverse();
 
-	pointAt(0, 1) = newUp[0];
-	pointAt(1, 1) = newUp[1];
-	pointAt(2, 1) = newUp[2];
-
-	pointAt(0, 2) = target[0];
-	pointAt(1, 2) = target[1];
-	pointAt(2, 2) = target[2];
-
-	UnitaryMatrix eye(4);
-	eye(0, 2) = -target[0];
-	eye(1, 2) = -target[1];
-	eye(2, 2) = -target[2];
-
-	pointAt = pointAt * eye;
-
-	return pointAt;
+	return result;
 }
 
 std::array<Vector, 2> Eye::getPerspective(const Vector& v1, const Vector& v2)
@@ -59,18 +49,20 @@ std::array<Vector, 2> Eye::getPerspective(const Vector& v1, const Vector& v2)
 
 void Eye::update() {
 	//_direction = Vector{ {0,0,-1} };
-	_direction.normalise();
-	_direction.print();
+	Vector usedDirection = _direction % 3.14159265;
+	usedDirection.normalise();
+	usedDirection.print();
+
 	std::cout << "\n";
 	Vector up{ {0,1,0} };
 	Vector target{ {0,0,1} };//_position + _direction;
 	
 	Matrix temp = target.toMatrix();
-	temp.yRotate(_yaw);
-	_direction = temp.toVector();
+	//temp.yRotate(_yaw);
+	//_direction = temp.toVector();
 
 	target = _position + _direction;
 
-	_view = pointAt(_position, target, up);
+	_view = pointAt(_position, usedDirection, up);
 	_view.simpleInverse();
 }

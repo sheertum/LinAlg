@@ -18,10 +18,10 @@
 int main() {
 	World world{ 1000,1000,1000 };
 	
-	Vector p1{ {-0.5, -0.5,  -4.8 } };
-    Vector p2{ { 0.5, -0.5,  -4.8 } };
-    Vector p3{ { 0.5,  0.5,  -4.8 } };
-    Vector p4{ {-0.5,  0.5,  -4.8 } };
+	Vector p1{ {-0.5, -0.5,  -4.5 } };
+    Vector p2{ { 0.5, -0.5,  -4.5 } };
+    Vector p3{ { 0.5,  0.5,  -4.5 } };
+    Vector p4{ {-0.5,  0.5,  -4.5 } };
 
     Vector p5{ {-0.5, -0.5, -5 } };
     Vector p6{ { 0.5, -0.5, -5 } };
@@ -93,7 +93,7 @@ int main() {
         //    << world.getCamera()._direction[2] << "\t" << "\n" << "\n";
     };
 
-#define CAMERA_MOVEMENT 0.01
+#define CAMERA_MOVEMENT 0.2
 
     std::function<void()> camRotX = [&]() {
         world.getCamera()._direction[0] += CAMERA_MOVEMENT;
@@ -113,9 +113,27 @@ int main() {
         print();
     };
 
+    std::function<void()> camRotXN = [&]() {
+        world.getCamera()._direction[0] -= CAMERA_MOVEMENT;
+        world.getCamera().update();
+        print();
+    };
+
+    std::function<void()> camRotYN = [&]() {
+        world.getCamera()._direction[1] -= CAMERA_MOVEMENT;
+        world.getCamera().update();
+        print();
+    };
+
+    std::function<void()> camRotZN = [&]() {
+        world.getCamera()._direction[2] -= CAMERA_MOVEMENT;
+        world.getCamera().update();
+        print();
+    };
+
 
     std::function<void()> camXPos = [&]() {
-        world.getCamera()._yaw += 0.1;
+        world.getCamera()._position[0] += CAMERA_MOVEMENT;
         world.getCamera().update();
         //print();
     };
@@ -166,6 +184,9 @@ int main() {
     input.addBinding(SDLK_F1, camRotX);
     input.addBinding(SDLK_F2, camRotY);
     input.addBinding(SDLK_F3, camRotZ);
+    input.addBinding(SDLK_F5, camRotXN);
+    input.addBinding(SDLK_F6, camRotYN);
+    input.addBinding(SDLK_F7, camRotZN);
 
     input.addBinding(SDLK_1, camXPos);
     input.addBinding(SDLK_2, camXNeg);

@@ -97,6 +97,14 @@ double Matrix::operator()(int column, int row) const
     return _data[getIndex(column, row)];
 }
 
+void Matrix::operator()(int row, int column, const Vector& vec)
+{
+    for (size_t i = 0; i < vec.getDimension(); i++)
+    {
+        this->operator()(row, i + column) = vec[i];
+    }
+}
+
 int Matrix::getColumnCount() const
 {
     return _columnCount;
@@ -149,7 +157,7 @@ Vector Matrix::toVector()
     return Vector{ _data };
 }
 
-void Matrix::simpleInverse()
+Matrix Matrix::simpleInverse() const
 {
     Matrix matrix(4,4);
     
@@ -167,7 +175,7 @@ void Matrix::simpleInverse()
     matrix(0,3) = -(this->operator()(0,3) * matrix(2,0) + this->operator()(1, 3) * matrix(2, 1) + this->operator()(2, 3) * matrix(2, 2));
     matrix(3, 3) = 1;
 
-    _data = matrix.getData();
+    return matrix;
 }
 
 void Matrix::translate (double x, double y, double z){

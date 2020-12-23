@@ -27,8 +27,10 @@ public:
     void zRotate(double);
     void originLineRotate(Vector, double);
     void randomLineRotate(Vector, Vector, double);
+
     double& operator()(int row, int column);
     double operator()(int row, int column) const;
+    void operator()(int row, int column, const Vector&);
 
     void draw();
     const std::vector<double> getData() const;
@@ -36,7 +38,8 @@ public:
     Vector toVector();
 
     //Only for rotation and translation matrices
-    void simpleInverse();
+    Matrix simpleInverse() const;
+
 
 private:
     void itirativeMultiply(Matrix);

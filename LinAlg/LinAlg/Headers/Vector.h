@@ -18,10 +18,12 @@ public:
     double operator*(const Vector) const;
     Vector operator*(const double) const;
 
+    Vector operator%(double) const;
+
     bool operator!=(const Vector&) const;
 
     double getLength() const;
-    Vector crossProduct(const Vector& target);
+    Vector crossProduct(const Vector& target) const;
 
     double& operator[](int);
     const double& operator[](int) const;

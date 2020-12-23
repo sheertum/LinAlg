@@ -3,6 +3,7 @@
 
 #include <stdarg.h> 
 #include <iostream>
+#include <cmath>
 
 Vector::Vector(std::vector<double> coordinateArgs){
     if(coordinateArgs.size() < 1)
@@ -43,7 +44,7 @@ double Vector::getLength() const {
     return sqrt(result);
 }
 
-Vector Vector::crossProduct(const Vector& target){
+Vector Vector::crossProduct(const Vector& target) const{
     if(getDimension() < 3){
         throw("CrossProductIsOnlyPossibleInThreeDimensions");
     }
@@ -108,12 +109,19 @@ Vector Vector::operator*(const double scalar) const
     return result;
 }
 
+Vector Vector::operator%(double value) const
+{
+    Vector result{ this->coordinates };
+    for (size_t i = 0; i < coordinates.size(); i++)
+    {
+        result[i] = std::fmod(result[i], value);
+    }
+
+    return result;
+}
+
 bool Vector::operator!=(const Vector& other) const
 {
-    //if (other.coordinates.size() != coordinates.size())
-    //{
-    //    return true;
-    //}
     return !(coordinates == other.coordinates);
 }
 
