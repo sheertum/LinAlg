@@ -3,6 +3,7 @@
 
 #include <stdarg.h> 
 #include <iostream>
+#include <cmath>
 
 Vector::Vector(std::vector<double> coordinateArgs){
     if(coordinateArgs.size() < 1)
@@ -15,21 +16,17 @@ Vector::Vector(std::vector<double> coordinateArgs){
         throw("NoSingleDimensionVectorsAllowed");
     }
 
-    _dimensions = coordinateArgs.size();
-
-    coordinates.reserve(_dimensions);
     coordinates = coordinateArgs;
-    
 }
 
-Vector Vector::operator+ (const Vector& target)
+Vector Vector::operator+ (const Vector& target) const
 {
     if(!hasCorrectDimension(target))
     {
         throw("DimensionsAreIncompatible");
     }
-    Vector result{std::vector<double>(_dimensions, 0.0f)};
-    for(int i = 0; i < _dimensions; i++)
+    Vector result{std::vector<double>(getDimension(), 0.0f)};
+    for(int i = 0; i < getDimension(); i++)
     {
         result[i] = coordinates[i] + target[i];
     }
@@ -37,7 +34,7 @@ Vector Vector::operator+ (const Vector& target)
     return result;
 }
 
-double Vector::getLength(){
+double Vector::getLength() const {
     double result = std::pow(coordinates[0], 2) + std::pow(coordinates[1], 2);
 
     if(getDimension() == 3){
@@ -47,24 +44,26 @@ double Vector::getLength(){
     return sqrt(result);
 }
 
-Vector Vector::crossProduct(const Vector& target){
-    if(_dimensions < 3){
+Vector Vector::crossProduct(const Vector& target) const{
+    if(getDimension() < 3){
         throw("CrossProductIsOnlyPossibleInThreeDimensions");
     }
 
-    Vector result {{0,0,0}};
+    Vector result {target.coordinates};
+    std::fill(result.coordinates.begin(), result.coordinates.end(), 0);
+
     int j = 0;
     int k = 0;
 
-    for(int i = 0; i < _dimensions; i++){
+    for(int i = 0; i < getDimension(); i++){
         j = i +1;
         k = i +2;
-        if(j >= _dimensions){
+        if(j >= getDimension()){
             j = 0;
             k = j + 1;
         }
 
-        if(k >= _dimensions){
+        if(k >= getDimension()){
             k = 0;
         }
         double alfa = coordinates[j] * target[k];
@@ -75,15 +74,15 @@ Vector Vector::crossProduct(const Vector& target){
     return result;
 }
 
-Vector Vector::operator-(const Vector& target)
+Vector Vector::operator-(const Vector& target) const
 {
     if(!hasCorrectDimension(target))
     {
         throw("DimensionsAreIncompatible");
     }
 
-    Vector result{std::vector<double>(_dimensions, 0.0f)};
-    for(int i = 0; i < _dimensions; i++)
+    Vector result{std::vector<double>(getDimension(), 0.0f)};
+    for(int i = 0; i < getDimension(); i++)
     {
         result[i] = coordinates[i] - target[i];
     }
@@ -91,18 +90,17 @@ Vector Vector::operator-(const Vector& target)
     return result;
 }
 
-Matrix Vector::operator*(const Matrix& matrix)
+Matrix Vector::operator*(const Matrix& matrix) const
 {
 
     return matrix;
 }
 
-Vector Vector::operator*(const double scalar)
+Vector Vector::operator*(const double scalar) const
 {
-    Vector result{ {0,0} };
-    if (coordinates.size() > 2) {
-        result = Vector{ {0,0,0} };
-    }
+    std::vector<double> buffer;
+    buffer.resize(coordinates.size());
+    Vector result{ buffer };
 
     for (int i = 0; i < coordinates.size(); i++) {
         result[i] = coordinates[i]*scalar;
@@ -111,7 +109,23 @@ Vector Vector::operator*(const double scalar)
     return result;
 }
 
-double Vector::operator*(const Vector inproductVector)
+Vector Vector::operator%(double value) const
+{
+    Vector result{ this->coordinates };
+    for (size_t i = 0; i < coordinates.size(); i++)
+    {
+        result[i] = std::fmod(result[i], value);
+    }
+
+    return result;
+}
+
+bool Vector::operator!=(const Vector& other) const
+{
+    return !(coordinates == other.coordinates);
+}
+
+double Vector::operator*(const Vector inproductVector) const
 {
     double result= 0;
     for(int i = 0; i < this->getDimension(); i++){
@@ -133,12 +147,12 @@ double& Vector::operator[](int target)
 
 const int Vector::getDimension() const
 {
-    return _dimensions;
+    return coordinates.size();
 }
 
-bool Vector::hasCorrectDimension(const Vector& target)
+bool Vector::hasCorrectDimension(const Vector& target) const
 {
-    if(_dimensions == target.getDimension())
+    if(getDimension() == target.getDimension())
     {
         return true;
     }
@@ -154,4 +168,42 @@ void Vector::print()
         std::cout << " " <<coord ;
     }
     std::cout << " ]";
+}
+
+void Vector::normalise()
+{
+    double magnitude = length();
+
+    for (auto& i : coordinates) {
+        i /= magnitude;
+    }
+}
+
+void Vector::pushBack(double data)
+{
+    coordinates.push_back(data);
+}
+
+double Vector::length() const
+{
+    double lengthSum = 0.0;
+
+    for (size_t i = 0; i < coordinates.size(); i++)
+    {
+        lengthSum += coordinates[i] * coordinates[i];
+    }
+
+    return std::sqrt(lengthSum);
+}
+
+Matrix Vector::toMatrix() const
+{
+    Matrix result{ 1, getDimension() };
+
+    for (size_t i = 0; i < getDimension(); i++)
+    {
+        result(0, i) = coordinates[i];
+    }
+
+    return result;
 }

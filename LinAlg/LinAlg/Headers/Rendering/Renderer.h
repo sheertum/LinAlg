@@ -26,7 +26,9 @@ public:
 	void drawLine(int x1, int y1, int x2, int y2, const Color&);
 
 	void draw(SDL_Texture&);
+
 	void show();
+	void startDrawing();
 
 	void createCanvasTexture(unsigned int width, unsigned int height);
 	std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)>& getCanvasTexture();

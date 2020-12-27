@@ -7,7 +7,7 @@ Figure::Figure(const std::vector<Vector>& vectors) : Matrix(vectors.size(), vect
 	for (const auto& vector : vectors)
 	{
 		int rowIndex = 0;
-		for (int i : vector.coordinates) {
+		for (double i : vector.coordinates) {
 			this->operator()(columnIndex, rowIndex++) = i;
 		}
 
@@ -84,6 +84,8 @@ int Figure::size() const
 void Figure::calculateCenter()
 {
 	int coordinateCounter = 0;
+	std::fill(_center.begin(), _center.end(), 0);
+
 	for (size_t i = 0; i < _columnCount; i++, coordinateCounter++)
 	{
 		for (size_t j = 0; j < _rowCount; j++) {
@@ -111,3 +113,4 @@ const std::vector<Triangle>& Figure::getTriangles() const
 {
 	return _triangles;
 }
+

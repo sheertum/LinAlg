@@ -25,6 +25,8 @@ public:
 
 	const std::vector<Triangle>& getTriangles() const;
 
+	//void rotate(const Matrix&);
+
 private:
 	void addUniqueCoordinates(Vector, int&);
 	bool containtsVector(Vector vector);
