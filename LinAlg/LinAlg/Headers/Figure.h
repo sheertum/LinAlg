@@ -2,6 +2,7 @@
 
 #include "Matrix.h"
 #include "Vector.h"
+#include "Triangle.h"
 #include "Shape.h"
 
 #include <map>
@@ -9,6 +10,7 @@
 class Figure : public Matrix {
 public:
 	Figure(const std::vector<Vector>& vectors);
+	Figure(const std::vector<Triangle>& triangles);
 
 	void scaleFromOrigin(double, double, double);
 
@@ -21,12 +23,15 @@ public:
 	void moveToOrigin();
 	void moveBack();
 
-	void createShape(std::vector<int> indices);
-	const std::vector<Shape>& getShapes() const;
+	const std::vector<Triangle>& getTriangles() const;
 
 	//void rotate(const Matrix&);
 
 private:
+	void addUniqueCoordinates(Vector, int&);
+	bool containtsVector(Vector vector);
+	
+	std::vector<Triangle> _triangles;
 	std::vector<double> _center;
 	std::vector<Shape> _shapes;
 };

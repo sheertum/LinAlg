@@ -29,12 +29,6 @@ int main() {
     Vector p8{ {-0.5,  0.5, -5 } };
 
 	Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
-    figure.createShape({ 0, 1, 2, 3 });
-    figure.createShape({ 4, 5, 6, 7 });
-    figure.createShape({ 0, 4});
-    figure.createShape({ 1, 5});
-    figure.createShape({ 2, 6});
-    figure.createShape({ 3, 7});
 
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
@@ -96,75 +90,75 @@ int main() {
 #define CAMERA_MOVEMENT 0.2
 
     std::function<void()> camRotX = [&]() {
-        world.getCamera()._direction[0] += CAMERA_MOVEMENT;
+        // world.getCamera()._direction[0] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotY = [&]() {
-        world.getCamera()._direction[1] += CAMERA_MOVEMENT;
+        // world.getCamera()._direction[1] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotZ = [&]() {
-        world.getCamera()._direction[2] += CAMERA_MOVEMENT;
+        // world.getCamera()._direction[2] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotXN = [&]() {
-        world.getCamera()._direction[0] -= CAMERA_MOVEMENT;
+        // world.getCamera()._direction[0] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotYN = [&]() {
-        world.getCamera()._direction[1] -= CAMERA_MOVEMENT;
+        // world.getCamera()._direction[1] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotZN = [&]() {
-        world.getCamera()._direction[2] -= CAMERA_MOVEMENT;
+        // world.getCamera()._direction[2] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
 
     std::function<void()> camXPos = [&]() {
-        world.getCamera()._position[0] += CAMERA_MOVEMENT;
+        // world.getCamera()._position[0] += CAMERA_MOVEMENT;
         world.getCamera().update();
         //print();
     };
 
     std::function<void()> camXNeg = [&]() {
-        world.getCamera()._position[0] -= CAMERA_MOVEMENT;
+        // world.getCamera()._position[0] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camYPos = [&]() {
-        world.getCamera()._position[1] += CAMERA_MOVEMENT;
+        // world.getCamera()._position[1] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camYNeg = [&]() {
-        world.getCamera()._position[1] -= CAMERA_MOVEMENT;
+        // world.getCamera()._position[1] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
 
     std::function<void()> camZPos = [&]() {
-        world.getCamera()._position[2] += CAMERA_MOVEMENT;
+        // world.getCamera()._position[2] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camZNeg = [&]() {
-        world.getCamera()._position[2] -= CAMERA_MOVEMENT;
+        // world.getCamera()._position[2] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
