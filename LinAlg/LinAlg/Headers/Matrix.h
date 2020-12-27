@@ -14,10 +14,10 @@ public:
     int getColumnCount() const;
     int getRowCount() const;
 
-    Matrix operator+(const Matrix&);
-    Matrix operator-(const Matrix&);
-    Matrix operator*(const Matrix&);
-    Matrix operator*(const Vector&);
+    Matrix operator+(const Matrix&) const;
+    Matrix operator-(const Matrix&) const;
+    Matrix operator*(const Matrix&) const;
+    Matrix operator*(const Vector&) const;
 
     void translate (double, double, double);
     void scale (double, double, double);
@@ -27,20 +27,28 @@ public:
     void zRotate(double);
     void originLineRotate(Vector, double);
     void randomLineRotate(Vector, Vector, double);
+
     double& operator()(int row, int column);
     double operator()(int row, int column) const;
+    void operator()(int row, int column, const Vector&);
 
     void draw();
     const std::vector<double> getData() const;
+
+    Vector toVector();
+
+    //Only for rotation and translation matrices
+    Matrix simpleInverse() const;
+
 
 private:
     void itirativeMultiply(Matrix);
 
 protected:
+    bool hasMultiplicableDimension(const Matrix&) const;
+    bool hasSameDimensions(const Matrix&) const;
+    double VectorInproduct(std::vector<double>, std::vector<double>) const;
     int getIndex(int, int) const;
-    bool hasMultiplicableDimension(const Matrix&);
-    bool hasSameDimensions(const Matrix&);
-    double VectorInproduct(std::vector<double>, std::vector<double>);
 
     std::vector<double> _data;
     int _columnCount;

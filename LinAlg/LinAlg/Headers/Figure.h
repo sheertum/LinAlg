@@ -31,6 +31,8 @@ private:
 	bool containtsVector(Vector vector, std::vector<double> collection);
 	void calculateCenter(std::vector<double> collection, int columnCount);
 
+	//void rotate(const Matrix&);
+
 private:
 	std::vector<Triangle> _triangles;
 	std::vector<double> _center;

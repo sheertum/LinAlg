@@ -56,6 +56,12 @@ void Renderer::show()
     SDL_RenderClear(_renderer.get());
 }
 
+void Renderer::startDrawing()
+{
+    SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 0);
+    SDL_RenderClear(_renderer.get());
+}
+
 void Renderer::createCanvasTexture(unsigned int width, unsigned int height)
 {
     _buffer.reset();

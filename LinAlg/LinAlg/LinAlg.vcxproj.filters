@@ -57,6 +57,18 @@
     <ClCompile Include="Source\Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ProjectionMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NewCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\ScalarMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -371,6 +383,21 @@
     <ClInclude Include="Headers\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\ProjectionMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Limit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\NewCamera.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="Headers\ScalarMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -15,6 +15,7 @@ Matrix::Matrix(int columnCount, int rowCount) : _columnCount(columnCount), _rowC
     }
 
     _data.resize(columnCount * rowCount);
+    std::fill(_data.begin(), _data.end(), 0);
 }
 
 Matrix::Matrix(int width, int height, std::vector<double> data) : Matrix(width, height)
@@ -22,7 +23,7 @@ Matrix::Matrix(int width, int height, std::vector<double> data) : Matrix(width, 
     _data = data;
 }
 
-Matrix Matrix::operator+(const Matrix& paraMatrix){
+Matrix Matrix::operator+(const Matrix& paraMatrix) const{
    if(!hasSameDimensions(paraMatrix))
    {
        throw("MatrixesHaveIncompatibleDimensionsForAddition");
@@ -38,7 +39,7 @@ Matrix Matrix::operator+(const Matrix& paraMatrix){
    return result;
 }
 
-Matrix Matrix::operator-(const Matrix& paraMatrix){
+Matrix Matrix::operator-(const Matrix& paraMatrix) const{
    if(!hasSameDimensions(paraMatrix))
    {
        throw("MatrixesHaveIncompatibleDimensionsForSubtraction");
@@ -54,7 +55,7 @@ Matrix Matrix::operator-(const Matrix& paraMatrix){
    return result;
 }
 
-Matrix Matrix::operator*(const Matrix& paraMatrix){
+Matrix Matrix::operator*(const Matrix& paraMatrix) const{
     if(!hasMultiplicableDimension(paraMatrix))
     {
         throw("MatrixesHaveIncompatibleDimensionsForMultiplication");
@@ -76,7 +77,7 @@ Matrix Matrix::operator*(const Matrix& paraMatrix){
     return result;
 }
 
-Matrix Matrix::operator*(const Vector& vector){
+Matrix Matrix::operator*(const Vector& vector) const{
    std::vector<std::vector<double>> vectormatrix {vector.coordinates};
    Matrix paraMatrix{1, vector.getDimension()};
    for(int i = 0; i < vector.getDimension(); i++){
@@ -96,6 +97,14 @@ double Matrix::operator()(int column, int row) const
     return _data[getIndex(column, row)];
 }
 
+void Matrix::operator()(int row, int column, const Vector& vec)
+{
+    for (size_t i = 0; i < vec.getDimension(); i++)
+    {
+        this->operator()(row, i + column) = vec[i];
+    }
+}
+
 int Matrix::getColumnCount() const
 {
     return _columnCount;
@@ -106,15 +115,15 @@ int Matrix::getRowCount() const
     return _rowCount;
 }
 
-bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix){
+bool Matrix::hasMultiplicableDimension(const Matrix& parameterMatrix) const {
     return(_columnCount == parameterMatrix.getRowCount());
 }
 
-bool Matrix::hasSameDimensions(const Matrix& parameterMatrix){
+bool Matrix::hasSameDimensions(const Matrix& parameterMatrix) const{
     return (parameterMatrix.getColumnCount() == _columnCount && parameterMatrix.getRowCount() == _rowCount);
 }
 
-double Matrix::VectorInproduct(std::vector<double> row, std::vector<double> column){
+double Matrix::VectorInproduct(std::vector<double> row, std::vector<double> column) const {
     double result = 0;
     for(int i = 0; i < (int)row.size(); i++){
         result += row[i]*column[i];
@@ -141,6 +150,32 @@ int Matrix::getIndex(int x, int y) const{
 
 const std::vector<double> Matrix::getData() const{
     return _data;
+}
+
+Vector Matrix::toVector()
+{
+    return Vector{ _data };
+}
+
+Matrix Matrix::simpleInverse() const
+{
+    Matrix matrix(4,4);
+    
+    for (size_t i = 0; i < 3; i++)
+    {
+        for (size_t y = 0; y < 3; y++)
+        {
+            matrix(i, y) = this->operator()(y, i);
+            matrix(3, y) = 0.0;
+        }
+    }
+
+    matrix(0,3) = -(this->operator()(0,3) * matrix(0,0) + this->operator()(1, 3) * matrix(0, 1) + this->operator()(2, 3) * matrix(0, 2));
+    matrix(0,3) = -(this->operator()(0,3) * matrix(1,0) + this->operator()(1, 3) * matrix(1, 1) + this->operator()(2, 3) * matrix(1, 2));
+    matrix(0,3) = -(this->operator()(0,3) * matrix(2,0) + this->operator()(1, 3) * matrix(2, 1) + this->operator()(2, 3) * matrix(2, 2));
+    matrix(3, 3) = 1;
+
+    return matrix;
 }
 
 void Matrix::translate (double x, double y, double z){
