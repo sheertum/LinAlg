@@ -3,17 +3,15 @@
 
 #include <iostream>
 
-Eye::Eye() : _eye{{0,0,0,1}}, _lookAt{{0,0,0,1}}, _view{4,4}, _yaw{0}
+Eye::Eye() : _position{{0,0,0,1}}, _lookAt{{0,0,0,-1}}, _view{4,4}, _yaw{0}
 {
+	_view(3, 3) = 1;
 	update();
 }
 
 Matrix Eye::pointAt(const Vector& position, const Vector& direction, const Vector& up)
 {
-
-
-	//return result;
-	return Matrix{3,3};
+	return Matrix(1,1);
 }
 
 std::array<Vector, 2> Eye::getPerspective(const Vector& v1, const Vector& v2)
@@ -29,7 +27,7 @@ std::array<Vector, 2> Eye::getPerspective(const Vector& v1, const Vector& v2)
 }
 
 void Eye::update() {
-	Vector direction{ _eye - _lookAt };
+	Vector direction{ _position - _lookAt };
 	direction.normalise();
 
 	Vector up{ {0,1,0,1} };
@@ -41,5 +39,21 @@ void Eye::update() {
 	up.normalise();
 
 	UnitaryMatrix toOrigin{4};
-	toOrigin(3, 0, _eye * -1);
+	toOrigin(3, 0, _position * -1);
+	toOrigin(3, 3) = 1;
+
+	std::cout << "\n";
+	toOrigin.draw();
+	std::cout << "\n";
+	std::cout << "\n";
+
+	_view(0, 0, right, false);
+	_view(0, 1, up, false);
+	_view(0, 2, direction, false);
+	_view.draw();
+
+	_view = _view * toOrigin;
+	std::cout << "\n";
+	std::cout << "\n";
+	_view.draw();
 }

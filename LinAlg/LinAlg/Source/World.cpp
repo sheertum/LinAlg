@@ -11,20 +11,21 @@ World::World(unsigned int width, unsigned int height, unsigned int depth) : _ren
 
 void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 {
-	std::array<Vector, 2> viewed = _camera.getPerspective(v1, v2);
+	Vector newV1 = v1 - 500;
+	newV1[2] = 0;
+	Vector newV2 = v2 - 500;
+	newV2[2] = 0;
 
-	Vector projected1 = _projectionMatrix * viewed[0];
-	Vector projected2 = _projectionMatrix * viewed[1];
+	std::array<Vector, 2> viewed{ _camera.getPerspective(newV1, newV2) };
 
-	projected1[0] += 1;
-	projected1[1] += 1;
-	//realV1[0] *= _widthFactor;
-//realV1[1] *= _heightFactor;
+	Vector projected1 = viewed[0] + 500;//_projectionMatrix * viewed[0];
+	Vector projected2 = viewed[1] + 500;// _projectionMatrix * viewed[1];
 
-	projected2[0] += 1;
-	projected2[1] += 1;
-	//realV2[0] *= _widthFactor;
-//realV2[1] *= _heightFactor;
+	//projected1[0] += 1;
+	//projected1[1] += 1;
+
+	//projected2[0] += 1;
+	//projected2[1] += 1;
 
 	_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
 }

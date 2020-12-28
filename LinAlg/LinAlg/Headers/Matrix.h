@@ -30,7 +30,7 @@ public:
 
     double& operator()(int row, int column);
     double operator()(int row, int column) const;
-    void operator()(int row, int column, const Vector&);
+    void operator()(int row, int column, const Vector&, bool vertical = true);
 
     void draw();
     const std::vector<double> getData() const;

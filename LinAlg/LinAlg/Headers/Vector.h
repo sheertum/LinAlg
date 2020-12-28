@@ -12,7 +12,9 @@ public:
     // Vector(int coordinate, ...);
     explicit Vector(std::vector<double>);
     Vector operator+(const Vector&) const;
+    Vector operator+(double) const;
     Vector operator-(const Vector&) const;
+    Vector operator-(double) const;
 
     Matrix operator*(const Matrix&) const;
     double operator*(const Vector) const;

@@ -12,7 +12,7 @@ public:
 
 	std::array<Vector, 2> getPerspective(const Vector& v1, const Vector& v2);
 
-	Vector _eye;
+	Vector _position;
 	Vector _lookAt;
 	double _yaw;
 	Matrix _view;
