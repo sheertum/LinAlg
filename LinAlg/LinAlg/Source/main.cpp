@@ -37,7 +37,7 @@ int main() {
 
     //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
     //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
-    Figure figure({ triangle1}, Vector{ {0,0,0} });
+    Figure figure({ triangle1}, Vector{ {1,0,0} });
     //figure.createShape({ 0, 1, 2, 3 });
     //figure.createShape({ 4, 5, 6, 7 });
     //figure.createShape({ 0, 4});
@@ -186,6 +186,7 @@ int main() {
 	{
 		input.pollEvents();
         input.handleEvents();
+        figure.move();
 		world.draw(figure, { 255,255,255 });
 		world.show();
 	}

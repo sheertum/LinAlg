@@ -181,3 +181,12 @@ TEST_F(MatrixTest, RotateThroughVectorOnXAxis) {
 
 	compareVector(expected, matrix3);
 }
+
+TEST_F(MatrixTest, TranslateVector) {
+	Vector vec{ {10,1,2} };
+	TranslateMatrix translate{2,3,4};
+
+	Matrix expected {1,3, {12,4,6} };
+	Matrix result = vec * translate;
+	compareVector(expected, result);
+}

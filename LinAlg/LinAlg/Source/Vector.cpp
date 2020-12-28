@@ -92,8 +92,8 @@ Vector Vector::operator-(const Vector& target) const
 
 Matrix Vector::operator*(const Matrix& matrix) const
 {
-
-    return matrix;
+    Matrix vectorMatrix = this->toMatrix();
+    return vectorMatrix * matrix;
 }
 
 Vector Vector::operator*(const double scalar) const

@@ -249,8 +249,8 @@ void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
 
 
 void Matrix::itirativeMultiply(Matrix changeMatrix){
-        for (int i = 0; i < _columnCount; i++) {
-        Matrix temp{ 1, _rowCount + 1 };
+    for (int i = 0; i < _columnCount; i++) {
+        Matrix temp{ 1, _rowCount };
 
         for (int j = 0; j < _rowCount; j++) {
             temp(0, j) = this->operator()(i, j);

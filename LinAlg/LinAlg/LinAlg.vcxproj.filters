@@ -1,423 +1,140 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Source\BoundingBox.cpp" />
+    <ClCompile Include="Dependencies\SDL_GFX\SDL2_framerate.c" />
+    <ClCompile Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.c" />
+    <ClCompile Include="Dependencies\SDL_GFX\SDL2_imageFilter.c" />
+    <ClCompile Include="Dependencies\SDL_GFX\SDL2_rotozoom.c" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Figure.cpp" />
+    <ClCompile Include="Headers\Input.cpp" />
+    <ClCompile Include="Source\Graph\Graph.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Matrix.cpp" />
+    <ClCompile Include="Source\NewCamera.cpp" />
+    <ClCompile Include="Source\ProjectionMatrix.cpp" />
+    <ClCompile Include="Source\Rendering\Renderer.cpp" />
+    <ClCompile Include="Source\ScalarMatrix.cpp" />
+    <ClCompile Include="Source\Shape.cpp" />
+    <ClCompile Include="Source\TranslateMatrix.cpp" />
+    <ClCompile Include="Source\UnitaryMatrix.cpp" />
+    <ClCompile Include="Source\Vector.cpp" />
+    <ClCompile Include="Source\World.cpp" />
+    <ClCompile Include="Source\XRotateMatrix.cpp" />
+    <ClCompile Include="Source\YRotateMatrix.cpp" />
+    <ClCompile Include="Source\ZRotateMatrix.cpp" />
+    <ClCompile Include="Source\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Dependencies\SDL_GFX\SDL2_framerate.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\SDL_GFX\SDL2_imageFilter.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dependencies\SDL_GFX\SDL2_rotozoom.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Vector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Rendering\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Graph\Graph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Matrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UnitaryMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Headers\Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Figure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Figure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ProjectionMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\NewCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ScalarMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TranslateMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\XRotateMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\YRotateMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ZRotateMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Triangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BoundingBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Dependencies\SDL_GFX\SDL2_framerate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives_font.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL_GFX\SDL2_imageFilter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL_GFX\SDL2_rotozoom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\begin_code.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\close_code.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_assert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_atomic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_audio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_bits.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_blendmode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_clipboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_android.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_iphoneos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_macosx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_minimal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_pandora.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_psp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_windows.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_winrt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_config_wiz.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_copying.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_cpuinfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_egl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_endian.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_error.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_events.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_filesystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_gamecontroller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_gesture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_haptic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_hints.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_joystick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_keyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_keycode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_loadso.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_messagebox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_metal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_mutex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_name.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengl_glext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_gl2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_gl2ext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_gl2platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_khrplatform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_pixels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_power.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_quit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_rect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_render.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_revision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_rwops.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_scancode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_sensor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_stdinc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_surface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_syswm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_assert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_compare.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_crc32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_font.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_fuzzer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_harness.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_images.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_md5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_memory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_test_random.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_thread.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_touch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_video.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dependencies\SDL2\include\SDL_vulkan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Rendering\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Graph\Graph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Figure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\UnitaryMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\ProjectionMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Limit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\NewCamera.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClInclude Include="Headers\ScalarMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\TranslateMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\XRotateMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\YRotateMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\ZRotateMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Triangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\BoundingBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Headers\BoundingBox.h" />
+    <ClInclude Include="Dependencies\SDL2\include\begin_code.h" />
+    <ClInclude Include="Dependencies\SDL2\include\close_code.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_assert.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_atomic.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_audio.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_bits.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_blendmode.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_clipboard.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_android.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_iphoneos.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_macosx.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_minimal.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_pandora.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_psp.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_windows.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_winrt.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_config_wiz.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_copying.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_cpuinfo.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_egl.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_endian.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_error.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_events.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_filesystem.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_gamecontroller.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_gesture.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_haptic.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_hints.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_joystick.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_keyboard.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_keycode.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_loadso.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_log.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_main.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_messagebox.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_metal.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_mouse.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_mutex.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_name.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengl.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_gl2.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_gl2ext.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_gl2platform.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengles2_khrplatform.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_opengl_glext.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_pixels.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_platform.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_power.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_quit.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_rect.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_render.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_revision.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_rwops.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_scancode.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_sensor.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_shape.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_stdinc.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_surface.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_system.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_syswm.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_assert.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_common.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_compare.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_crc32.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_font.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_fuzzer.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_harness.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_images.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_log.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_md5.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_memory.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_test_random.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_thread.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_timer.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_touch.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_types.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_version.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_video.h" />
+    <ClInclude Include="Dependencies\SDL2\include\SDL_vulkan.h" />
+    <ClInclude Include="Dependencies\SDL_GFX\SDL2_framerate.h" />
+    <ClInclude Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.h" />
+    <ClInclude Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives_font.h" />
+    <ClInclude Include="Dependencies\SDL_GFX\SDL2_imageFilter.h" />
+    <ClInclude Include="Dependencies\SDL_GFX\SDL2_rotozoom.h" />
+    <ClInclude Include="Headers\Camera.h" />
+    <ClInclude Include="Headers\Figure.h" />
+    <ClInclude Include="Headers\Graph\Graph.h" />
+    <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\Limit.h" />
+    <ClInclude Include="Headers\Matrix.h" />
+    <ClInclude Include="Headers\NewCamera.h" />
+    <ClInclude Include="Headers\ProjectionMatrix.h" />
+    <ClInclude Include="Headers\Rendering\Renderer.h" />
+    <ClInclude Include="Headers\ScalarMatrix.h" />
+    <ClInclude Include="Headers\Shape.h" />
+    <ClInclude Include="Headers\TranslateMatrix.h" />
+    <ClInclude Include="Headers\UnitaryMatrix.h" />
+    <ClInclude Include="Headers\Vector.h" />
+    <ClInclude Include="Headers\World.h" />
+    <ClInclude Include="Headers\XRotateMatrix.h" />
+    <ClInclude Include="Headers\YRotateMatrix.h" />
+    <ClInclude Include="Headers\ZRotateMatrix.h" />
+    <ClInclude Include="Headers\Triangle.h" />
   </ItemGroup>
 </Project>
