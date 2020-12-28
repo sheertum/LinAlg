@@ -25,9 +25,9 @@ int main() {
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
     Vector p1{ {0,0,0} };
-    Vector p2{ {0,100,100} };
-    Vector p3{ {100,0,100} };
-    Vector p4{ {100,100,100} };
+    Vector p2{ {0,500,500} };
+    Vector p3{ {500,0,500} };
+    Vector p4{ {500,500,500} };
     Triangle triangle1{ p1, p2, p3 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
@@ -37,7 +37,7 @@ int main() {
 
     //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
     //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
-    Figure figure({ triangle1}, Vector{ {10,10,10} });
+    Figure figure({ triangle1}, Vector{ {0,0,0} });
     //figure.createShape({ 0, 1, 2, 3 });
     //figure.createShape({ 4, 5, 6, 7 });
     //figure.createShape({ 0, 4});

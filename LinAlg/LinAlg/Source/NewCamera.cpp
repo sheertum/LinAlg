@@ -12,7 +12,8 @@ Matrix Eye::pointAt(const Vector& position, const Vector& direction, const Vecto
 {
 
 
-	return result;
+	//return result;
+	return Matrix{3,3};
 }
 
 std::array<Vector, 2> Eye::getPerspective(const Vector& v1, const Vector& v2)

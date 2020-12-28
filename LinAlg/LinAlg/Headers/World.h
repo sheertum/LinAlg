@@ -10,7 +10,7 @@ public:
 	World(unsigned int width, unsigned int height, unsigned int depth);
 
 	void drawLine(const Vector&, const Vector&, const Color&);
-	void draw(const Figure&, const Color&, bool loopBack = true);
+	void draw(const Figure&, const Color&);
 
 	void show();
 
