@@ -97,11 +97,18 @@ double Matrix::operator()(int column, int row) const
     return _data[getIndex(column, row)];
 }
 
-void Matrix::operator()(int row, int column, const Vector& vec)
+void Matrix::operator()(int row, int column, const Vector& vec, bool vertical)
 {
     for (size_t i = 0; i < vec.getDimension(); i++)
     {
-        this->operator()(row, i + column) = vec[i];
+        if (vertical)
+        {
+            this->operator()(row, column + i) = vec[i];
+        }
+        else
+        {
+            this->operator()(row + i, column) = vec[i];
+        }
     }
 }
 
