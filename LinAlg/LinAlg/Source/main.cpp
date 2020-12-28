@@ -15,45 +15,45 @@
 #undef main
 #include <iostream>
 
-int main() {
-    World world{ 1000,1000,1000 };
+//int main() {
+//    World world{ 1000,1000,1000 };
+//
+//    Vector p1{ {250,  250,  0} };
+//    Vector p2{ { 750, 250,  0} };
+//    Vector p3{ { 750,  750, 0} };
+//    Vector p4{ {250,   750, 0} };
+//                            
+//    Vector p5{ {250,  250,  0} };
+//    Vector p6{ { 750, 250,  0} };
+//    Vector p7{ { 750,  750, 0} };
+//    Vector p8{ {250,   750, 0} };
+//
+//    Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
+//    figure.createShape({ 0, 1, 2, 3 });
+//    figure.createShape({ 4, 5, 6, 7 });
+//    figure.createShape({ 0, 4 });
+//    figure.createShape({ 1, 5 });
+//    figure.createShape({ 2, 6 });
+//    figure.createShape({ 3, 7 });
+//
+//    world.getCamera()._lookAt = Vector{ {0,0,-1, 1} };
+//    world.getCamera()._position = Vector{ {0,0,0, 1} };
+//    world.getCamera().update();
+//
+//    world.draw(figure, { 255,255,255 });
+//    world.show();
+//
+//    while (true)
+//    {
+//        world.getCamera()._position[0] -= 0.01;
+//        world.getCamera().update();
+//
+//        world.draw(figure, { 255,255,255 });
+//        world.show();
+//    }
+//    return 0;
+//}
 
-    Vector p1{ {250,  250,  0} };
-    Vector p2{ { 750, 250,  0} };
-    Vector p3{ { 750,  750, 0} };
-    Vector p4{ {250,   750, 0} };
-                            
-    Vector p5{ {250,  250,  0} };
-    Vector p6{ { 750, 250,  0} };
-    Vector p7{ { 750,  750, 0} };
-    Vector p8{ {250,   750, 0} };
-
-    Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
-    figure.createShape({ 0, 1, 2, 3 });
-    figure.createShape({ 4, 5, 6, 7 });
-    figure.createShape({ 0, 4 });
-    figure.createShape({ 1, 5 });
-    figure.createShape({ 2, 6 });
-    figure.createShape({ 3, 7 });
-
-    world.getCamera()._lookAt = Vector{ {0,0,-1, 1} };
-    world.getCamera()._position = Vector{ {0,0,0, 1} };
-    world.getCamera().update();
-
-    world.draw(figure, { 255,255,255 });
-    world.show();
-
-    while (true)
-    {
-        world.getCamera()._position[0] -= 0.01;
-        world.getCamera().update();
-
-        world.draw(figure, { 255,255,255 });
-        world.show();
-    }
-    return 0;
-}
-/*
 int main() {
 	World world{ 1000,1000,1000 };
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
@@ -234,4 +234,3 @@ int main() {
 
 	return 0;
 }
-*/

@@ -43,6 +43,7 @@ public:
 
 private:
     void itirativeMultiply(Matrix);
+    Matrix addBottomRow();
 
 protected:
     bool hasMultiplicableDimension(const Matrix&) const;

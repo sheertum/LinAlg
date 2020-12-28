@@ -4,5 +4,6 @@
 
 class UnitaryMatrix : public Matrix{
 public:
-    explicit UnitaryMatrix(int);
+    UnitaryMatrix(int);
+    UnitaryMatrix(int width, int height);
 };

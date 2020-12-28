@@ -186,8 +186,9 @@ Matrix Matrix::simpleInverse() const
 }
 
 void Matrix::translate (double x, double y, double z){
+    Matrix largerCopy = addBottomRow();
     TranslateMatrix translateMatrix{x,y,z};
-    itirativeMultiply(translateMatrix);
+    largerCopy.itirativeMultiply(translateMatrix);
 }
 
 void Matrix::scale(double x, double y, double z){
@@ -271,4 +272,17 @@ void Matrix::itirativeMultiply(Matrix changeMatrix){
             this->operator()(i, j) = temp(0, j);
         }
     }
+}
+
+Matrix Matrix::addBottomRow(){
+    std::vector<double> _data;
+    int rowCount = _rowCount+1;
+    Matrix result{_columnCount, rowCount};
+    for(int i = 0; i < _columnCount-1; i++){
+        for(int j=0; j < _rowCount-1; j++){
+            result(i,j) = this->operator()(i,j);
+        }
+        result(i,_rowCount) = 1;
+    }
+    return result;
 }
