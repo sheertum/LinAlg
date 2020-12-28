@@ -34,6 +34,17 @@ Vector Vector::operator+ (const Vector& target) const
     return result;
 }
 
+Vector Vector::operator+(double value) const
+{
+    Vector result{ {coordinates} };
+    for (auto& i : result.coordinates)
+    {
+        i += value;
+    }
+
+    return result;
+}
+
 double Vector::getLength() const {
     double result = std::pow(coordinates[0], 2) + std::pow(coordinates[1], 2);
 
@@ -88,6 +99,11 @@ Vector Vector::operator-(const Vector& target) const
     }
 
     return result;
+}
+
+Vector Vector::operator-(double value) const
+{
+    return this->operator+(-value);
 }
 
 Matrix Vector::operator*(const Matrix& matrix) const
