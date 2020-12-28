@@ -1,95 +1,105 @@
 #include "Figure.h"
-
-Figure::Figure(const std::vector<Vector>& vectors) : Matrix(vectors.size(), vectors[0].getDimension()), _center{}
+Figure::Figure(const std::vector<Triangle>& triangles) : _center{}, _velocity{{0,0,0}}
 {
-	_center.resize(vectors[0].getDimension());
-	int columnIndex = 0;
-	for (const auto& vector : vectors)
-	{
-		int rowIndex = 0;
-		for (double i : vector.coordinates) {
-			this->operator()(columnIndex, rowIndex++) = i;
-		}
-
-		columnIndex++;
-	}
-
-	calculateCenter();
-}
-
-Figure::Figure(const std::vector<Triangle>& triangles) : Matrix(triangles.size()*3, 3), _center{}
-{
+	std::vector<double> dataPoints{};
 	_center.resize(3);
 	int columnIndex = 0;
+
 	for(auto triangle : triangles){
 		auto vectors = triangle.getVectors();
 		for(auto vector:vectors){
-			addUniqueCoordinates(vector, columnIndex);
+			if(!containtsVector(vector, dataPoints)){
+				for (int i = 0; i < vector.coordinates.size(); i++) {
+					dataPoints.push_back(vector[i]);
+				}
+				columnIndex++;
+			}
 		}
 		_triangles.push_back(triangle);
 	}
 
-	calculateCenter();
+	calculateCenter(dataPoints, columnIndex);
 }
 
-void Figure::addUniqueCoordinates(Vector vector, int& vectorCounter){
-	bool exists = false;
+Figure::Figure(const std::vector<Triangle>& triangles, Vector velocity) : _center{}, _velocity{velocity}
+{
+	std::vector<double> dataPoints{};
+	_center.resize(3);
+	int columnIndex = 0;
 
-	int location = vectorCounter*3;
-	auto vecCoordinates = vector.coordinates;
-
-	if(!containtsVector(vector)){
-		_data[location] = vecCoordinates[0];
-		_data[location+1] = vecCoordinates[1];
-		_data[location+2] = vecCoordinates[2];
-		vectorCounter++;
+	for(auto triangle : triangles){
+		auto vectors = triangle.getVectors();
+		for(auto vector:vectors){
+			if(!containtsVector(vector, dataPoints)){
+				for (int i = 0; i < vector.coordinates.size(); i++) {
+					dataPoints.push_back(vector[i]);
+				}
+				columnIndex++;
+			}
+		}
+		_triangles.push_back(triangle);
 	}
+
+	calculateCenter(dataPoints, columnIndex);
 }
 
-bool Figure::containtsVector(Vector vector){
+bool Figure::containtsVector(Vector vector, std::vector<double> collection){
 	auto vecCoordinates = vector.coordinates;
 
-	for(auto i = 0; i < _columnCount; i=i+3 ){
-		if(vecCoordinates[0] == _data[i] && vecCoordinates[1] == _data[i+1] && vecCoordinates[2] == _data[i+2]){
+	for(auto i = 0; i < collection.size(); i=i+3 ){
+		if(vecCoordinates[0] == collection[i] && vecCoordinates[1] == collection[i+1] && vecCoordinates[2] == collection[i+2]){
 			return true;
 		}
 	}
 	return false;
 }
 
-void Figure::scaleFromOrigin(double x, double y, double z)
+const std::vector<Triangle>& Figure::getTriangles() const
 {
-	Matrix::scale(x, y, z);
+	return _triangles;
 }
 
-Vector Figure::getVector(int index) const
-{
-	std::vector<double> v;
-	v.resize(_rowCount);
-	Vector vector{ v };
+void Figure::roll(double angle){
 
-	for (size_t i = 0; i < _rowCount; i++)
-	{
-		vector[i] = this->operator()(index, i);
+}
+
+void Figure::pitch(double angle){
+
+}
+
+void Figure::yaw(double angle){
+
+}
+
+void Figure::move(){
+	for(auto& triangle : _triangles){
+		triangle.translate(_velocity[0], _velocity[1], _velocity[2]);
 	}
-
-	return vector;
 }
 
-int Figure::size() const
-{
-	return _columnCount;
+void Figure::accelerate(double acceleration){
+	_velocity = _velocity*acceleration;
 }
 
-void Figure::calculateCenter()
+void Figure::grow(double factor){
+
+}
+
+void Figure::shrink(double factor){
+
+}
+
+Vector Figure::getCenter(){
+	return Vector{{_center[0], _center[1], _center[2]}};
+}
+
+void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 {
 	int coordinateCounter = 0;
-	std::fill(_center.begin(), _center.end(), 0);
-
-	for (size_t i = 0; i < _columnCount; i++, coordinateCounter++)
+	for (size_t i = 0; i < columnCount; i++, coordinateCounter++)
 	{
-		for (size_t j = 0; j < _rowCount; j++) {
-			_center[j] += (this->operator()(i,j));
+		for (size_t j = 0; j < 3; j++) {
+			_center[j] += (collection[j + (i * 3)]);
 		}
 	}
 
@@ -101,16 +111,14 @@ void Figure::calculateCenter()
 
 void Figure::moveToOrigin()
 {
-	Matrix::translate(_center[0] * -1, _center[1] * -1, _center[2] * -1);
+	for(auto& triangle : _triangles){
+		triangle.translate(_center[0] * -1, _center[1] * -1, _center[2] * -1);
+	}
 }
 
 void Figure::moveBack()
 {
-	Matrix::translate(_center[0], _center[1], _center[2]);
+	for(auto& triangle : _triangles){
+		triangle.translate(_center[0], _center[1], _center[2]);
+	}
 }
-
-const std::vector<Triangle>& Figure::getTriangles() const
-{
-	return _triangles;
-}
-

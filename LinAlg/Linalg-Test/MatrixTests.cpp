@@ -26,6 +26,9 @@ protected:
 	Matrix matrix3{ 3, 3, {0,0,0,0,0,0,0,0,0} };
 	Matrix matrix4{3, 3, {0,0,0,0,0,0,0,0,0}};
 
+	Matrix growHeightMatrix = UnitaryMatrix(3, 4);
+	Matrix growWidthMatrix = UnitaryMatrix(4, 3);
+
 	Matrix decimalMatrix1{3, 3, {0,0,0,0,0,0,0,0,0}};
 	Matrix decimalMatrix2{3, 3, {0,0,0,0,0,0,0,0,0}};
 
@@ -127,6 +130,20 @@ TEST_F(MatrixTest, ComplexMultiply) {
 	compareVector(expected, result);
 }
 
+TEST_F(MatrixTest, GrowHeightMultiply) {
+
+	Matrix expected(3, 4, { {1,2,3,4,5,6,7,8,9,0,0,0} });
+	Matrix result = growHeightMatrix * matrix3;
+	compareVector(expected, result);
+}
+
+TEST_F(MatrixTest, GrowWidthMultiply) {
+
+	Matrix expected(3, 4, { {1,2,3,0,4,5,6,0,7,8,9,0} });
+	Matrix result = matrix3 * growWidthMatrix;
+	compareVector(expected, result);
+}
+
 TEST_F(MatrixTest, SimpleMultiply) {
 
 	Matrix expected(3, 3, { {6,6,6,6,6,6,6,6,6} });
@@ -173,11 +190,20 @@ TEST_F(MatrixTest, 60DegRotateZAxis) {
 }
 
 TEST_F(MatrixTest, RotateThroughVectorOnXAxis) {
-	Vector vec{ {100,0,0} };
+	Vector vec{ {100,0,0,0} };
 	Matrix expected = matrix3;
 	expected.xRotate(60);
 
 	matrix3.originLineRotate(vec, 60);
 
 	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, TranslateVector) {
+	Vector vec{ {10,1,2,1} };
+	TranslateMatrix translate{2,3,4};
+
+	Matrix expected {1,3, {12,4,6,1} };
+	Matrix result = translate * vec;
+	compareVector(expected, result);
 }

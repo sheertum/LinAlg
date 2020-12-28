@@ -30,23 +30,12 @@ void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 	_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
 }
 
-void World::draw(const Figure& figure, const Color& color, bool loopBack)
+void World::draw(const Figure& figure, const Color& color)
 {
-	for (const auto& shape : figure.getShapes())
+	for (const auto& triangle : figure.getTriangles())
 	{
-		int previousIndex = -1;
-		int firstIndex = -1;
-		for (int index : shape._indices)
-		{
-			if (previousIndex >= 0) {
-				drawLine(figure.getVector(previousIndex), figure.getVector(index), color);
-			}
-			else {
-				firstIndex = index;
-			}
-			previousIndex = index;
-		}
-		drawLine(figure.getVector(firstIndex), figure.getVector(previousIndex), color);
+		//TODO: perspective
+		_renderer.drawTriangle(triangle, color);
 	}
 }
 

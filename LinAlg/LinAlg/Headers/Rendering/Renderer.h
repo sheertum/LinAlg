@@ -2,6 +2,7 @@
 
 #include "Vector.h"
 #include "Matrix.h"
+#include "Triangle.h"
 
 #include <memory>
 
@@ -24,7 +25,7 @@ public:
 	Renderer(unsigned int width, unsigned int height);
 
 	void drawLine(int x1, int y1, int x2, int y2, const Color&);
-
+	void drawTriangle(const Triangle triangle, const Color& color);
 	void draw(SDL_Texture&);
 
 	void show();
@@ -32,6 +33,9 @@ public:
 
 	void createCanvasTexture(unsigned int width, unsigned int height);
 	std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)>& getCanvasTexture();
+
+private:
+	uint32_t convertRGBtoHex(const Color&);
 
 private:
 	std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> _window;

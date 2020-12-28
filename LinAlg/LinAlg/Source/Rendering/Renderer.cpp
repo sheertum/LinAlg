@@ -44,6 +44,23 @@ void Renderer::drawLine(int x1, int y1, int x2, int y2, const Color& color)
     SDL_RenderDrawLine(_renderer.get(), x1, y1, x2, y2);
 }
 
+void Renderer::drawTriangle(const Triangle triangle, const Color& color){
+    int n = 3;
+    int i = 0;
+    Sint16 vx[3]{};
+    Sint16 vy[3]{};
+
+    Uint32 hexColor = convertRGBtoHex(color);
+
+    for(auto vector : triangle.getVectors()){
+        vx[i] = vector.coordinates[0];
+        vy[i] = vector.coordinates[1];
+        i++;
+    }
+
+    polygonColor(_renderer.get(), vx, vy, n, hexColor);
+}
+
 void Renderer::draw(SDL_Texture& texture)
 {
     SDL_RenderCopy(_renderer.get(), &texture, nullptr, nullptr);
@@ -52,6 +69,8 @@ void Renderer::draw(SDL_Texture& texture)
 void Renderer::show()
 {
     SDL_RenderPresent(_renderer.get());
+    SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 0);
+    SDL_RenderClear(_renderer.get());
 }
 
 void Renderer::startDrawing()
@@ -80,4 +99,9 @@ std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)>& Renderer::getCanvasTexture(
 {
     SDL_SetRenderTarget(_renderer.get(), nullptr);
     return _buffer;
+}
+
+uint32_t Renderer::convertRGBtoHex(const Color& color)
+{
+    return ((color.r) << 24) + ((color.g) << 16) + ((color.b) << 8) + 0xff;
 }

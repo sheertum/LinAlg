@@ -23,22 +23,49 @@ int main() {
 
     return 0;
 }
+
 /*
+//int main() {
+//    World world{ 1000,1000,1000 };
+//
+//    Vector p1{ {250,  250,  0} };
+//    Vector p2{ { 750, 250,  0} };
+//    Vector p3{ { 750,  750, 0} };
+//    Vector p4{ {250,   750, 0} };
+//                            
+//    Vector p5{ {250,  250,  0} };
+//    Vector p6{ { 750, 250,  0} };
+//    Vector p7{ { 750,  750, 0} };
+//    Vector p8{ {250,   750, 0} };
+//
+//    Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
+//    figure.createShape({ 0, 1, 2, 3 });
+//    figure.createShape({ 4, 5, 6, 7 });
+//    figure.createShape({ 0, 4 });
+//    figure.createShape({ 1, 5 });
+//    figure.createShape({ 2, 6 });
+//    figure.createShape({ 3, 7 });
+//
+//    world.getCamera()._lookAt = Vector{ {0,0,-1, 1} };
+//    world.getCamera()._position = Vector{ {0,0,0, 1} };
+//    world.getCamera().update();
+//
+//    world.draw(figure, { 255,255,255 });
+//    world.show();
+//
+//    while (true)
+//    {
+//        world.getCamera()._position[0] -= 0.01;
+//        world.getCamera().update();
+//
+//        world.draw(figure, { 255,255,255 });
+//        world.show();
+//    }
+//    return 0;
+//}
+
 int main() {
 	World world{ 1000,1000,1000 };
-	
-	Vector p1{ {-0.5, -0.5,  -4.5 } };
-    Vector p2{ { 0.5, -0.5,  -4.5 } };
-    Vector p3{ { 0.5,  0.5,  -4.5 } };
-    Vector p4{ {-0.5,  0.5,  -4.5 } };
-
-    Vector p5{ {-0.5, -0.5, -5 } };
-    Vector p6{ { 0.5, -0.5, -5 } };
-    Vector p7{ { 0.5,  0.5, -5 } };
-    Vector p8{ {-0.5,  0.5, -5 } };
-
-	Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
-
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
     //Vector p9{ {-0.5, -0.5,  -4.5 } };
@@ -46,45 +73,47 @@ int main() {
     //Vector p11{ { 0.5,  0.5,  -4.5 } };
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
-    //Vector p13{ {-0.5, -0.5, -5 } };
-    //Vector p6{ { 0.5, -0.5, -5 } };
-    //Vector p7{ { 0.5,  0.5, -5 } };
-    //Vector p8{ {-0.5,  0.5, -5 } };
+    Vector p1{ {0,0,0} };
+    Vector p2{ {0,500,500} };
+    Vector p3{ {500,0,500} };
+    Vector p4{ {500,500,500} };
+    Triangle triangle1{ p1, p2, p3 };
+    //Triangle triangle2{ p4, p2, p3 };
+    //Vector p5{ {-50, -50, 50} };
+    //Vector p6{ {50, -50, 50} };
+    //Vector p7{ {50, 50, 50} };
+    //Vector p8{ {-50, 50, 50} };
 
-    //Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
+    //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
+    //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
+    Figure figure({ triangle1}, Vector{ {1,0,0} });
     //figure.createShape({ 0, 1, 2, 3 });
     //figure.createShape({ 4, 5, 6, 7 });
-    //figure.createShape({ 0, 4 });
-    //figure.createShape({ 1, 5 });
-    //figure.createShape({ 2, 6 });
-    //figure.createShape({ 3, 7 });
+    //figure.createShape({ 0, 4});
+    //figure.createShape({ 1, 5});
+    //figure.createShape({ 2, 6});
+    //figure.createShape({ 3, 7});
+
+    //figure.translate(31.5, 31.5, 1);
 
     std::function<void()> moveBack = [&]() {
-        figure.translate(-.01, -0.01, -0.01);
-        figure.calculateCenter();
+        figure.move();
     };
 
     std::function<void()> moveForward = [&]() {
-        figure.translate(0, 0, 0.01);
-        figure.calculateCenter();
+        figure.move();
     };
 
     std::function<void()> rotateY = [&]() {
-        figure.moveToOrigin();
-        figure.yRotate(5);
-        figure.moveBack();
+        figure.pitch(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        figure.moveToOrigin();
-        figure.zRotate(5);
-        figure.moveBack();
+        figure.yaw(5);
     };
 
     std::function<void()> rotateX = [&]() {
-        figure.moveToOrigin();
-        figure.xRotate(5);
-        figure.moveBack();
+        figure.roll(5);
     };
 
     std::function<void()> print = [&]() {
@@ -206,6 +235,7 @@ int main() {
 	{
 		input.pollEvents();
         input.handleEvents();
+        figure.move();
 		world.draw(figure, { 255,255,255 });
 		world.show();
 	}
@@ -214,4 +244,3 @@ int main() {
 
 	return 0;
 }
-*/
