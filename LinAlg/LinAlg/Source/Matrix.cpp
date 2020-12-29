@@ -281,11 +281,10 @@ void Matrix::originLineRotate(Vector line, double alpha){
 }
 
 void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
-    translate(first.coordinates[0], first.coordinates[1], first.coordinates[2]);
+    translate(first*-1);
     Vector originLine = second - first;
     originLineRotate(originLine, alpha);
-    first = first * -1;
-    translate(first.coordinates[0], first.coordinates[1], first.coordinates[2]);
+    translate(first);
 }
 
 
