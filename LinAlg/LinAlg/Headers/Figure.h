@@ -24,22 +24,22 @@ public:
 	const std::vector<Triangle>& getTriangles() const;
 
 	Vector getCenter();
+	Vector getXAxis();
+	Vector getYAxis();
+	Vector getZAxis();
 
 private:
 	// void addUniqueCoordinates(Vector, int&, );
 	bool containtsVector(Vector vector, std::vector<double> collection);
 	void calculateCenter(std::vector<double> collection, int columnCount);
 
-	//void rotate(const Matrix&);
-
 private:
 	std::vector<Triangle> _triangles;
 	std::vector<Shape> _shapes;
 
-protected:
+//protected:
+	public:
 	Vector _center {{0,0,0}};
-	Vector _xAxis {{1,0,0}};
-	Vector _yAxis {{0,1,0}};
-	Vector _zAxis {{0,0,1}};
+	Matrix _axis;
 	Vector _velocity;
 };
