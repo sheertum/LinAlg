@@ -38,8 +38,8 @@ private:
 	std::vector<Triangle> _triangles;
 	std::vector<Shape> _shapes;
 
-//protected:
-	public:
+protected:
+	//public:
 	Vector _center {{0,0,0}};
 	Matrix _axis;
 	double _velocityFactor = 0;
