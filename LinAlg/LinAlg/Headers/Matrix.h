@@ -20,6 +20,7 @@ public:
     Matrix operator*(const Vector&) const;
 
     void translate (double, double, double);
+    void translate (Vector vec);
     void scale (double, double, double);
     void scale (double);
     void xRotate(double);

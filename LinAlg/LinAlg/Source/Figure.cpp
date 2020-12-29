@@ -1,8 +1,7 @@
 #include "Figure.h"
-Figure::Figure(const std::vector<Triangle>& triangles) : _center{}, _velocity{{0,0,0}}
+Figure::Figure(const std::vector<Triangle>& triangles) : _velocity{{0,0,0}}
 {
 	std::vector<double> dataPoints{};
-	_center.resize(3);
 	int columnIndex = 0;
 
 	for(auto triangle : triangles){
@@ -21,10 +20,9 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _center{}, _velocity{{0
 	calculateCenter(dataPoints, columnIndex);
 }
 
-Figure::Figure(const std::vector<Triangle>& triangles, Vector velocity) : _center{}, _velocity{velocity}
+Figure::Figure(const std::vector<Triangle>& triangles, Vector velocity) : _velocity{velocity}
 {
 	std::vector<double> dataPoints{};
-	_center.resize(3);
 	int columnIndex = 0;
 
 	for(auto triangle : triangles){
@@ -60,20 +58,32 @@ const std::vector<Triangle>& Figure::getTriangles() const
 }
 
 void Figure::roll(double angle){
-
+	for(auto& triangle : _triangles){
+		triangle.randomLineRotate(getCenter(), _zAxis, angle);
+	}
+	_xAxis.toMatrix().randomLineRotate(getCenter(), _zAxis, angle);
+	_yAxis.toMatrix().randomLineRotate(getCenter(), _zAxis, angle);
 }
 
 void Figure::pitch(double angle){
-
+	for(auto& triangle : _triangles){
+		triangle.randomLineRotate(getCenter(), _xAxis, angle);
+	}
+	_zAxis.toMatrix().randomLineRotate(getCenter(), _xAxis, angle);
+	_yAxis.toMatrix().randomLineRotate(getCenter(), _xAxis, angle);
 }
 
 void Figure::yaw(double angle){
-
+	for(auto& triangle : _triangles){
+		triangle.randomLineRotate(getCenter(), _yAxis, angle);
+	}
+	_xAxis.toMatrix().randomLineRotate(getCenter(), _yAxis, angle);
+	_zAxis.toMatrix().randomLineRotate(getCenter(), _yAxis, angle);
 }
 
 void Figure::move(){
 	for(auto& triangle : _triangles){
-		triangle.translate(_velocity[0], _velocity[1], _velocity[2]);
+		triangle.translate(_velocity);
 	}
 }
 
@@ -81,16 +91,24 @@ void Figure::accelerate(double acceleration){
 	_velocity = _velocity*acceleration;
 }
 
-void Figure::grow(double factor){
+void Figure::deccelerate(double acceleration){
+	accelerate(1/acceleration);
+}
 
+void Figure::grow(double factor){
+	for(auto& triangle : _triangles){
+		triangle.translate(_center * -1);
+		triangle.scale(factor);
+		triangle.translate(_center);
+	}
 }
 
 void Figure::shrink(double factor){
-
+	grow(1/factor);
 }
 
 Vector Figure::getCenter(){
-	return Vector{{_center[0], _center[1], _center[2]}};
+	return _center;
 }
 
 void Figure::calculateCenter(std::vector<double> collection, int columnCount)
@@ -103,22 +121,8 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 		}
 	}
 
-	for (auto& it : _center)
+	for (size_t i = 0; i < _center.getDimension(); i++)
 	{
-		it = it / coordinateCounter;
-	}
-}
-
-void Figure::moveToOrigin()
-{
-	for(auto& triangle : _triangles){
-		triangle.translate(_center[0] * -1, _center[1] * -1, _center[2] * -1);
-	}
-}
-
-void Figure::moveBack()
-{
-	for(auto& triangle : _triangles){
-		triangle.translate(_center[0], _center[1], _center[2]);
+		_center[i] = _center[i] / coordinateCounter;
 	}
 }
