@@ -5,6 +5,7 @@
 #include "XRotateMatrix.h"
 #include "YRotateMatrix.h"
 #include "ZRotateMatrix.h"
+#include "BottomOnesMatrix.h"
 
 #include <iostream>
 #include <string>
@@ -186,65 +187,90 @@ Matrix Matrix::simpleInverse() const
 }
 
 void Matrix::translate (double x, double y, double z){
-    Matrix largerCopy = addBottomRow();
+    upsize();
     TranslateMatrix translateMatrix{x,y,z};
-    largerCopy.itirativeMultiply(translateMatrix);
+    itirativeMultiply(translateMatrix);
+    downsize();
 }
 
 void Matrix::scale(double x, double y, double z){
-     ScalarMatrix scalarMatrix {x,y,z};
+    ScalarMatrix scalarMatrix {x,y,z};
     itirativeMultiply(scalarMatrix);
 }
 
 void Matrix::scale(double x){
-     ScalarMatrix scalarMatrix {x,x,x};
+    ScalarMatrix scalarMatrix {x,x,x};
     itirativeMultiply(scalarMatrix);
 }
 
 void Matrix::zRotate(double alpha) {
+    upsize();
     itirativeMultiply(ZRotateMatrix(alpha, _rowCount));
+    downsize();
 }
 
 void Matrix::yRotate(double alpha) {
+    upsize();
     itirativeMultiply(YRotateMatrix(alpha, _rowCount));
+    downsize();
 }
 
 void Matrix::xRotate(double alpha) {
+    upsize();
     itirativeMultiply(XRotateMatrix(alpha, _rowCount));
+    downsize();
 }
 
 void Matrix::originLineRotate(Vector line, double alpha){
     double x = line.coordinates[0];
     double y = line.coordinates[1];
     double z = line.coordinates[2];
+    if (x == 0 && z == 0 && y == 0) {
+        throw "CantRotateAroundPoint";
+    }
+
+    if (x == 0) {
+        if (z == 0) {
+            yRotate(alpha);
+            return;
+        }
+        else if (y == 0) {
+            zRotate(alpha);
+            return;
+        }
+    }
+
     double x2z2 = sqrt(x*x+z*z);
     double x2y2z2 = sqrt(x*x+y*y+z*z);
 
-    Matrix M5 = UnitaryMatrix(4);
-    M5(0, 0) = x / x2z2;
-    M5(0, 2) = -z / x2z2;
-    M5(2, 0) = z / x2z2;
-    M5(2, 2) = x / x2z2;
+    Matrix M1 = UnitaryMatrix(4);
+    M1(0, 0) = x / x2z2;
+    M1(0, 2) = -1*z / x2z2;
+    M1(2, 0) = z / x2z2;
+    M1(2, 2) = x / x2z2;
 
+    Matrix M2 = UnitaryMatrix(4);
+    M2(0, 0) = x2z2 / x2y2z2;
+    M2(1, 1) = x2z2 / x2y2z2;
+    M2(0, 1) = -1*y / x2y2z2;
+    M2(1, 0) = y / x2y2z2;
+    
+    Matrix M3 = XRotateMatrix(alpha, 4);
+    
     Matrix M4 = UnitaryMatrix(4);
-    M4(0, 0) = x2z2 / x2y2z2;
-    M4(0, 1) = -y / x2z2;
-    M4(1, 0) = y / x2z2;
-    M4(1, 1) = x2z2 / x2y2z2;
-
-    Matrix M2 = M4;
-    M2(1,0) = M2(1,0)*-1;
-    M2(0,1) = M2(1,0)*-1;
-
-    Matrix M1 = M5;
-    M1(2,0) = M1(1,0)*-1;
-    M1(0,2) = M1(1,0)*-1;
-
-    itirativeMultiply(M5);
-    itirativeMultiply(M4);
-    xRotate(alpha);
-    itirativeMultiply(M2);
-    itirativeMultiply(M1);
+    M4._data= M2._data;
+    M4(1,0) = M4(1,0)*-1;
+    M4(0,1) = M4(0,1)*-1;
+    
+    Matrix M5 = UnitaryMatrix(4);
+    M5._data = M1._data;
+    M5(2,0) = M5(2,0)*-1;
+    M5(0,2) = M5(0,2)*-1;
+    
+    Matrix total = M1 * M2 * M3 * M4 * M5;
+    upsize();
+    itirativeMultiply(total);
+    downsize();
 }
 
 void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
@@ -264,8 +290,6 @@ void Matrix::itirativeMultiply(Matrix changeMatrix){
             temp(0, j) = this->operator()(i, j);
         }
 
-        temp(0, _rowCount) = 1;
-
         temp = changeMatrix * temp;
 
         for (int j = 0; j < _rowCount; j++) {
@@ -274,15 +298,29 @@ void Matrix::itirativeMultiply(Matrix changeMatrix){
     }
 }
 
-Matrix Matrix::addBottomRow(){
-    std::vector<double> _data;
-    int rowCount = _rowCount+1;
-    Matrix result{_columnCount, rowCount};
-    for(int i = 0; i < _columnCount-1; i++){
-        for(int j=0; j < _rowCount-1; j++){
-            result(i,j) = this->operator()(i,j);
-        }
-        result(i,_rowCount) = 1;
-    }
-    return result;
+void Matrix::upsize(){
+    Matrix growHeightMatrix = UnitaryMatrix(_rowCount, _columnCount+1);
+	Matrix growWidthMatrix = UnitaryMatrix(_rowCount+1, _columnCount);
+    Matrix bottomOnes = BottomOnesMatrix(_columnCount+1);
+    
+    Matrix result{_rowCount, _columnCount, _data};
+
+    result = growHeightMatrix * result;
+    result = result * growWidthMatrix;
+    result = result + bottomOnes;
+    _data = result._data;
+    _columnCount = result._columnCount;
+    _rowCount = result._rowCount;
+}
+
+void Matrix::downsize(){
+    Matrix shrinkHeightMatrix = UnitaryMatrix(_rowCount-1, _columnCount);
+	Matrix shrinkWidthMatrix = UnitaryMatrix(_rowCount, _columnCount-1);
+    Matrix result{_rowCount, _columnCount, _data};
+
+    result = result * shrinkHeightMatrix;
+    result = shrinkWidthMatrix * result;
+    _data = result._data;
+    _columnCount = result._columnCount;
+    _rowCount = result._rowCount;
 }

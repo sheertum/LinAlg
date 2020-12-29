@@ -1,6 +1,6 @@
 #include "XRotateMatrix.h"
 
-XRotateMatrix::XRotateMatrix(double alpha, int rows): UnitaryMatrix{rows+1}{
+XRotateMatrix::XRotateMatrix(double alpha, int rows): UnitaryMatrix{rows}{
     if(rows < 3){
         throw "ImpossibleDimension for rotation";
     }

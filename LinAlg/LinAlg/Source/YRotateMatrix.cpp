@@ -1,6 +1,6 @@
 #include "YRotateMatrix.h"
 
-YRotateMatrix::YRotateMatrix(double alpha, int rows) : UnitaryMatrix{ rows+1 } {
+YRotateMatrix::YRotateMatrix(double alpha, int rows) : UnitaryMatrix{ rows } {
     if(rows < 3){
         throw "ImpossibleDimension for rotation";
     }
