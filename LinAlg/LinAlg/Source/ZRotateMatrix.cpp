@@ -1,6 +1,6 @@
 #include "ZRotateMatrix.h"
 
-ZRotateMatrix::ZRotateMatrix(double alpha, int rows) : UnitaryMatrix{rows +1}{
+ZRotateMatrix::ZRotateMatrix(double alpha, int rows) : UnitaryMatrix{rows}{
     if(rows < 2){
         throw "ImpossibleDimension for rotation";
     }

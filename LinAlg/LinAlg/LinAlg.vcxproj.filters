@@ -25,6 +25,7 @@
     <ClCompile Include="Source\YRotateMatrix.cpp" />
     <ClCompile Include="Source\ZRotateMatrix.cpp" />
     <ClCompile Include="Source\Triangle.cpp" />
+    <ClCompile Include="Source\BottomOnesMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BoundingBox.h" />
@@ -136,5 +137,6 @@
     <ClInclude Include="Headers\YRotateMatrix.h" />
     <ClInclude Include="Headers\ZRotateMatrix.h" />
     <ClInclude Include="Headers\Triangle.h" />
+    <ClInclude Include="Headers\BottomOnesMatrix.h" />
   </ItemGroup>
 </Project>

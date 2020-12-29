@@ -189,6 +189,30 @@ TEST_F(MatrixTest, 60DegRotateZAxis) {
 	compareVector(expected, matrix3);
 }
 
+TEST_F(MatrixTest, 0DegRotateZAxis) {
+	Matrix expected = matrix3;
+
+	matrix3.zRotate(0);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, 0DegRotateXAxis) {
+	Matrix expected = matrix3;
+
+	matrix3.xRotate(0);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, 0DegRotateYAxis) {
+	Matrix expected = matrix3;
+
+	matrix3.yRotate(0);
+
+	compareVector(expected, matrix3);
+}
+
 TEST_F(MatrixTest, RotateThroughVectorOnXAxis) {
 	Vector vec{ {100,0,0,0} };
 	Matrix expected = matrix3;
@@ -199,11 +223,71 @@ TEST_F(MatrixTest, RotateThroughVectorOnXAxis) {
 	compareVector(expected, matrix3);
 }
 
+TEST_F(MatrixTest, RotateThroughVectorOnYAxis) {
+	Vector vec{ {0,100,0,0} };
+	Matrix expected = matrix3;
+	expected.yRotate(60);
+
+	matrix3.originLineRotate(vec, 60);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, RotateThroughVectorOnZAxis) {
+	Vector vec{ {0,0,100,0} };
+	Matrix expected = matrix3;
+	expected.zRotate(60);
+
+	matrix3.originLineRotate(vec, 60);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, Rotate0DegThroughVectorOn45Degrees) {
+	Vector vec{ {1,1,0,0} };
+	int angle = 0;
+	Matrix expected = matrix3;
+
+	matrix3.originLineRotate(vec, angle);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, Rotate0DegThroughRandomVector) {
+	Vector vec{ {1,2,3,0} };
+	int angle = 0;
+	Matrix expected = matrix3;
+
+	matrix3.originLineRotate(vec, angle);
+
+	compareVector(expected, matrix3);
+}
+TEST_F(MatrixTest, Rotate45DegThroughVectorOn45Degrees) {
+	Vector vec{ {1,1,0,0} };
+	int angle = 45;
+	Matrix expected = matrix2;
+
+	expected.zRotate(45);
+	expected.xRotate(angle);
+	expected.zRotate(-45);
+
+	matrix2.originLineRotate(vec, angle);
+
+	compareVector(expected, matrix2);
+}
 TEST_F(MatrixTest, TranslateVector) {
 	Vector vec{ {10,1,2,1} };
 	TranslateMatrix translate{2,3,4};
 
 	Matrix expected {1,3, {12,4,6,1} };
 	Matrix result = translate * vec;
+	compareVector(expected, result);
+}
+
+TEST_F(MatrixTest, TranslateMatrix) {
+	Matrix result{3,3, {1,1,1,1,1,1,1,1,1} };
+	result.translate(1, 0, 0);
+	Matrix expected{ 3,3, {2,2,2,1,1,1,1,1,1} };
+	
 	compareVector(expected, result);
 }

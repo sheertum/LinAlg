@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BottomOnesMatrix.cpp" />
     <ClCompile Include="Source\BoundingBox.cpp" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_framerate.c" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_gfxPrimitives.c" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Source\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\BottomOnesMatrix.h" />
     <ClInclude Include="Headers\BoundingBox.h" />
     <ClInclude Include="Dependencies\SDL2\include\begin_code.h" />
     <ClInclude Include="Dependencies\SDL2\include\close_code.h" />
