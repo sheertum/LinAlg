@@ -252,27 +252,24 @@ void Matrix::originLineRotate(Vector line, double alpha){
     Matrix M2 = UnitaryMatrix(4);
     M2(0, 0) = x2z2 / x2y2z2;
     M2(1, 1) = x2z2 / x2y2z2;
-    M2(0, 1) = -1*y / x2z2;
-    M2(1, 0) = y / x2z2;
-
+    M2(0, 1) = -1*y / x2y2z2;
+    M2(1, 0) = y / x2y2z2;
+    
+    Matrix M3 = XRotateMatrix(alpha, 4);
+    
     Matrix M4 = UnitaryMatrix(4);
     M4._data= M2._data;
     M4(1,0) = M4(1,0)*-1;
     M4(0,1) = M4(0,1)*-1;
-
+    
     Matrix M5 = UnitaryMatrix(4);
     M5._data = M1._data;
     M5(2,0) = M5(2,0)*-1;
     M5(0,2) = M5(0,2)*-1;
-
+    
+    Matrix total = M1 * M2 * M3 * M4 * M5;
     upsize();
-    *this*M5;
-    *this*M4;
-    downsize();
-    xRotate(alpha);
-    upsize();
-    *this* M2;
-    *this* M1;
+    itirativeMultiply(total);
     downsize();
 }
 

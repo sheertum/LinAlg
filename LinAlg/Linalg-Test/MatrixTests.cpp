@@ -243,10 +243,43 @@ TEST_F(MatrixTest, RotateThroughVectorOnZAxis) {
 	compareVector(expected, matrix3);
 }
 
+TEST_F(MatrixTest, RotateBack) {
+	int angle = 46;
+	Matrix expected = matrix3;
+	matrix3.xRotate(angle);
+	matrix3.xRotate(-angle);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, Rotate0Deg) {
+	int angle = 0;
+	Matrix expected = matrix3;
+	matrix3.xRotate(angle);
+
+	compareVector(expected, matrix3);
+}
+
+TEST_F(MatrixTest, RotateThroughLineAlternative) {
+	int angle = 0;
+	Matrix expected = matrix3;
+
+	expected.zRotate(45);
+	expected.xRotate(angle);
+	expected.zRotate(-45);
+
+	matrix3.xRotate(angle);
+
+	compareVector(expected, matrix3);
+}
 TEST_F(MatrixTest, Rotate0DegThroughVectorOn45Degrees) {
 	Vector vec{ {1,1,0,0} };
 	int angle = 0;
 	Matrix expected = matrix3;
+
+	expected.zRotate(45);
+	expected.xRotate(angle);
+	expected.zRotate(-45);
 
 	matrix3.originLineRotate(vec, angle);
 
@@ -262,19 +295,21 @@ TEST_F(MatrixTest, Rotate0DegThroughRandomVector) {
 
 	compareVector(expected, matrix3);
 }
+
 TEST_F(MatrixTest, Rotate45DegThroughVectorOn45Degrees) {
 	Vector vec{ {1,1,0,0} };
 	int angle = 45;
-	Matrix expected = matrix2;
+	Matrix expected = matrix4;
 
 	expected.zRotate(45);
 	expected.xRotate(angle);
 	expected.zRotate(-45);
 
-	matrix2.originLineRotate(vec, angle);
+	matrix4.originLineRotate(vec, angle);
 
-	compareVector(expected, matrix2);
+	compareVector(expected, matrix4);
 }
+
 TEST_F(MatrixTest, TranslateVector) {
 	Vector vec{ {10,1,2,1} };
 	TranslateMatrix translate{2,3,4};
