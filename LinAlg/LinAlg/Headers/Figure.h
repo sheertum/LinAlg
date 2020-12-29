@@ -17,14 +17,13 @@ public:
 	
 	void move();
 	void accelerate(double acceleration);
+	void deccelerate(double acceleration);
 
 	void grow(double factor);
 	void shrink(double factor);
 	const std::vector<Triangle>& getTriangles() const;
 
 	Vector getCenter();
-	void moveToOrigin();
-	void moveBack();
 
 private:
 	// void addUniqueCoordinates(Vector, int&, );
@@ -35,9 +34,12 @@ private:
 
 private:
 	std::vector<Triangle> _triangles;
-	std::vector<double> _center;
 	std::vector<Shape> _shapes;
 
 protected:
+	Vector _center {{0,0,0}};
+	Vector _xAxis {{1,0,0}};
+	Vector _yAxis {{0,1,0}};
+	Vector _zAxis {{0,0,1}};
 	Vector _velocity;
 };

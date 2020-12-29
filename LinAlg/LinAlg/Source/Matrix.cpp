@@ -193,6 +193,13 @@ void Matrix::translate (double x, double y, double z){
     downsize();
 }
 
+void Matrix::translate (Vector vec){
+    upsize();
+    TranslateMatrix translateMatrix{vec};
+    itirativeMultiply(translateMatrix);
+    downsize();
+}
+
 void Matrix::scale(double x, double y, double z){
     ScalarMatrix scalarMatrix {x,y,z};
     itirativeMultiply(scalarMatrix);
