@@ -18,13 +18,20 @@
 
 int main() {
     World world{ 1000,1000,1000 };
-    Figure triangle{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources") };
+    Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceCraft.obj",
+        1000, 0, 0.5) };
 
+    world.draw(figure, { 255,255,255 });
+    world.show();
 
+    while (true)
+    {
+
+    }
     return 0;
 }
 
-/*
+
 //int main() {
 //    World world{ 1000,1000,1000 };
 //
@@ -64,6 +71,7 @@ int main() {
 //    return 0;
 //}
 
+/*
 int main() {
 	World world{ 1000,1000,1000 };
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
@@ -244,3 +252,5 @@ int main() {
 
 	return 0;
 }
+
+*/

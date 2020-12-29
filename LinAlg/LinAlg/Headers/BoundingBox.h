@@ -13,6 +13,15 @@ public:
     bool isInside(BoundingBox);
     Vector getMax();
     Vector getMin();
+
+    double getWidth() const;
+    double getHeight() const;
+    double getLength() const;
+
+    double getMaxX() const;
+    double getMaxY() const;
+    double getMaxZ() const;
+
 private:
     void checkBoundingLimits(std::vector<double> data);
 private:

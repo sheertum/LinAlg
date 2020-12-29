@@ -6,9 +6,9 @@
 class FigureLoader
 {
 public:
-	static Figure load(const char*);
+	static Figure load(const char*, int maxCoordinate, int minCoordinate = 0, double scale = 1.0);
 
 private:
-	static void handleVertex(const std::string&, std::vector<Vector>&);
+	static Vector handleVertex(const std::string&);
 	static void handleTriangle(const std::string&, const std::vector<Vector>&, std::vector<Triangle>&);
 };

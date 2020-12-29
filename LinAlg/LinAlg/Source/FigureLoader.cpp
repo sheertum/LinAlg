@@ -11,8 +11,12 @@
 
 #define END std::string::npos
 
-Figure FigureLoader::load(const char* fileName)
+Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordinate, double scale)
 {
+	double objMin = -4.0;
+	double objMax = 11.0 + abs(objMin);
+	double factor = maxCoordinate / objMax;
+
 	std::vector<Vector> vectors;
 	std::vector<Triangle> triangles;
 
@@ -22,7 +26,8 @@ Figure FigureLoader::load(const char* fileName)
 	while (std::getline(in, line))
 	{
 		if (line.substr(0, 2) == "v ") {
-			handleVertex(line, vectors);
+			Vector vector = ((handleVertex(line) * factor)* scale) + 500;
+			vectors.push_back(vector);
 		}
 		else if (line.substr(0, 2) == "f ") {
 			handleTriangle(line, vectors, triangles);
@@ -32,7 +37,7 @@ Figure FigureLoader::load(const char* fileName)
 	return Figure{ triangles };
 }
 
-void FigureLoader::handleVertex(const std::string& line, std::vector<Vector>& vectors)
+Vector FigureLoader::handleVertex(const std::string& line)
 {
 	std::istringstream iss(line.substr(2));
 	std::vector<double> vector;
@@ -43,7 +48,7 @@ void FigureLoader::handleVertex(const std::string& line, std::vector<Vector>& ve
 		vector.push_back(value);
 	}
 
-	vectors.push_back(Vector{ vector });
+	return Vector{ vector };
 }
 
 void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vector>& vectors, std::vector<Triangle>& triangles)
@@ -55,9 +60,11 @@ void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vec
 	auto index = data.find("/");
 	index = (index == END) ? data.find(" ") : index;
 
-	while (index != END)
+	while (index != END && data.size() > 0)
 	{
-		result.push_back(vectors[std::stoi(data.substr(0, index))]);
+		std::string value{ data.substr(0, index) };
+		size_t vectorIndex = std::stoi(value);
+		result.push_back(vectors[vectorIndex-1]);
 
 		auto cutIndex = data.find(" ");
 		if (cutIndex != END)

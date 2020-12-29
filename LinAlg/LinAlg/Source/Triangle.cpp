@@ -45,6 +45,26 @@ std::vector<Vector> Triangle::getVectors() const{
 	return result;
 }
 
+double Triangle::getWidth() const
+{
+	return _boundingBox.getWidth();
+}
+
+double Triangle::getHeight() const
+{
+	return _boundingBox.getHeight();
+}
+
+double Triangle::getLength() const
+{
+	return _boundingBox.getLength();
+}
+
+double Triangle::getMaxZ() const
+{
+	return _boundingBox.getMaxZ();
+}
+
 std::vector<Vector> Triangle::convertToVectors(Matrix input)
 {
 	std::vector<Vector> result{};
