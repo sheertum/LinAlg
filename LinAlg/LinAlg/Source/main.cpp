@@ -54,6 +54,30 @@
 //    return 0;
 //}
 
+//int main() {
+//    World world{ 1000,1000,1000 };
+//
+//    Vector p1{ {0,0,0} };
+//    Vector p2{ {0,500,500} };
+//    Vector p3{ {500,0,500} };
+//    Vector p4{ {500,500,500} };
+//    Triangle triangle1{ p1, p2, p3 };
+//    Figure figure({ triangle1 }, Vector{ {0.1,0,0} });
+//
+//    while (true)
+//    {
+//        //input.pollEvents();
+//        //input.handleEvents();
+//        figure.move();
+//        world.draw(figure, { 255,255,255 });
+//        world.show();
+//    }
+//
+//    SDL_Quit();
+//
+//    return 0;
+//}
+
 int main() {
 	World world{ 1000,1000,1000 };
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
@@ -106,6 +130,13 @@ int main() {
         figure.roll(5);
     };
 
+    std::function<void()> grow = [&]() {
+        figure.grow(1.2);
+    };
+    
+    std::function<void()> shrink = [&]() {
+        figure.shrink(1.2);
+    };
     std::function<void()> print = [&]() {
         //std::cout << world.getCamera()._position[0] << "\t"
         //    << world.getCamera()._position[1] << "\t"
@@ -220,13 +251,20 @@ int main() {
     input.addBinding(SDLK_6, camZNeg);
 
     input.addBinding(SDLK_p, print);
+    input.addBinding(SDLK_KP_PLUS, grow);
+    input.addBinding(SDLK_KP_MINUS, shrink);
 
 	while (true)
 	{
 		input.pollEvents();
         input.handleEvents();
-        figure.move();
+        //figure.move();
 		world.draw(figure, { 255,255,255 });
+        world.drawLine(Vector{ {0,0,0} }, figure._center, { 0,255,255 });
+        //world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
+        world.drawLine(figure._center, figure.getXAxis(), { 0,0,255 });
+        world.drawLine(figure._center, figure.getYAxis(), { 0,255,0 });
+        world.drawLine(figure._center, figure.getZAxis(), { 255,0,0 });
 		world.show();
 	}
 

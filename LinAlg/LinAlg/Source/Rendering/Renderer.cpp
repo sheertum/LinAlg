@@ -44,7 +44,7 @@ void Renderer::drawLine(int x1, int y1, int x2, int y2, const Color& color)
     SDL_RenderDrawLine(_renderer.get(), x1, y1, x2, y2);
 }
 
-void Renderer::drawTriangle(const Triangle triangle, const Color& color){
+void Renderer::drawTriangle(const Triangle& triangle, const Color& color){
     int n = 3;
     int i = 0;
     Sint16 vx[3]{};
@@ -53,8 +53,8 @@ void Renderer::drawTriangle(const Triangle triangle, const Color& color){
     Uint32 hexColor = convertRGBtoHex(color);
 
     for(auto vector : triangle.getVectors()){
-        vx[i] = vector.coordinates[0];
-        vy[i] = vector.coordinates[1];
+        vx[i] = vector[0];
+        vy[i] = vector[1];
         i++;
     }
 

@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include "Matrix.h"
+#include "TranslateMatrix.h"
 
 #include <stdarg.h> 
 #include <iostream>

@@ -4,5 +4,5 @@
 
 class BottomOnesMatrix : public Matrix{
 public:
-    explicit BottomOnesMatrix(int);
+    explicit BottomOnesMatrix(int width, int height);
 };

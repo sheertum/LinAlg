@@ -1,5 +1,6 @@
 #include "Figure.h"
-Figure::Figure(const std::vector<Triangle>& triangles) : _velocity{{0,0,0}}
+#include "UnitaryMatrix.h"
+Figure::Figure(const std::vector<Triangle>& triangles) : _velocity{{0,0,0}}, _axis{3,3}
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -20,7 +21,7 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _velocity{{0,0,0}}
 	calculateCenter(dataPoints, columnIndex);
 }
 
-Figure::Figure(const std::vector<Triangle>& triangles, Vector velocity) : _velocity{velocity}
+Figure::Figure(const std::vector<Triangle>& triangles, Vector velocity) : _velocity{velocity}, _axis{ 3,3 }
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -59,32 +60,33 @@ const std::vector<Triangle>& Figure::getTriangles() const
 
 void Figure::roll(double angle){
 	for(auto& triangle : _triangles){
-		triangle.randomLineRotate(getCenter(), _zAxis, angle);
+		triangle.randomLineRotate(getCenter(), getZAxis(), angle);
 	}
-	_xAxis.toMatrix().randomLineRotate(getCenter(), _zAxis, angle);
-	_yAxis.toMatrix().randomLineRotate(getCenter(), _zAxis, angle);
+	_axis.randomLineRotate(getCenter(), getZAxis(), angle);
 }
 
 void Figure::pitch(double angle){
 	for(auto& triangle : _triangles){
-		triangle.randomLineRotate(getCenter(), _xAxis, angle);
+		triangle.randomLineRotate(getCenter(), getXAxis(), angle);
 	}
-	_zAxis.toMatrix().randomLineRotate(getCenter(), _xAxis, angle);
-	_yAxis.toMatrix().randomLineRotate(getCenter(), _xAxis, angle);
+	_axis.randomLineRotate(getCenter(), getXAxis(), angle);
 }
 
 void Figure::yaw(double angle){
 	for(auto& triangle : _triangles){
-		triangle.randomLineRotate(getCenter(), _yAxis, angle);
+		triangle.randomLineRotate(getCenter(), getYAxis(), angle);
 	}
-	_xAxis.toMatrix().randomLineRotate(getCenter(), _yAxis, angle);
-	_zAxis.toMatrix().randomLineRotate(getCenter(), _yAxis, angle);
+	_axis.randomLineRotate(getCenter(), getYAxis(), angle);
 }
 
 void Figure::move(){
 	for(auto& triangle : _triangles){
 		triangle.translate(_velocity);
 	}
+	auto newCenterMatrix = _center.toMatrix();
+	newCenterMatrix.translate(_velocity);
+	_center.coordinates = newCenterMatrix.getData();
+	_axis.translate(_velocity);
 }
 
 void Figure::accelerate(double acceleration){
@@ -125,4 +127,17 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 	{
 		_center[i] = _center[i] / coordinateCounter;
 	}
+	_axis = UnitaryMatrix{ 3 };
+	_axis.scale(100);
+	_axis.translate(_center);
+}
+
+Vector Figure::getXAxis(){
+	return Vector{{_axis(0,0), _axis(0,1), _axis(0,2)}};
+}
+Vector Figure::getYAxis(){
+	return Vector{{_axis(1,0), _axis(1,1), _axis(1,2)}};
+}
+Vector Figure::getZAxis(){
+	return Vector{{_axis(2,0), _axis(2,1), _axis(2,2)}};
 }

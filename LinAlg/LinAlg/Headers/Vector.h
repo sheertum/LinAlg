@@ -22,6 +22,8 @@ public:
 
     Vector operator%(double) const;
 
+    void translate (Vector vec);
+
     bool operator!=(const Vector&) const;
 
     double getLength() const;

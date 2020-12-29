@@ -4,7 +4,7 @@ Triangle::Triangle(Vector a, Vector b, Vector c) : Matrix{ 3,3 }, _boundingBox{}
 	int i = 0;
 	for (auto point : points) {
 		for (int j = 0; j < _rowCount; j++) {
-			this->operator()(j, i) = point[j];
+			this->operator()(i, j) = point[j];
 		}
 		i++;
 	}
@@ -38,7 +38,7 @@ std::vector<Vector> Triangle::getVectors() const{
 	for (int i = 0; i < _columnCount; i++) {
 		std::vector<double> newCoordinates{};
 		for (int j = 0; j < _rowCount; j++) {
-			newCoordinates.push_back(this->operator()(j, i));
+			newCoordinates.push_back(this->operator()(i, j));
 		}
 		result.push_back(Vector{ newCoordinates });
 	}
