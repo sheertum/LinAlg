@@ -18,6 +18,7 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 	double factor = maxCoordinate / objMax;
 
 	std::vector<Vector> vectors;
+	std::vector<Vector> normals;
 	std::vector<Triangle> triangles;
 
 	std::ifstream in(fileName, std::ios::in);
@@ -29,8 +30,12 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 			Vector vector = ((handleVertex(line) * factor)* scale) + 500;
 			vectors.push_back(vector);
 		}
+		else if (line.substr(0, 3) == "vn ") {
+			Vector normal = handleVertex(line);
+			normals.push_back(normal);
+		}
 		else if (line.substr(0, 2) == "f ") {
-			handleTriangle(line, vectors, triangles);
+			handleTriangle(line, vectors, normals, triangles);
 		}
 	}
 
@@ -51,20 +56,22 @@ Vector FigureLoader::handleVertex(const std::string& line)
 	return Vector{ vector };
 }
 
-void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vector>& vectors, std::vector<Triangle>& triangles)
+void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vector>& vectors, const std::vector<Vector>& normals, std::vector<Triangle>& triangles)
 {
 	std::string data = line.substr(2);
-	std::vector<Vector> result;
-	result.reserve(3);
+	std::vector<Vector> vectorIndices;
+	std::vector<Vector> normalIndices;
+
+	vectorIndices.reserve(3);
+	normalIndices.reserve(3);
 
 	auto index = data.find("/");
-	index = (index == END) ? data.find(" ") : index;
 
 	while (index != END && data.size() > 0)
 	{
-		std::string value{ data.substr(0, index) };
-		size_t vectorIndex = std::stoi(value);
-		result.push_back(vectors[vectorIndex-1]);
+		vectorIndices.push_back(vectors[fileterIndex(data, index)-1]);
+
+		normalIndices.push_back(normals[fileterIndex(data, findNth(data," ", 1), findNth(data, "/", 2) - 1)]);
 
 		auto cutIndex = data.find(" ");
 		if (cutIndex != END)
@@ -75,9 +82,33 @@ void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vec
 			break;
 		}
 
-		data.find("/");
-		index = (index == END) ? data.find(" ") : index;
+		index = data.find("/");
 	}
 
-	triangles.push_back({ result[0], result[1], result[2] });
+	triangles.push_back(Triangle{ vectorIndices[0], vectorIndices[1], vectorIndices[2],  normalIndices[0]});
+}
+
+size_t FigureLoader::findNth(const std::string& line, const std::string& lookFor, size_t nth)
+{
+	size_t  pos = 0;
+	int     cnt = 0;
+
+	while (cnt != nth)
+	{
+		pos += 1;
+		pos = line.find(lookFor, pos);
+		if (pos == std::string::npos)
+			return std::string::npos;
+		cnt++;
+	}
+
+	return pos;
+}
+
+size_t FigureLoader::fileterIndex(const std::string& line, size_t last, size_t first)
+{
+	std::string value{ line.substr(first, last-first) };
+	size_t vectorIndex = std::stoi(value);
+
+	return vectorIndex;
 }

@@ -1,6 +1,8 @@
 #include "Triangle.h"
-Triangle::Triangle(Vector a, Vector b, Vector c) : Matrix{ 3,3 }, _boundingBox{}{
+Triangle::Triangle(Vector a, Vector b, Vector c, const Vector& normal) : Matrix{ 3,3 }, _boundingBox{}, _normal{ normal } {
 	std::vector<Vector> points{ a,b,c };
+	_normal = Vector{ {normal[0], normal[1], normal[2]} };
+
 	int i = 0;
 	for (auto point : points) {
 		for (int j = 0; j < _rowCount; j++) {
@@ -11,10 +13,13 @@ Triangle::Triangle(Vector a, Vector b, Vector c) : Matrix{ 3,3 }, _boundingBox{}
 	_boundingBox = BoundingBox{_data};
 }
 
-Triangle::Triangle(std::vector<double> data) : Matrix { 3, 3 }, _boundingBox{data} {
+Triangle::Triangle(std::vector<double> data, const Vector& normal) : Matrix{ 3, 3 }, _boundingBox{ data }, _normal{normal} {
 	if (data.size() != 9) {
 		throw "OutOfBounds";
 	}
+
+	_normal = Vector{ {normal[0], normal[1], normal[2]} };
+
 	Matrix matrix{3,3,data};
 	std::vector<Vector> points = convertToVectors(matrix);
 	Vector A = points[0];
@@ -63,6 +68,11 @@ double Triangle::getLength() const
 double Triangle::getMaxZ() const
 {
 	return _boundingBox.getMaxZ();
+}
+
+Vector Triangle::getNormal() const
+{
+	return _normal;
 }
 
 std::vector<Vector> Triangle::convertToVectors(Matrix input)
