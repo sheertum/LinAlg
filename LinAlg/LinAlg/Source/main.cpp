@@ -9,6 +9,7 @@
 #include "Figure.h"
 #include "Input.h"
 #include "Triangle.h"
+#include "Target.h"
 
 #include "World.h"
 
@@ -88,9 +89,9 @@ int main() {
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
     Vector p1{ {0,0,0} };
-    Vector p2{ {0,500,500} };
-    Vector p3{ {500,0,500} };
-    Vector p4{ {500,500,500} };
+    Vector p2{ {0,200,200} };
+    Vector p3{ {200,0,200} };
+    Vector p4{ {200,200,200} };
     Triangle triangle1{ p1, p2, p3 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
@@ -100,7 +101,7 @@ int main() {
 
     //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
     //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
-    Figure figure({ triangle1}, 0.1);
+    Target figure({ triangle1}, 0.1, 10, true);
     //figure.createShape({ 0, 1, 2, 3 });
     //figure.createShape({ 4, 5, 6, 7 });
     //figure.createShape({ 0, 4});
@@ -111,11 +112,13 @@ int main() {
     //figure.translate(31.5, 31.5, 1);
 
     std::function<void()> moveBack = [&]() {
-        figure.move();
+        //figure.move();
+        figure.tick();
     };
 
     std::function<void()> moveForward = [&]() {
-        figure.move();
+        //figure.move();
+        figure.tick();
     };
 
     std::function<void()> rotateY = [&]() {
@@ -259,6 +262,7 @@ int main() {
 		input.pollEvents();
         input.handleEvents();
         //figure.move();
+        //figure.tick();
 		world.draw(figure, { 255,255,255 });
         world.drawLine(Vector{ {0,0,0} }, figure._center, { 0,255,255 });
         //world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
