@@ -2,7 +2,12 @@
 #include <math.h>
 #include <iostream>
 
-World::World(unsigned int width, unsigned int height, unsigned int depth) : _renderer{ width, height }, _projectionMatrix{ width, height, 10, -0.1, -1000 }, _camera{}, view1{ {0,0,0} }, view2{{0,0,0}}
+World::World(unsigned int width, unsigned int height, unsigned int depth) : 
+	_renderer{ width, height },
+	_projectionMatrix{ width, height, 10, -0.1, -1000 },
+	_camera{},
+	view1{ {0,0,0} }, 
+	view2{{0,0,0}}
 {
 	_widthFactor	= width  / 2;
 	_heightFactor	= height / 2;

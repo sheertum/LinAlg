@@ -56,8 +56,8 @@ void Renderer::drawTriangle(const Triangle triangle, const Color& color){
     Uint32 hexColor = convertRGBtoHex(color);
 
     for(auto vector : triangle.getVectors()){
-        vx[i] = vector.coordinates[0];
-        vy[i] = vector.coordinates[1];
+        vx[i] = vector[0];
+        vy[i] = vector[1];
         i++;
     }
 

@@ -85,6 +85,9 @@ void Figure::move(){
 	for(auto& triangle : _triangles){
 		triangle.translate(_velocity);
 	}
+	auto newVectorMatrix = _center.toMatrix();
+	newVectorMatrix.translate(_velocity);
+	_center.coordinates = newVectorMatrix.getData();
 }
 
 void Figure::accelerate(double acceleration){

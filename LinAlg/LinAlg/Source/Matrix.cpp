@@ -306,14 +306,12 @@ void Matrix::itirativeMultiply(Matrix changeMatrix){
 }
 
 void Matrix::upsize(){
-    Matrix growHeightMatrix = UnitaryMatrix(_rowCount, _columnCount+1);
-	Matrix growWidthMatrix = UnitaryMatrix(_rowCount+1, _columnCount);
-    Matrix bottomOnes = BottomOnesMatrix(_columnCount+1);
+    Matrix growHeightMatrix = UnitaryMatrix(_rowCount, _rowCount+1);
+    Matrix bottomOnes = BottomOnesMatrix(_columnCount, _rowCount + 1);
     
-    Matrix result{_rowCount, _columnCount, _data};
+    Matrix result{ _columnCount, _rowCount, _data};
 
     result = growHeightMatrix * result;
-    result = result * growWidthMatrix;
     result = result + bottomOnes;
     _data = result._data;
     _columnCount = result._columnCount;
@@ -321,12 +319,10 @@ void Matrix::upsize(){
 }
 
 void Matrix::downsize(){
-    Matrix shrinkHeightMatrix = UnitaryMatrix(_rowCount-1, _columnCount);
-	Matrix shrinkWidthMatrix = UnitaryMatrix(_rowCount, _columnCount-1);
-    Matrix result{_rowCount, _columnCount, _data};
+    Matrix shrinkHeightMatrix = UnitaryMatrix(_rowCount, _rowCount-1);
+    Matrix result{ _columnCount, _rowCount, _data};
 
-    result = result * shrinkHeightMatrix;
-    result = shrinkWidthMatrix * result;
+    result = shrinkHeightMatrix * result;
     _data = result._data;
     _columnCount = result._columnCount;
     _rowCount = result._rowCount;
