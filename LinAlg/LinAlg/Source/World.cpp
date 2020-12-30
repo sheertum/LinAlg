@@ -2,8 +2,8 @@
 #include <math.h>
 #include <iostream>
 
-World::World(unsigned int width, unsigned int height, unsigned int depth) : 
-	_renderer{ width, height },
+World::World(unsigned int width, unsigned int height, unsigned int depth, double start, double end) :
+	_renderer{ width, height, start, end },
 	_projectionMatrix{ width, height, 10, -0.1, -1000 },
 	_camera{},
 	view1{ {0,0,0} }, 

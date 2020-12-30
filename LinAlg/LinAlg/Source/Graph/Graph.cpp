@@ -3,7 +3,7 @@
 #include <iostream>
 
 Graph::Graph(unsigned int width, unsigned int height, unsigned int xCount, unsigned int yCount) :
-	_renderer(width, height), _base{ nullptr,nullptr}, _width{width}, _height{height}
+	_renderer(width, height, width, height), _base{ nullptr,nullptr}, _width{width}, _height{height}
 {
 	_xLineDistance = (xCount > 0) ? width / xCount : 0;
 	_yLineDistance = (yCount > 0) ? height / yCount : 0;

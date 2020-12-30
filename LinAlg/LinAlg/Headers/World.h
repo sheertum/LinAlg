@@ -7,7 +7,7 @@
 
 class World {
 public:
-	World(unsigned int width, unsigned int height, unsigned int depth);
+	World(unsigned int width, unsigned int height, unsigned int depth, double start, double end);
 
 	void drawLine(const Vector&, const Vector&, const Color&);
 	void draw(const Figure&, const Color&);

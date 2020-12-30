@@ -20,18 +20,23 @@
 #include <iostream>
 
 int main() {
-    World world{ 1000,1000,1000 };
-    Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
-        1000, 0, 0.5) };
+    World world{ 1000,1000,1000, -2, 5};
+    //Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
+    //    1000, 0, 0.5) };
+
+    Triangle triangle{  Vector{{-2, -2, 0}},
+                        Vector{{ 5, -2, 0}},
+                        Vector{{ 5,  5, 0}} };
+    Figure figure({ triangle });
 
     const clock_t yawTime = clock();
-    figure.roll(180);
+    //figure.roll(180);
     std::cout << "yaw: " << float(clock() - yawTime) / 1000 << "\n";
 
     while (true)
     {   
         const clock_t yawTime = clock();
-        figure.yaw(1);
+        //figure.yaw(1);
         std::cout << "yaw: " << float(clock() - yawTime) / 1000 << "\n";
 
         const clock_t drawTime = clock();
