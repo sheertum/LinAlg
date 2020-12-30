@@ -25,6 +25,7 @@
     <ClCompile Include="Source\YRotateMatrix.cpp" />
     <ClCompile Include="Source\ZRotateMatrix.cpp" />
     <ClCompile Include="Source\Triangle.cpp" />
+    <ClCompile Include="Source\FigureLoader.cpp" />
     <ClCompile Include="Source\BottomOnesMatrix.cpp" />
     <ClCompile Include="Source\Target.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="Headers\YRotateMatrix.h" />
     <ClInclude Include="Headers\ZRotateMatrix.h" />
     <ClInclude Include="Headers\Triangle.h" />
+    <ClInclude Include="Headers\FigureLoader.h" />
     <ClInclude Include="Headers\BottomOnesMatrix.h" />
     <ClInclude Include="Headers\Target.h" />
   </ItemGroup>

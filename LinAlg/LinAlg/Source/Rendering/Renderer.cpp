@@ -44,21 +44,28 @@ void Renderer::drawLine(int x1, int y1, int x2, int y2, const Color& color)
     SDL_RenderDrawLine(_renderer.get(), x1, y1, x2, y2);
 }
 
-void Renderer::drawTriangle(const Triangle& triangle, const Color& color){
+void Renderer::drawTriangle(const Triangle& triangle, const Color& color)
+{
     int n = 3;
     int i = 0;
     Sint16 vx[3]{};
     Sint16 vy[3]{};
 
-    Uint32 hexColor = convertRGBtoHex(color);
 
-    for(auto vector : triangle.getVectors()){
+    for (auto vector : triangle.getVectors()) {
         vx[i] = vector[0];
         vy[i] = vector[1];
         i++;
     }
+    
+    Vector colorSurface{ {(double)color.r, (double)color.g, (double)color.b} };
+    Vector colorLight{ {255,255,255} };
+    Vector lightDirection{ {0,0,-1} };
 
-    polygonColor(_renderer.get(), vx, vy, n, hexColor);
+    Vector colorFinal = colorSurface.crossProduct(colorLight) * (triangle.getNormal() * lightDirection);
+    Uint32 hexColor = convertRGBtoHex(color);//convertRGBtoHex(Color{ (uint8_t)colorFinal[0], (uint8_t)colorFinal[1], (uint8_t)colorFinal[2] });
+
+    filledPolygonColor(_renderer.get(), vx, vy, n, hexColor);
 }
 
 void Renderer::draw(SDL_Texture& texture)
@@ -68,6 +75,7 @@ void Renderer::draw(SDL_Texture& texture)
 
 void Renderer::show()
 {
+    SDL_SetRenderTarget(_renderer.get(), nullptr);
     SDL_RenderPresent(_renderer.get());
     SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 0);
     SDL_RenderClear(_renderer.get());
@@ -81,17 +89,7 @@ void Renderer::startDrawing()
 
 void Renderer::createCanvasTexture(unsigned int width, unsigned int height)
 {
-    _buffer.reset();
-    _buffer = {
-        SDL_CreateTexture(_renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height),
-        SDL_DestroyTexture };
-    if (!_buffer) {
-        std::string errorMessage = "SDL targeted texture could not be created, SDL message: ";
-        errorMessage += SDL_GetError();
-        throw std::logic_error{ errorMessage.c_str() };
-    }
-
-    SDL_SetTextureBlendMode(_buffer.get(), SDL_BLENDMODE_BLEND);
+    _buffer = createTexture(width, height);
     SDL_SetRenderTarget(_renderer.get(), _buffer.get());
 }
 
@@ -104,4 +102,21 @@ std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)>& Renderer::getCanvasTexture(
 uint32_t Renderer::convertRGBtoHex(const Color& color)
 {
     return ((color.r) << 24) + ((color.g) << 16) + ((color.b) << 8) + 0xff;
+}
+
+std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> Renderer::createTexture(unsigned int width, unsigned int height) const
+{
+    Texture buffer{
+        SDL_CreateTexture(_renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height),
+        SDL_DestroyTexture };
+
+    if (!buffer) {
+        std::string errorMessage = "SDL targeted texture could not be created, SDL message: ";
+        errorMessage += SDL_GetError();
+        throw std::logic_error{ errorMessage.c_str() };
+    }
+
+    SDL_SetTextureBlendMode(buffer.get(), SDL_BLENDMODE_BLEND);
+
+    return buffer;
 }

@@ -11,7 +11,6 @@ ProjectionMatrix::ProjectionMatrix(double width, double height, double fieldOfVi
 	_data(2, 2) = -zFar / (zFar - zNear);
 	_data(3, 2) = -1;
 	_data(2, 3) = (-zFar*zNear)/(zFar-zNear);
-	_data.draw();
 }
 
 Vector ProjectionMatrix::operator*(const Vector& vector) 

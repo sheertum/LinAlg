@@ -84,6 +84,36 @@ void BoundingBox::changeBounds(double& min, double& max, double value){
 	}
 }
 
+double BoundingBox::getWidth() const
+{
+	return _maxX-_minX;
+}
+
+double BoundingBox::getHeight() const
+{
+	return _maxY-_minY;
+}
+
+double BoundingBox::getLength() const
+{
+	return _maxZ-_minZ;
+}
+
+double BoundingBox::getMaxX() const
+{
+	return _maxX;
+}
+
+double BoundingBox::getMaxY() const
+{
+	return _maxY;
+}
+
+double BoundingBox::getMaxZ() const
+{
+	return _maxZ;
+}
+
 void BoundingBox::checkBoundingLimits(std::vector<double> data){
     if(data.size() < 6){
         throw "NoBoundingBoxForLines";

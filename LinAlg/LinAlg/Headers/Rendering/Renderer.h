@@ -5,6 +5,7 @@
 #include "Triangle.h"
 
 #include <memory>
+#include <map>
 
 class SDL_Window;
 class SDL_Renderer;
@@ -21,6 +22,8 @@ public:
 };
 
 class Renderer {
+private:
+	using Texture = std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)>;
 public:
 	Renderer(unsigned int width, unsigned int height);
 
@@ -36,9 +39,11 @@ public:
 
 private:
 	uint32_t convertRGBtoHex(const Color&);
+	Texture createTexture(unsigned int width, unsigned int height) const;
 
 private:
 	std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> _window;
 	std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> _renderer;
-	std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> _buffer;
+	Texture _buffer;
+	std::map<double, std::vector<Texture>> _textures;
 };
