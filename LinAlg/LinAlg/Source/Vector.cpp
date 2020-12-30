@@ -224,3 +224,16 @@ Matrix Vector::toMatrix() const
 
     return result;
 }
+
+double Vector::getAngle(const Vector& other) const
+{
+    double xa = coordinates[0];
+    double ya = coordinates[1];
+    double za = coordinates[2];
+
+    double xb = other[0];
+    double yb = other[1];
+    double zb = other[2];
+
+    return std::acos((xa * xb + ya * yb + za * zb) / (std::sqrt(xa * xa + ya * ya + za * za) * std::sqrt(xb * xb + yb * yb + zb * zb)));
+}

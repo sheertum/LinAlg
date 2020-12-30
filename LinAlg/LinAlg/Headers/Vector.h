@@ -42,6 +42,8 @@ public:
 
     Matrix toMatrix() const;
 
+    double getAngle(const Vector&) const;
+
 public:
     std::vector<double> coordinates;
 

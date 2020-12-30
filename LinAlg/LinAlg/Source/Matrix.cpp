@@ -113,6 +113,27 @@ void Matrix::operator()(int row, int column, const Vector& vec, bool vertical)
     }
 }
 
+Vector Matrix::getVector(int index, bool vertical) const
+{
+    std::vector<double> buffer;
+    buffer.resize((vertical) ? _rowCount : _columnCount);
+    Vector vector{ buffer };
+
+    for (size_t i = 0; i < vector.getDimension(); i++)
+    {
+        if (vertical)
+        {
+            vector[i] = this->operator()(index, i);
+        }
+        else
+        {
+            vector[i] = this->operator()(i, index);
+        }
+    }
+
+    return vector;
+}
+
 int Matrix::getColumnCount() const
 {
     return _columnCount;

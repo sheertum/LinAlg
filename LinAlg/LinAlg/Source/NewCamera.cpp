@@ -4,9 +4,10 @@
 
 #include <iostream>
 
-Eye::Eye() : _position{ {-500,0,0} }, _pitch{ 0 }, _yaw{ 0 }, _roll{ 0 }, _view{ 4,4 }, 
+Eye::Eye() : _position{ {-500,-100,0} }, _view{ 3,3 }, _axis{ 3,3 }
 {
-	_view(3, 3) = 1;
+	_axis = UnitaryMatrix{ 3 };
+
 	update();
 }
 
@@ -29,5 +30,8 @@ std::array<Vector, 2> Eye::getPerspective(const Vector& v1, const Vector& v2)
 
 void Eye::update() {
 	_view = TranslateMatrix{ _position * -1 };
-	_view.randomLineRotate(_position, )
+
+	Vector xAxis{ _axis.getVector(0) };
+
+	//_view.randomLineRotate(_position, xAxis, xAxis.getAngle(Vector{ {1,0,0} }));
 }

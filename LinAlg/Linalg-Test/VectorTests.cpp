@@ -96,3 +96,21 @@ TEST_F(VectorTest, Length1) {
     double length = V1.getLength();
     EXPECT_EQ(length, sqrt(10));
 }
+
+TEST_F(VectorTest, angle1) {
+    #define PI 3.14159265359
+
+    Vector vector1{ {1,0,0} };
+    Vector vector2{ {0,1,0} };
+
+    EXPECT_EQ(std::round(vector1.getAngle(vector2)*1000)/1000, std::round((PI/2) * 1000) / 1000);
+    EXPECT_EQ(std::round(vector1.getAngle(vector2) * 1000) / 1000, std::round(vector2.getAngle(vector1) * 1000) / 1000);
+}
+
+TEST_F(VectorTest, angle2) {
+
+    Vector vector1{ {10,2,7} };
+    Vector vector2{ {3,8,11} };
+
+    EXPECT_EQ(std::round(vector1.getAngle(vector2) * 1000) / 1000, std::round(0.7757 * 1000) / 1000);
+}
