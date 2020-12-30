@@ -25,9 +25,9 @@ int main() {
     //Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
     //    1000, 0, 0.5) };
 
-    Triangle triangle{  Vector{{5,  5, 0}},
-                        Vector{{10, 5.01, 0}},
-                        Vector{{10, 5, 0}} };
+    Triangle triangle{  Vector{{5, 5, 0}},
+                        Vector{{5, 7, 0}},
+                        Vector{{7, 7, 0}} };
     Figure figure({ triangle });
 
     const clock_t yawTime = clock();
@@ -118,7 +118,7 @@ int main() {
 
 
 int main() {
-	World world{ 1000,1000,1000 };
+	World world{ 1000,1000,1000, 0, 1000};
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
     //Vector p9{ {-0.5, -0.5,  -4.5 } };
