@@ -1,9 +1,9 @@
 #include "NewCamera.h"
-#include "UnitaryMatrix.h"
+#include "TranslateMatrix.h"
 
 #include <iostream>
 
-Eye::Eye() : _position{{0,0,0,1}}, _lookAt{{0,0,0,-1}}, _view{4,4}, _yaw{0}
+Eye::Eye() : _position{{-50,0,0,1}}, _lookAt{{-50,0,-100,1}}, _view{4,4}, _yaw{0}
 {
 	_view(3, 3) = 1;
 	update();
@@ -38,14 +38,16 @@ void Eye::update() {
 	up = direction.crossProduct(right);
 	up.normalise();
 
-	UnitaryMatrix toOrigin{4};
-	toOrigin(3, 0, _position * -1);
-	toOrigin(3, 3) = 1;
+	TranslateMatrix toOrigin{ (UnitaryMatrix{4,3} * _position).toVector() * -1 };
 
 	std::cout << "\n";
 	toOrigin.draw();
 	std::cout << "\n";
 	std::cout << "\n";
+
+	right[3] = 0;
+	up[3] = 0;
+	direction[3] = 0;
 
 	_view(0, 0, right, false);
 	_view(0, 1, up, false);
