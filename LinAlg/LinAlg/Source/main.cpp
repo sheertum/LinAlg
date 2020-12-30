@@ -20,13 +20,13 @@
 #include <iostream>
 
 int main() {
-    World world{ 1000,1000,1000, -2, 5};
+    World world{ 1000,1000,1000, 0, 10};
     //Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
     //    1000, 0, 0.5) };
 
-    Triangle triangle{  Vector{{-2, -2, 0}},
-                        Vector{{ 5, -2, 0}},
-                        Vector{{ 5,  5, 0}} };
+    Triangle triangle{  Vector{{5,  5, 0}},
+                        Vector{{10, 5.01, 0}},
+                        Vector{{10, 5, 0}} };
     Figure figure({ triangle });
 
     const clock_t yawTime = clock();

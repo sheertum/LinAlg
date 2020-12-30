@@ -126,7 +126,7 @@ std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> Renderer::createTexture(uns
 std::array<int, 2> Renderer::toSDLPosition(const Vector& vector) const
 {
     std::array<int, 2> result;
-    double scale = (_width + _height) / (std::abs(_start) + std::abs(_end)) ;
+    double scale = (_width) / (std::abs(_start) + std::abs(_end)) ;
 
     result[0] = (vector[0] + std::abs(_start)) * scale;
     result[1] = (vector[1] + std::abs(_start)) * scale;
