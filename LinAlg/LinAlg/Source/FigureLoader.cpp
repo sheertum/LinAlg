@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 //v = vertex
 //vt = texture coordinates
@@ -13,8 +14,8 @@
 
 Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordinate, double scale)
 {
-	double objMin = -4.0;
-	double objMax = 11.0 + abs(objMin);
+	double objMin = -4;
+	double objMax = 4 + abs(objMin);
 	double factor = maxCoordinate / objMax;
 
 	std::vector<Vector> vectors;
@@ -51,6 +52,10 @@ Vector FigureLoader::handleVertex(const std::string& line)
 	while (iss) {
 		iss >> value;
 		vector.push_back(value);
+		if (vector.size() == 3)
+		{
+			break;
+		}
 	}
 
 	return Vector{ vector };
@@ -62,16 +67,23 @@ void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vec
 	std::vector<Vector> vectorIndices;
 	std::vector<Vector> normalIndices;
 
-	vectorIndices.reserve(3);
-	normalIndices.reserve(3);
+	vectorIndices.reserve(4);
+	normalIndices.reserve(4);
 
 	auto index = data.find("/");
+	bool slash = true;
+
+	if (index == std::string::npos)
+	{
+		slash = false;
+		index = data.find(" ");
+	}
 
 	while (index != END && data.size() > 0)
 	{
 		vectorIndices.push_back(vectors[fileterIndex(data, index)-1]);
 
-		normalIndices.push_back(normals[fileterIndex(data, findNth(data," ", 1), findNth(data, "/", 2) - 1)]);
+		//normalIndices.push_back(normals[fileterIndex(data, findNth(data," ", 1), findNth(data, "/", 2) - 1)]);
 
 		auto cutIndex = data.find(" ");
 		if (cutIndex != END)
@@ -82,10 +94,14 @@ void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vec
 			break;
 		}
 
-		index = data.find("/");
+		index = (slash) ? data.find("/") : data.find(" ");
 	}
 
-	triangles.push_back(Triangle{ vectorIndices[0], vectorIndices[1], vectorIndices[2],  normalIndices[0]});
+	triangles.push_back(Triangle{ vectorIndices[0], vectorIndices[1], vectorIndices[2], Vector{{0,0,-1}} });//  normalIndices[0]});
+	if (vectorIndices.size() > 3)
+	{
+		//triangles.push_back(Triangle{ vectorIndices[1], vectorIndices[2], vectorIndices[3], Vector{{0,0,-1}} });
+	}
 }
 
 size_t FigureLoader::findNth(const std::string& line, const std::string& lookFor, size_t nth)
@@ -110,5 +126,6 @@ size_t FigureLoader::fileterIndex(const std::string& line, size_t last, size_t f
 	std::string value{ line.substr(first, last-first) };
 	size_t vectorIndex = std::stoi(value);
 
+	//std::cout << vectorIndex << "\n";
 	return vectorIndex;
 }

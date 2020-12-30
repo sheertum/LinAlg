@@ -13,19 +13,34 @@
 #include "World.h"
 #include "FigureLoader.h"
 
+#include <time.h>
+
 #undef main
 #include <iostream>
 
 int main() {
     World world{ 1000,1000,1000 };
-    Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceCraft.obj",
+    Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
         1000, 0, 0.5) };
 
-    world.draw(figure, { 255,255,255 });
-    world.show();
+    const clock_t yawTime = clock();
+    figure.roll(180);
+    std::cout << "yaw: " << float(clock() - yawTime) / 1000 << "\n";
 
     while (true)
-    {
+    {   
+        const clock_t yawTime = clock();
+        figure.yaw(1);
+        std::cout << "yaw: " << float(clock() - yawTime) / 1000 << "\n";
+
+        const clock_t drawTime = clock();
+        world.draw(figure, { 255,255,255 });
+        std::cout << "draw: " << float(clock() - drawTime) / 1000 << "\n";
+
+        const clock_t showTime = clock();
+        world.show();
+        std::cout << "show: " << float(clock() - showTime) / 1000 << "\n";
+;
     }
     return 0;
 }
@@ -94,6 +109,7 @@ int main() {
 //    return 0;
 //}
 
+/*
 int main() {
 	World world{ 1000,1000,1000 };
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
@@ -288,3 +304,4 @@ int main() {
 
 	return 0;
 }
+*/

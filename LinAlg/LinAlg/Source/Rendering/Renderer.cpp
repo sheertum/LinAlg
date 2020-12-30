@@ -46,9 +46,6 @@ void Renderer::drawLine(int x1, int y1, int x2, int y2, const Color& color)
 
 void Renderer::drawTriangle(const Triangle& triangle, const Color& color)
 {
-    Texture buffer{ createTexture(1000,1000) };
-    SDL_SetRenderTarget(_renderer.get(), buffer.get());
-
     int n = 3;
     int i = 0;
     Sint16 vx[3]{};
@@ -66,10 +63,9 @@ void Renderer::drawTriangle(const Triangle& triangle, const Color& color)
     Vector lightDirection{ {0,0,-1} };
 
     Vector colorFinal = colorSurface.crossProduct(colorLight) * (triangle.getNormal() * lightDirection);
-    Uint32 hexColor = convertRGBtoHex(Color{ (uint8_t)colorFinal[0], (uint8_t)colorFinal[1], (uint8_t)colorFinal[2] });
+    Uint32 hexColor = convertRGBtoHex(color);//convertRGBtoHex(Color{ (uint8_t)colorFinal[0], (uint8_t)colorFinal[1], (uint8_t)colorFinal[2] });
 
     filledPolygonColor(_renderer.get(), vx, vy, n, hexColor);
-    _textures[triangle.getMaxZ()].push_back(std::move(buffer));
 }
 
 void Renderer::draw(SDL_Texture& texture)
@@ -80,11 +76,6 @@ void Renderer::draw(SDL_Texture& texture)
 void Renderer::show()
 {
     SDL_SetRenderTarget(_renderer.get(), nullptr);
-    for (const auto& textures : _textures) {
-        for (const auto& texture : textures.second) {
-            draw(*texture);
-        }
-    }
     SDL_RenderPresent(_renderer.get());
     SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 0);
     SDL_RenderClear(_renderer.get());
