@@ -34,6 +34,8 @@ public:
     double operator()(int row, int column) const;
     void operator()(int row, int column, const Vector&, bool vertical = true);
 
+    Vector getVector(int index, bool vertical = true) const;
+
     void draw();
     const std::vector<double> getData() const;
 

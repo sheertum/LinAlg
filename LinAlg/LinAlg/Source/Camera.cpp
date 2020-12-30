@@ -3,7 +3,7 @@
 
 #include <vector>
 
-Camera::Camera(Vector position, Vector lookAt, double angle, double fov, Limit clippingPlane) : _position{position}, _lookAt{lookAt} {
+Camera::Camera(Vector position, Vector lookAt, double angle, double fov, Limit clippingPlane) : _position{ position }, _lookAt{ lookAt }, _axis{ 3,3 } {
 	_axis = UnitaryMatrix{position.getDimension()};
 	_axis.translate(position);
 }

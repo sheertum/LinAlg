@@ -119,7 +119,7 @@ int main() {
 
 int main() {
 	World world{ 1000,1000,1000, 0, 1000};
-    Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
+    //Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
     //Vector p9{ {-0.5, -0.5,  -4.5 } };
     //Vector p10{ { 0.5, -0.5,  -4.5 } };
@@ -189,37 +189,37 @@ int main() {
 #define CAMERA_MOVEMENT 0.1
 
     std::function<void()> camRotX = [&]() {
-        world.getCamera()._lookAt[0] += CAMERA_MOVEMENT;
+        //world.getCamera()._lookAt[0] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotY = [&]() {
-        world.getCamera()._lookAt[1] += CAMERA_MOVEMENT;
+        //world.getCamera()._lookAt[1] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotZ = [&]() {
-        world.getCamera()._lookAt[2] += CAMERA_MOVEMENT;
+        //world.getCamera()._lookAt[2] += CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotXN = [&]() {
-        world.getCamera()._lookAt[0] -= CAMERA_MOVEMENT;
+        //world.getCamera()._lookAt[0] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotYN = [&]() {
-        world.getCamera()._lookAt[1] -= CAMERA_MOVEMENT;
+        //world.getCamera()._lookAt[1] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
 
     std::function<void()> camRotZN = [&]() {
-        world.getCamera()._lookAt[2] -= CAMERA_MOVEMENT;
+        //world.getCamera()._lookAt[2] -= CAMERA_MOVEMENT;
         world.getCamera().update();
         print();
     };
@@ -303,10 +303,10 @@ int main() {
 		world.draw(figure, { 255,255,255 });
         //world.drawLine(Vector{ {0,0,0} }, figure.getCenter(), { 0,255,255 });
         ////world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
-        Vector center{ {0,0,0} };
-        world.drawLine(center, Vector{ {100,0,0} }, { 0,0,255 });
-        world.drawLine(center, Vector{ {0,100,0} }, { 0,255,0 });
-        world.drawLine(center, Vector{ {0,0,100} }, { 255,0,0 });
+        //Vector center{ {0,0,0} };
+        //world.drawLine(center, Vector{ {100,0,0} }, { 0,0,255 });
+        //world.drawLine(center, Vector{ {0,100,0} }, { 0,255,0 });
+        //world.drawLine(center, Vector{ {0,0,100} }, { 255,0,0 });
 		world.show();
 	}
 

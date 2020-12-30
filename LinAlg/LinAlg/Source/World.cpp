@@ -35,8 +35,8 @@ void World::draw(const Figure& figure, const Color& color)
 
 		for (const auto& vector : triangle.getVectors()) {
 			Vector copy{ vector };
-			copy = _projectionMatrix * copy;
 			copy.pushBack(1);
+			//copy = _projectionMatrix * copy;
 			vectors.push_back((_camera._view * copy).toVector());
 		}
 		Triangle viewed{ vectors[0], vectors[1], vectors[2] };
