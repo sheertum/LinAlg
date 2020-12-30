@@ -19,14 +19,15 @@
 #undef main
 #include <iostream>
 
+/*
 int main() {
     World world{ 1000,1000,1000, 0, 10};
     //Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
     //    1000, 0, 0.5) };
 
-    Triangle triangle{  Vector{{5,  5, 0}},
-                        Vector{{10, 5.01, 0}},
-                        Vector{{10, 5, 0}} };
+    Triangle triangle{  Vector{{5, 5, 0}},
+                        Vector{{5, 7, 0}},
+                        Vector{{7, 7, 0}} };
     Figure figure({ triangle });
 
     const clock_t yawTime = clock();
@@ -50,7 +51,7 @@ int main() {
     }
     return 0;
 }
-
+*/
 
 //int main() {
 //    World world{ 1000,1000,1000 };
@@ -115,9 +116,9 @@ int main() {
 //    return 0;
 //}
 
-/*
+
 int main() {
-	World world{ 1000,1000,1000 };
+	World world{ 1000,1000,1000, 0, 1000};
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
     //Vector p9{ {-0.5, -0.5,  -4.5 } };
@@ -125,10 +126,9 @@ int main() {
     //Vector p11{ { 0.5,  0.5,  -4.5 } };
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
-    Vector p1{ {0,0,0} };
-    Vector p2{ {0,200,200} };
-    Vector p3{ {200,0,200} };
-    Vector p4{ {200,200,200} };
+    Vector p1{ {0,0,100} };
+    Vector p2{ {0,200,100} };
+    Vector p3{ {200,0,100} };
     Triangle triangle1{ p1, p2, p3 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
@@ -301,11 +301,12 @@ int main() {
         //figure.move();
         //figure.tick();
 		world.draw(figure, { 255,255,255 });
-        world.drawLine(Vector{ {0,0,0} }, figure._center, { 0,255,255 });
-        //world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
-        world.drawLine(figure._center, figure.getXAxis(), { 0,0,255 });
-        world.drawLine(figure._center, figure.getYAxis(), { 0,255,0 });
-        world.drawLine(figure._center, figure.getZAxis(), { 255,0,0 });
+        //world.drawLine(Vector{ {0,0,0} }, figure.getCenter(), { 0,255,255 });
+        ////world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
+        Vector center{ {0,0,0} };
+        world.drawLine(center, Vector{ {100,0,0} }, { 0,0,255 });
+        world.drawLine(center, Vector{ {0,100,0} }, { 0,255,0 });
+        world.drawLine(center, Vector{ {0,0,100} }, { 255,0,0 });
 		world.show();
 	}
 
@@ -313,4 +314,3 @@ int main() {
 
 	return 0;
 }
-*/

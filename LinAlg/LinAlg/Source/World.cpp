@@ -16,21 +16,10 @@ World::World(unsigned int width, unsigned int height, unsigned int depth, double
 
 void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 {
-	Vector newV1 = v1 - 500;
-	newV1[2] = 0;
-	Vector newV2 = v2 - 500;
-	newV2[2] = 0;
+	std::array<Vector, 2> viewed{ _camera.getPerspective(v1, v2) };
 
-	std::array<Vector, 2> viewed{ _camera.getPerspective(newV1, newV2) };
-
-	Vector projected1 = v1 /*viewed[0] + 500*/;//_projectionMatrix * viewed[0];
-	Vector projected2 = v2 /*viewed[1] + 500*/;// _projectionMatrix * viewed[1];
-
-	//projected1[0] += 1;
-	//projected1[1] += 1;
-
-	//projected2[0] += 1;
-	//projected2[1] += 1;
+	Vector projected1 = viewed[0];//_projectionMatrix * viewed[0];
+	Vector projected2 = viewed[1];// _projectionMatrix * viewed[1];
 
 	_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
 	_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
@@ -41,7 +30,17 @@ void World::draw(const Figure& figure, const Color& color)
 	for (const auto& triangle : figure.getTriangles())
 	{
 		//TODO: perspective
-		_renderer.drawTriangle(triangle, color);
+		std::vector<Vector> vectors;
+		vectors.reserve(3);
+
+		for (const auto& vector : triangle.getVectors()) {
+			Vector copy{ vector };
+			copy = _projectionMatrix * copy;
+			copy.pushBack(1);
+			vectors.push_back((_camera._view * copy).toVector());
+		}
+		Triangle viewed{ vectors[0], vectors[1], vectors[2] };
+		_renderer.drawTriangle(viewed, color);
 	}
 }
 
