@@ -1,6 +1,6 @@
 #include "Figure.h"
 #include "UnitaryMatrix.h"
-Figure::Figure(const std::vector<Triangle>& triangles) : _velocity{{0,0,0}}, _axis{3,3}
+Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _axis{3,3}
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -21,7 +21,7 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _velocity{{0,0,0}}, _ax
 	calculateCenter(dataPoints, columnIndex);
 }
 
-Figure::Figure(const std::vector<Triangle>& triangles, Vector velocity) : _velocity{velocity}, _axis{ 3,3 }
+Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{velocity}, _axis{ 3,3 }
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -80,21 +80,26 @@ void Figure::yaw(double angle){
 }
 
 void Figure::move(){
+	Vector velocity = calculateSpeed();
 	for(auto& triangle : _triangles){
-		triangle.translate(_velocity);
+		triangle.translate(velocity);
 	}
 	auto newCenterMatrix = _center.toMatrix();
-	newCenterMatrix.translate(_velocity);
+	newCenterMatrix.translate(velocity);
 	_center.coordinates = newCenterMatrix.getData();
-	_axis.translate(_velocity);
+	_axis.translate(velocity);
 }
 
 void Figure::accelerate(double acceleration){
-	_velocity = _velocity*acceleration;
+	_velocityFactor = _velocityFactor *acceleration;
 }
 
 void Figure::deccelerate(double acceleration){
 	accelerate(1/acceleration);
+}
+
+Vector Figure::calculateSpeed(){
+	return (getZAxis()-_center)*_velocityFactor;
 }
 
 void Figure::grow(double factor){

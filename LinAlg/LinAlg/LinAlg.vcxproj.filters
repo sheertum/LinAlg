@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Triangle.cpp" />
     <ClCompile Include="Source\FigureLoader.cpp" />
     <ClCompile Include="Source\BottomOnesMatrix.cpp" />
+    <ClCompile Include="Source\Target.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BoundingBox.h" />
@@ -140,5 +141,6 @@
     <ClInclude Include="Headers\Triangle.h" />
     <ClInclude Include="Headers\FigureLoader.h" />
     <ClInclude Include="Headers\BottomOnesMatrix.h" />
+    <ClInclude Include="Headers\Target.h" />
   </ItemGroup>
 </Project>
