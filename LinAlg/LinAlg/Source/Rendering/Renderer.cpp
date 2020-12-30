@@ -4,8 +4,9 @@
 #include <SDL.h>
 #include "../../Dependencies/SDL_GFX/SDL2_gfxPrimitives.h"
 
-Renderer::Renderer(unsigned int width, unsigned int height) :
-	_window{ nullptr,nullptr }, _renderer{ nullptr,nullptr }, _buffer{nullptr,nullptr}
+Renderer::Renderer(unsigned int width, unsigned int height, double start, double end) :
+	_window{ nullptr,nullptr }, _renderer{ nullptr,nullptr }, _buffer{nullptr,nullptr},
+    _start{start}, _end{end}, _width{width}, _height{height}
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::string errorMessage = "SDL VIDEO could not be initialised, SDL message: ";
@@ -53,16 +54,17 @@ void Renderer::drawTriangle(const Triangle& triangle, const Color& color)
 
 
     for (auto vector : triangle.getVectors()) {
-        vx[i] = vector[0];
-        vy[i] = vector[1];
+        std::array<int, 2> position{ toSDLPosition(vector) };
+        vx[i] = position[0];
+        vy[i] = position[1];
         i++;
     }
     
-    Vector colorSurface{ {(double)color.r, (double)color.g, (double)color.b} };
-    Vector colorLight{ {255,255,255} };
-    Vector lightDirection{ {0,0,-1} };
+    //Vector colorSurface{ {(double)color.r, (double)color.g, (double)color.b} };
+    //Vector colorLight{ {255,255,255} };
+    //Vector lightDirection{ {0,0,-1} };
 
-    Vector colorFinal = colorSurface.crossProduct(colorLight) * (triangle.getNormal() * lightDirection);
+    //Vector colorFinal = colorSurface.crossProduct(colorLight) * (triangle.getNormal() * lightDirection);
     Uint32 hexColor = convertRGBtoHex(color);//convertRGBtoHex(Color{ (uint8_t)colorFinal[0], (uint8_t)colorFinal[1], (uint8_t)colorFinal[2] });
 
     filledPolygonColor(_renderer.get(), vx, vy, n, hexColor);
@@ -119,4 +121,15 @@ std::unique_ptr<SDL_Texture, void (*)(SDL_Texture*)> Renderer::createTexture(uns
     SDL_SetTextureBlendMode(buffer.get(), SDL_BLENDMODE_BLEND);
 
     return buffer;
+}
+
+std::array<int, 2> Renderer::toSDLPosition(const Vector& vector) const
+{
+    std::array<int, 2> result;
+    double scale = (_width) / (std::abs(_start) + std::abs(_end)) ;
+
+    result[0] = (vector[0] + std::abs(_start)) * scale;
+    result[1] = (vector[1] + std::abs(_start)) * scale;
+
+    return result;
 }
