@@ -4,6 +4,7 @@
 #include "Vector.h"
 #include "Triangle.h"
 #include "Shape.h"
+#include "BoundingSphere.h"
 
 #include <map>
 
@@ -40,6 +41,7 @@ private:
 
 protected:
 	//public:
+	BoundingSphere _boundingSphere;
 	Vector _center {{0,0,0}};
 	Matrix _axis;
 	double _velocityFactor = 0;

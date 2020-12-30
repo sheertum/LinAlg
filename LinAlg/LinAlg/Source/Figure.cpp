@@ -19,6 +19,7 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _ax
 	}
 
 	calculateCenter(dataPoints, columnIndex);
+	_boundingSphere = BoundingSphere(_center, dataPoints);
 }
 
 Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{velocity}, _axis{ 3,3 }
@@ -40,6 +41,7 @@ Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _veloc
 	}
 
 	calculateCenter(dataPoints, columnIndex);
+	_boundingSphere = BoundingSphere(_center, dataPoints);
 }
 
 bool Figure::containtsVector(Vector vector, std::vector<double> collection){

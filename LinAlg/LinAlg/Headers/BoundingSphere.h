@@ -1,5 +1,10 @@
 #pragma once
 #include "Vector.h"
 class BoundingSphere {
-	BoundingSphere(Vector center, double radius);
+public:
+	BoundingSphere(Vector center, std::vector<double>& data);
+
+private:
+	Vector _center;
+	double _radius;
 };
