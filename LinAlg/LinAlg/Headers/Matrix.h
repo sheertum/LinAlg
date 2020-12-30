@@ -28,6 +28,7 @@ public:
     void zRotate(double);
     void originLineRotate(Vector, double);
     void randomLineRotate(Vector, Vector, double);
+    Matrix getRandomLineRotateMatrix(Vector, Vector, double);
 
     double& operator()(int row, int column);
     double operator()(int row, int column) const;

@@ -246,6 +246,34 @@ void Matrix::originLineRotate(Vector line, double alpha){
             return;
         }
     }
+    
+    Matrix total = getRandomLineRotateMatrix(line, Vector{{0,0,0}}, alpha);
+    upsize();
+    itirativeMultiply(total);
+    downsize();
+}
+
+void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
+    Matrix total = getRandomLineRotateMatrix(first, second, alpha);
+    upsize();
+    itirativeMultiply(total);
+    downsize();
+
+}
+
+Matrix Matrix::getRandomLineRotateMatrix(Vector first, Vector second, double alpha){
+    TranslateMatrix translateMatrix{first};
+    Matrix translateBack = translateMatrix;
+    translateMatrix.scale(-1);
+    
+    Vector originLine = second - first;
+    double x = originLine.coordinates[0];
+    double y = originLine.coordinates[1];
+    double z = originLine.coordinates[2];
+
+    if (x == 0 && z == 0 && y == 0) {
+        throw "CantRotateAroundPoint";
+    }
 
     double x2z2 = sqrt(x*x+z*z);
     double x2y2z2 = sqrt(x*x+y*y+z*z);
@@ -273,20 +301,8 @@ void Matrix::originLineRotate(Vector line, double alpha){
     M5._data = M1._data;
     M5(2,0) = M5(2,0)*-1;
     M5(0,2) = M5(0,2)*-1;
-    
-    Matrix total = M1 * M2 * M3 * M4 * M5;
-    upsize();
-    itirativeMultiply(total);
-    downsize();
+    return translateBack * M5 * M4 * M3 * M2 * M1 * translateMatrix;
 }
-
-void Matrix::randomLineRotate(Vector first, Vector second, double alpha){
-    translate(first*-1);
-    Vector originLine = second - first;
-    originLineRotate(originLine, alpha);
-    translate(first);
-}
-
 
 void Matrix::itirativeMultiply(Matrix changeMatrix){
     for (int i = 0; i < _columnCount; i++) {
