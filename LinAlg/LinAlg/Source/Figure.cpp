@@ -120,11 +120,18 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 Vector Figure::getXAxis(){
 	return Vector{{_axis(0,0), _axis(0,1), _axis(0,2)}};
 }
+
 Vector Figure::getYAxis(){
 	return Vector{{_axis(1,0), _axis(1,1), _axis(1,2)}};
 }
+
 Vector Figure::getZAxis(){
 	return Vector{{_axis(2,0), _axis(2,1), _axis(2,2)}};
+}
+
+Vector Figure::getZAxis() {
+	Vector
+	return Vector{ {_axis(2,0), _axis(2,1), _axis(2,2)} };
 }
 
 BoundingSphere Figure::getBoundingSphere(){

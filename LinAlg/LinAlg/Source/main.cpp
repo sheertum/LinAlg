@@ -298,8 +298,9 @@ int main() {
 		world.draw(figure, { 255,255,255 });
         world.drawLine(Vector{ {0,0,0} }, figure.getCenter(), { 0,255,255 });
         //world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
-        world.drawLine(figure.getCenter(), figure.getXAxis(), { 0,0,255 });
-        world.drawLine(figure.getCenter(), figure.getYAxis(), { 0,255,0 });
+        //world.drawLine(figure.getCenter(), figure.getXAxis(), { 0,0,255 });
+        //world.drawLine(figure.getCenter(), figure.getYAxis(), { 0,255,0 });
+        //world.drawLine(figure.getCenter(), figure.getZAxis(), { 255,0,0 });
         world.drawLine(figure.getCenter(), figure.getZAxis(), { 255,0,0 });
 		world.show();
 	}
