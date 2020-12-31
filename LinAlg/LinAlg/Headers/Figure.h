@@ -29,6 +29,10 @@ public:
 	Vector getYAxis();
 	Vector getZAxis();
 
+	BoundingSphere getBoundingSphere();
+
+	void collide();
+
 private:
 	// void addUniqueCoordinates(Vector, int&, );
 	bool containtsVector(Vector vector, std::vector<double> collection);

@@ -22,7 +22,7 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _ax
 	_boundingSphere = BoundingSphere(_center, dataPoints);
 }
 
-Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{velocity}, _axis{ 3,3 }
+Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -147,4 +147,13 @@ Vector Figure::getYAxis(){
 }
 Vector Figure::getZAxis(){
 	return Vector{{_axis(2,0), _axis(2,1), _axis(2,2)}};
+}
+
+BoundingSphere Figure::getBoundingSphere(){
+	return _boundingSphere;
+}
+
+void Figure::collide()
+{
+	return;
 }

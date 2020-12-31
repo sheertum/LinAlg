@@ -56,3 +56,13 @@ Eye& World::getCamera()
 	return _camera;
 }
 
+void World::addFigure(Figure newFigure)
+{
+	_figures.push_back(newFigure);
+}
+
+std::vector<Figure> World::getFigures()
+{
+	return _figures;
+}
+
