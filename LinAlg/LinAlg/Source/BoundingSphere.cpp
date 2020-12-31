@@ -29,3 +29,7 @@ double BoundingSphere::getRadius() const
 {
 	return _radius;
 }
+
+void BoundingSphere::scaleRadius(double factor){
+	_radius*= factor;
+}

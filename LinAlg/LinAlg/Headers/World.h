@@ -17,7 +17,7 @@ public:
 	Eye& getCamera();
 
 	void addFigure(Figure);
-	std::vector<Figure> getFigures();
+	std::vector<Figure>& getFigures();
 	
 	Vector view1;
 	Vector view2;

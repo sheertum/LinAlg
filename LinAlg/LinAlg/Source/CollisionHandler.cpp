@@ -1,6 +1,5 @@
 #include "CollisionHandler.h"
-#include "CollisionEvent.h"
-
+#include <iostream>
 CollisionHandler::CollisionHandler(World& world) : _world(world)
 {
 
@@ -13,6 +12,7 @@ bool CollisionHandler::checkAABBCollisions(Figure& figA, Figure& figB)
 	double touchingLength = boundingA.getRadius() + boundingB.getRadius();
 
 	Vector difference = boundingA.getCenter() - boundingB.getCenter();
+	std::cout << difference.length() << std::endl;
 
 	if (difference.length() > touchingLength) {
 		return false;
@@ -32,13 +32,13 @@ void CollisionHandler::checkForCollisions()
 			}
 		}
 	}
-	//TODO: pixel perfect collision
+	collideFigures(collisions);
+}
+
+void CollisionHandler::collideFigures(std::vector<CollisionEvent>& collisions)
+{
 	for (auto& collision : collisions) {
 		collision.figA.collide();
 		collision.figB.collide();
 	}
-}
-
-void CollisionHandler::collideFigures()
-{
 }

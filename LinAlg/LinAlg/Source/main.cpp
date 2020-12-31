@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "Matrix.h"
 #include "UnitaryMatrix.h"
+#include "CollisionHandler.h"
 #include "Camera.h"
 
 #include "Figure.h"
@@ -19,7 +20,6 @@
 #undef main
 #include <iostream>
 /*
-int main() {
     World world{ 1000,1000,1000 };
     Figure figure{ FigureLoader::load("..\\LinAlg\\Resources\\SpaceShip.obj",
         1000, 0, 0.5) };
@@ -46,7 +46,6 @@ int main() {
     return 0;
 }
 */
-
 //int main() {
 //    World world{ 1000,1000,1000 };
 //
@@ -121,10 +120,14 @@ int main() {
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
     Vector p1{ {0,0,0} };
-    Vector p2{ {0,200,200} };
-    Vector p3{ {200,0,200} };
-    Vector p4{ {200,200,200} };
+    Vector p2{ {0,200,0} };
+    Vector p3{ {200,0,0} };
+    
+    Vector p4{ {500,0,0} };
+    Vector p5{ {800,0,0} };
+    Vector p6{ {500,300,0} };
     Triangle triangle1{ p1, p2, p3 };
+    Triangle triangle2{ p4, p5, p6 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
     //Vector p6{ {50, -50, 50} };
@@ -133,7 +136,11 @@ int main() {
 
     //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
     //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
-    Target figure({ triangle1}, 0.1, 10, true);
+    Figure figure({ triangle1 }, 0.01);
+    Figure figure2({ triangle2 }, -1 );
+    CollisionHandler collision{world};
+    world.addFigure(figure);
+    world.addFigure(figure2);
     //figure.createShape({ 0, 1, 2, 3 });
     //figure.createShape({ 4, 5, 6, 7 });
     //figure.createShape({ 0, 4});
@@ -145,32 +152,32 @@ int main() {
 
     std::function<void()> moveBack = [&]() {
         //figure.move();
-        figure.tick();
+        world.getFigures()[0].grow(1.1);
     };
 
     std::function<void()> moveForward = [&]() {
-        //figure.move();
-        figure.tick();
+        world.getFigures()[0].move();
+        //world.getFigures()[0].tick();
     };
 
     std::function<void()> rotateY = [&]() {
-        figure.pitch(5);
+        world.getFigures()[0].pitch(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        figure.yaw(5);
+        world.getFigures()[0].yaw(90);
     };
 
     std::function<void()> rotateX = [&]() {
-        figure.roll(5);
+        world.getFigures()[0].roll(5);
     };
 
     std::function<void()> grow = [&]() {
-        figure.grow(1.2);
+        world.getFigures()[0].grow(1.2);
     };
     
     std::function<void()> shrink = [&]() {
-        figure.shrink(1.2);
+        world.getFigures()[0].shrink(1.2);
     };
     std::function<void()> print = [&]() {
         //std::cout << world.getCamera()._position[0] << "\t"
@@ -293,15 +300,17 @@ int main() {
 	{
 		input.pollEvents();
         input.handleEvents();
-        //figure.move();
-        //figure.tick();
-		world.draw(figure, { 255,255,255 });
-        world.drawLine(Vector{ {0,0,0} }, figure.getCenter(), { 0,255,255 });
-        //world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
-        //world.drawLine(figure.getCenter(), figure.getXAxis(), { 0,0,255 });
-        //world.drawLine(figure.getCenter(), figure.getYAxis(), { 0,255,0 });
-        //world.drawLine(figure.getCenter(), figure.getZAxis(), { 255,0,0 });
-        world.drawLine(figure.getCenter(), figure.getZAxis(), { 255,0,0 });
+
+        collision.checkForCollisions();
+        auto figures = world.getFigures()[0];
+        world.draw(world.getFigures()[0], { 255,255,0 });
+        world.draw(world.getFigures()[1], { 255,0,255 });
+
+        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[0].getCenter(), { 0,255,255 });
+        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[1].getCenter(), { 0,255,255 });
+        world.drawLine(world.getFigures()[0].getCenter(), world.getFigures()[0].getSphereRadius(), { 255,0,0 });
+        world.drawLine(world.getFigures()[1].getCenter(), world.getFigures()[1].getSphereRadius() , { 255,0,0 });
+
 		world.show();
 	}
 

@@ -27,6 +27,7 @@ public:
 	Vector getXAxis();
 	Vector getYAxis();
 	Vector getZAxis();
+	Vector getSphereRadius();
 
 	BoundingSphere getBoundingSphere();
 

@@ -6,6 +6,7 @@ public:
 	void calculateRadius(const std::vector<double>&);
 	Vector getCenter() const;
 	double getRadius() const;
+	void scaleRadius(double factor);
 
 private:
 	Vector& _center;
