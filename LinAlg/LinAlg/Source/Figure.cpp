@@ -41,7 +41,7 @@ Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _veloc
 	}
 
 	calculateCenter(dataPoints, columnIndex);
-	_boundingSphere.calculateRadius(dataPoints);
+	//_boundingSphere.calculateRadius(dataPoints);
 }
 
 bool Figure::containtsVector(Vector vector, std::vector<double> collection){
@@ -116,7 +116,7 @@ void Figure::shrink(double factor){
 	grow(1/factor);
 }
 
-Vector Figure::getCenter(){
+Vector Figure::getCenter() const {
 	return _center;
 }
 

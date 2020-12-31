@@ -137,6 +137,13 @@ Vector Vector::operator%(double value) const
     return result;
 }
 
+void Vector::translate(Vector vec)
+{
+    Matrix result{ this->toMatrix() };
+    result.translate(vec);
+    *this = result.toVector();
+}
+
 bool Vector::operator!=(const Vector& other) const
 {
     return !(coordinates == other.coordinates);
@@ -225,7 +232,7 @@ Matrix Vector::toMatrix() const
     return result;
 }
 
-double Vector::getAngle(const Vector& other) const
+double Vector::getAngle(const Vector& other, bool inRadians) const
 {
     double xa = coordinates[0];
     double ya = coordinates[1];
@@ -235,5 +242,22 @@ double Vector::getAngle(const Vector& other) const
     double yb = other[1];
     double zb = other[2];
 
-    return std::acos((xa * xb + ya * yb + za * zb) / (std::sqrt(xa * xa + ya * ya + za * za) * std::sqrt(xb * xb + yb * yb + zb * zb)));
+    double radians = std::acos((xa * xb + ya * yb + za * zb) / (std::sqrt(xa * xa + ya * ya + za * za) * std::sqrt(xb * xb + yb * yb + zb * zb)));
+    return (inRadians) ? radians : radians * (180.0 / 3.141592653589793238463);
+}
+
+std::array<double, 3> Vector::getAngles(const Vector& vector, bool inRadians) const
+{
+    std::array<double, 3> result;
+    std::vector<Vector> vectors;
+    vectors.reserve(3);
+
+    for (size_t i = 0; i < vector.coordinates.size(); i++)
+    {
+        Vector temp{ vector };
+        temp[i] = 0;
+        vectors.push_back(temp);
+    }
+
+    return std::array<double, 3>();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <array>
 
 #include "Limit.h"
 
@@ -42,7 +43,8 @@ public:
 
     Matrix toMatrix() const;
 
-    double getAngle(const Vector&) const;
+    double getAngle(const Vector&, bool inRadians = true) const;
+    std::array<double, 3> getAngles(const Vector&, bool inRadians = true) const;
 
 public:
     std::vector<double> coordinates;

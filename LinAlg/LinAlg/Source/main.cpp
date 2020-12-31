@@ -126,9 +126,9 @@ int main() {
     //Vector p11{ { 0.5,  0.5,  -4.5 } };
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
-    Vector p1{ {0,0,100} };
-    Vector p2{ {0,200,100} };
-    Vector p3{ {200,0,100} };
+    Vector p1{ {500,500,-10} };
+    Vector p2{ {500,700,-10} };
+    Vector p3{ {700,500,-10} };
     Triangle triangle1{ p1, p2, p3 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
@@ -151,6 +151,12 @@ int main() {
     std::function<void()> moveBack = [&]() {
         //figure.move();
         figure.tick();
+    };
+
+    std::function<void()> rotateCheck = [&]() {
+        world.getCamera().angle += 10;
+
+        std::cout << "angle: " << world.getCamera().angle << "\n";
     };
 
     std::function<void()> moveForward = [&]() {
@@ -293,6 +299,8 @@ int main() {
     input.addBinding(SDLK_p, print);
     input.addBinding(SDLK_KP_PLUS, grow);
     input.addBinding(SDLK_KP_MINUS, shrink);
+
+    input.addBinding(SDLK_r, rotateCheck);
 
 	while (true)
 	{

@@ -24,7 +24,7 @@ public:
 	void shrink(double factor);
 	const std::vector<Triangle>& getTriangles() const;
 
-	Vector getCenter();
+	Vector getCenter() const;
 	Vector getXAxis();
 	Vector getYAxis();
 	Vector getZAxis();
