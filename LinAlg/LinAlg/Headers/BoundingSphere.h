@@ -2,8 +2,8 @@
 #include "Vector.h"
 class BoundingSphere {
 public:
-	BoundingSphere();
-	BoundingSphere(Vector& center, std::vector<double>& data);
+	BoundingSphere(Vector& center);
+	void calculateRadius(std::vector<double>);
 	Vector getCenter() const;
 	double getRadius() const;
 
