@@ -40,7 +40,7 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 		}
 	}
 
-	return Figure{ triangles };
+	return Figure{ triangles , 0};
 }
 
 Vector FigureLoader::handleVertex(const std::string& line)

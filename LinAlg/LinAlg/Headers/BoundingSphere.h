@@ -3,7 +3,7 @@
 class BoundingSphere {
 public:
 	BoundingSphere(Vector& center);
-	void calculateRadius(std::vector<double>);
+	void calculateRadius(const std::vector<double>&);
 	Vector getCenter() const;
 	double getRadius() const;
 

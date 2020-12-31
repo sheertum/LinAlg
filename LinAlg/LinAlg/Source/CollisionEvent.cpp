@@ -1,3 +1,3 @@
 #include "CollisionEvent.h"
 
-CollisionEvent::CollisionEvent(Figure& A, Figure& B) : _figA{ A }, _figB{ B } {}
+CollisionEvent::CollisionEvent(Figure& A, Figure& B) : figA{ A }, figB{ B } {}

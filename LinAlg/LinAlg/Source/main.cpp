@@ -18,10 +18,10 @@
 
 #undef main
 #include <iostream>
-
+/*
 int main() {
     World world{ 1000,1000,1000 };
-    Figure figure{ FigureLoader::load("C:\\Users\\MrBombastique\\source\\linalg\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj",
+    Figure figure{ FigureLoader::load("..\\LinAlg\\Resources\\SpaceShip.obj",
         1000, 0, 0.5) };
 
     const clock_t yawTime = clock();
@@ -45,7 +45,7 @@ int main() {
     }
     return 0;
 }
-
+*/
 
 //int main() {
 //    World world{ 1000,1000,1000 };
@@ -110,7 +110,7 @@ int main() {
 //    return 0;
 //}
 
-/*
+
 int main() {
 	World world{ 1000,1000,1000 };
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
@@ -296,11 +296,11 @@ int main() {
         //figure.move();
         //figure.tick();
 		world.draw(figure, { 255,255,255 });
-        world.drawLine(Vector{ {0,0,0} }, figure._center, { 0,255,255 });
+        world.drawLine(Vector{ {0,0,0} }, figure.getCenter(), { 0,255,255 });
         //world.drawLine(Vector{ {0,0,0} }, figure._velocity, { 255,255,255 });
-        world.drawLine(figure._center, figure.getXAxis(), { 0,0,255 });
-        world.drawLine(figure._center, figure.getYAxis(), { 0,255,0 });
-        world.drawLine(figure._center, figure.getZAxis(), { 255,0,0 });
+        world.drawLine(figure.getCenter(), figure.getXAxis(), { 0,0,255 });
+        world.drawLine(figure.getCenter(), figure.getYAxis(), { 0,255,0 });
+        world.drawLine(figure.getCenter(), figure.getZAxis(), { 255,0,0 });
 		world.show();
 	}
 
@@ -308,4 +308,3 @@ int main() {
 
 	return 0;
 }
-*/

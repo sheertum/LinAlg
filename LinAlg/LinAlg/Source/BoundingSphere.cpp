@@ -4,10 +4,11 @@ BoundingSphere::BoundingSphere(Vector& center) : _center{ center } {
 	_radius = 0;
 }
 
-void BoundingSphere::calculateRadius(std::vector<double> data){
-    for (size_t i = 0; i <= data.size(); i+=3)
+void BoundingSphere::calculateRadius(const std::vector<double>& data){
+    Vector temp{_center};
+
+    for (size_t i = 0; i < data.size()/3; i++)
 	{
-        Vector temp{{}};
 		for (size_t j = 0; j < 3; j++) {
 			temp[j] = (data[j + (i * 3)]);
 		}
