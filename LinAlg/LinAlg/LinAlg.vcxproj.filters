@@ -28,6 +28,10 @@
     <ClCompile Include="Source\FigureLoader.cpp" />
     <ClCompile Include="Source\BottomOnesMatrix.cpp" />
     <ClCompile Include="Source\Target.cpp" />
+    <ClCompile Include="Source\Bullet.cpp" />
+    <ClCompile Include="Source\BoundingSphere.cpp" />
+    <ClCompile Include="Source\CollisionHandler.cpp" />
+    <ClCompile Include="Source\CollisionEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BoundingBox.h" />
@@ -142,5 +146,9 @@
     <ClInclude Include="Headers\FigureLoader.h" />
     <ClInclude Include="Headers\BottomOnesMatrix.h" />
     <ClInclude Include="Headers\Target.h" />
+    <ClInclude Include="Headers\Bullet.h" />
+    <ClInclude Include="Headers\BoundingSphere.h" />
+    <ClInclude Include="Headers\CollisionHandler.h" />
+    <ClInclude Include="Headers\CollisionEvent.h" />
   </ItemGroup>
 </Project>
