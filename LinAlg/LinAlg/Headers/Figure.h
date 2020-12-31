@@ -4,6 +4,7 @@
 #include "Vector.h"
 #include "Triangle.h"
 #include "Shape.h"
+#include "BoundingSphere.h"
 
 #include <map>
 
@@ -28,6 +29,10 @@ public:
 	Vector getYAxis();
 	Vector getZAxis();
 
+	BoundingSphere getBoundingSphere();
+
+	void collide();
+
 private:
 	// void addUniqueCoordinates(Vector, int&, );
 	bool containtsVector(Vector vector, std::vector<double> collection);
@@ -40,6 +45,7 @@ private:
 
 protected:
 	//public:
+	BoundingSphere _boundingSphere;
 	Vector _center {{0,0,0}};
 	Matrix _axis;
 	double _velocityFactor = 0;

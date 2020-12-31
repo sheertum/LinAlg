@@ -16,10 +16,14 @@ public:
 
 	Eye& getCamera();
 
+	void addFigure(Figure);
+	std::vector<Figure> getFigures();
+	
 	Vector view1;
 	Vector view2;
 
 private:
+	std::vector<Figure> _figures;
 	double _widthFactor, _heightFactor, _depthFactor;
 	double _aspectRatio, _fieldOfView, _zNormalization;
 	Renderer _renderer;

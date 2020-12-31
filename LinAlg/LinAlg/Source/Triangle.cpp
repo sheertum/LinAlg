@@ -1,5 +1,5 @@
 #include "Triangle.h"
-Triangle::Triangle(Vector a, Vector b, Vector c, const Vector& normal) : Matrix{ 3,3 }, _boundingBox{}, _normal{ normal } {
+Triangle::Triangle(Vector a, Vector b, Vector c, const Vector& normal) : Matrix{ 3,3 }, _normal{ normal } {
 	std::vector<Vector> points{ a,b,c };
 	_normal = Vector{ {normal[0], normal[1], normal[2]} };
 
@@ -10,10 +10,9 @@ Triangle::Triangle(Vector a, Vector b, Vector c, const Vector& normal) : Matrix{
 		}
 		i++;
 	}
-	_boundingBox = BoundingBox{_data};
 }
 
-Triangle::Triangle(std::vector<double> data, const Vector& normal) : Matrix{ 3, 3 }, _boundingBox{ data }, _normal{normal} {
+Triangle::Triangle(std::vector<double> data, const Vector& normal) : Matrix{ 3, 3 }, _normal{normal} {
 	if (data.size() != 9) {
 		throw "OutOfBounds";
 	}
@@ -48,26 +47,6 @@ std::vector<Vector> Triangle::getVectors() const{
 		result.push_back(Vector{ newCoordinates });
 	}
 	return result;
-}
-
-double Triangle::getWidth() const
-{
-	return _boundingBox.getWidth();
-}
-
-double Triangle::getHeight() const
-{
-	return _boundingBox.getHeight();
-}
-
-double Triangle::getLength() const
-{
-	return _boundingBox.getLength();
-}
-
-double Triangle::getMaxZ() const
-{
-	return _boundingBox.getMaxZ();
 }
 
 Vector Triangle::getNormal() const
