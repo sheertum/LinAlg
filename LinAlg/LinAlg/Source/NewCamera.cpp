@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-Eye::Eye() : Matrix{ 3,3 }, _position { {500, 500, 0} }, _lookat{ {500.1,500.1,-1.1} }
+Eye::Eye() : Matrix{ 3,3 }, _position { {0, 0, 0} }, _lookat{ {0.1,0.1,-10.1} }
 {
 	_data = UnitaryMatrix{ 3,3 }.getData();
 }
@@ -36,10 +36,40 @@ void Eye::update() {
 
 Vector Eye::getPerspective(const Vector& v1, const Vector& offset)
 {
-	Vector vector{ v1 };
-	Vector direction = _position - _lookat;
-	Vector up{ {0,1,0} };
 
+	Vector vector{ v1 };
+	vector.pushBack(1);
+
+	Vector position{ _position };
+	position.pushBack(1);
+
+	Vector lookat{ _lookat };
+	Matrix temp{ lookat.toMatrix() };
+	temp.xRotate(angle);
+	lookat = temp.toVector();
+	lookat.pushBack(1);
+
+	Vector direction = position - lookat;
+	direction.normalise();
+
+	Vector up{ {0,1,0,1} };
+
+	Vector right = up.crossProduct(direction);
+	right.normalise();
+
+	up = direction.crossProduct(right);
+	up.normalise();
+
+	Matrix m{ UnitaryMatrix{4} };
+	m(0, 0, right, false);
+	m(0, 1, up, false);
+	m(0, 2, direction, false);
+
+	Matrix toOrigin{ UnitaryMatrix{4} };
+	toOrigin(3, 0, (position * -1), true);
+	m = m * toOrigin;
+
+	vector = (m * vector).toVector();
 	//vector.translate(_position);
 
 	//Vector direction = _position - _lookat;
