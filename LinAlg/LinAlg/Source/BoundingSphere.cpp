@@ -20,7 +20,7 @@ void BoundingSphere::calculateRadius(const std::vector<double>& data){
 	}
 }
 
-Vector BoundingSphere::getCenter() const
+Vector& BoundingSphere::getCenter() const
 {
 	return _center;
 }
@@ -32,4 +32,8 @@ double BoundingSphere::getRadius() const
 
 void BoundingSphere::scaleRadius(double factor){
 	_radius*= factor;
+}
+
+void BoundingSphere::setCenter(Vector& center){
+	_center = center;
 }

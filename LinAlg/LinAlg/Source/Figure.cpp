@@ -67,7 +67,11 @@ void Figure::move(){
 	}
 	auto newCenterMatrix = _center.toMatrix();
 	newCenterMatrix.translate(velocity);
-	_center.coordinates = newCenterMatrix.getData();
+	for (size_t i = 0; i < _center.getDimension(); i++)
+	{
+		_center[i] = newCenterMatrix(0,i);
+	}
+	_boundingSphere.setCenter(_center);
 	_axis.translate(velocity);
 }
 

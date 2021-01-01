@@ -12,7 +12,6 @@ bool CollisionHandler::checkAABBCollisions(Figure& figA, Figure& figB)
 	double touchingLength = boundingA.getRadius() + boundingB.getRadius();
 
 	Vector difference = boundingA.getCenter() - boundingB.getCenter();
-	std::cout << difference.length() << std::endl;
 
 	if (difference.length() > touchingLength) {
 		return false;
