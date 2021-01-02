@@ -10,7 +10,6 @@
 
 class Figure {
 public:
-	Figure(const std::vector<Triangle>& triangles);
 	Figure(const std::vector<Triangle>& triangles, double velocity);
 	void roll(double angle);
 	void pitch(double angle);
@@ -28,6 +27,7 @@ public:
 	Vector getXAxis();
 	Vector getYAxis();
 	Vector getZAxis();
+	Vector getSphereRadius();
 
 	BoundingSphere getBoundingSphere();
 
@@ -45,8 +45,8 @@ private:
 
 protected:
 	//public:
-	BoundingSphere _boundingSphere;
-	Vector _center {{0,0,0}};
+	Vector _center;
 	Matrix _axis;
 	double _velocityFactor = 0;
+	BoundingSphere _boundingSphere;
 };

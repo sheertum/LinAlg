@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "Matrix.h"
 #include "UnitaryMatrix.h"
+#include "CollisionHandler.h"
 #include "Camera.h"
 
 #include "Figure.h"
@@ -52,7 +53,6 @@ int main() {
     return 0;
 }
 */
-
 //int main() {
 //    World world{ 1000,1000,1000 };
 //
@@ -130,6 +130,7 @@ int main() {
     Vector p2{ {500,700,-100} };
     Vector p3{ {700,500,-100} };
     Triangle triangle1{ p1, p2, p3 };
+    Triangle triangle2{ p4, p5, p6 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
     //Vector p6{ {50, -50, 50} };
@@ -187,23 +188,23 @@ int main() {
     };
 
     std::function<void()> rotateY = [&]() {
-        figure.pitch(5);
+        world.getFigures()[0].pitch(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        figure.yaw(5);
+        world.getFigures()[0].yaw(90);
     };
 
     std::function<void()> rotateX = [&]() {
-        figure.roll(5);
+        world.getFigures()[0].roll(5);
     };
 
     std::function<void()> grow = [&]() {
-        figure.grow(1.2);
+        world.getFigures()[0].grow(1.2);
     };
     
     std::function<void()> shrink = [&]() {
-        figure.shrink(1.2);
+        world.getFigures()[0].shrink(1.2);
     };
     std::function<void()> print = [&]() {
         //std::cout << world.getCamera()._position[0] << "\t"

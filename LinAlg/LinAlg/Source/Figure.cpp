@@ -1,4 +1,5 @@
 #include "Figure.h"
+#include <iostream>
 #include "UnitaryMatrix.h"
 Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _axis{3,3}, _boundingSphere{_center}
 {
@@ -22,7 +23,7 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _ax
 	//_boundingSphere.calculateRadius(dataPoints);
 }
 
-Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _boundingSphere{ _center }
+Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _center{ Vector{{0,0,0}} }, _boundingSphere{ _center }
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -88,7 +89,11 @@ void Figure::move(){
 	}
 	auto newCenterMatrix = _center.toMatrix();
 	newCenterMatrix.translate(velocity);
-	_center.coordinates = newCenterMatrix.getData();
+	for (size_t i = 0; i < _center.getDimension(); i++)
+	{
+		_center[i] = newCenterMatrix(0,i);
+	}
+	_boundingSphere.setCenter(_center);
 	_axis.translate(velocity);
 }
 
@@ -108,6 +113,7 @@ void Figure::grow(double factor){
 	for(auto& triangle : _triangles){
 		triangle.translate(_center * -1);
 		triangle.scale(factor);
+		_boundingSphere.scaleRadius(factor);
 		triangle.translate(_center);
 	}
 }
@@ -142,11 +148,17 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 Vector Figure::getXAxis(){
 	return Vector{{_axis(0,0), _axis(0,1), _axis(0,2)}};
 }
+
 Vector Figure::getYAxis(){
 	return Vector{{_axis(1,0), _axis(1,1), _axis(1,2)}};
 }
+
 Vector Figure::getZAxis(){
 	return Vector{{_axis(2,0), _axis(2,1), _axis(2,2)}};
+}
+
+Vector Figure::getSphereRadius() {
+	return _center + Vector{ {_boundingSphere.getRadius(),0,0} };
 }
 
 BoundingSphere Figure::getBoundingSphere(){
@@ -155,5 +167,5 @@ BoundingSphere Figure::getBoundingSphere(){
 
 void Figure::collide()
 {
-	return;
+	std::cout << "COLLISION" << std::endl;
 }

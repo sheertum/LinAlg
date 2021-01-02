@@ -1,6 +1,5 @@
 #include "CollisionHandler.h"
-#include "CollisionEvent.h"
-
+#include <iostream>
 CollisionHandler::CollisionHandler(World& world) : _world(world)
 {
 
@@ -32,13 +31,13 @@ void CollisionHandler::checkForCollisions()
 			}
 		}
 	}
-	//TODO: pixel perfect collision
+	collideFigures(collisions);
+}
+
+void CollisionHandler::collideFigures(std::vector<CollisionEvent>& collisions)
+{
 	for (auto& collision : collisions) {
 		collision.figA.collide();
 		collision.figB.collide();
 	}
-}
-
-void CollisionHandler::collideFigures()
-{
 }
