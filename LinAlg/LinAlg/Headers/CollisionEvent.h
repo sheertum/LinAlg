@@ -4,7 +4,7 @@
 
 class CollisionEvent {
 public:
-	CollisionEvent(std::unique_ptr<Figure>&, std::unique_ptr<Figure>&);
-	std::unique_ptr<Figure>& figA;
-	std::unique_ptr<Figure>& figB;
+	CollisionEvent(std::shared_ptr<Figure>&, std::shared_ptr<Figure>&);
+	std::shared_ptr<Figure>& figA;
+	std::shared_ptr<Figure>& figB;
 };

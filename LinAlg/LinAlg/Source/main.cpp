@@ -19,165 +19,76 @@
 
 #undef main
 #include <iostream>
-/*
-    World world{ 1000,1000,1000 };
-    Figure figure{ FigureLoader::load("..\\LinAlg\\Resources\\SpaceShip.obj",
-        1000, 0, 0.5) };
-
-    const clock_t yawTime = clock();
-    figure.roll(180);
-    std::cout << "yaw: " << float(clock() - yawTime) / 1000 << "\n";
-
-    while (true)
-    {   
-        const clock_t yawTime = clock();
-        figure.yaw(1);
-        std::cout << "yaw: " << float(clock() - yawTime) / 1000 << "\n";
-
-        const clock_t drawTime = clock();
-        world.draw(figure, { 255,255,255 });
-        std::cout << "draw: " << float(clock() - drawTime) / 1000 << "\n";
-
-        const clock_t showTime = clock();
-        world.show();
-        std::cout << "show: " << float(clock() - showTime) / 1000 << "\n";
-;
-    }
-    return 0;
-}
-*/
-//int main() {
-//    World world{ 1000,1000,1000 };
-//
-//    Vector p1{ {250,  250,  0} };
-//    Vector p2{ { 750, 250,  0} };
-//    Vector p3{ { 750,  750, 0} };
-//    Vector p4{ {250,   750, 0} };
-//                            
-//    Vector p5{ {250,  250,  0} };
-//    Vector p6{ { 750, 250,  0} };
-//    Vector p7{ { 750,  750, 0} };
-//    Vector p8{ {250,   750, 0} };
-//
-//    Figure figure({ p1, p2, p3, p4, p5, p6, p7, p8 });
-//    figure.createShape({ 0, 1, 2, 3 });
-//    figure.createShape({ 4, 5, 6, 7 });
-//    figure.createShape({ 0, 4 });
-//    figure.createShape({ 1, 5 });
-//    figure.createShape({ 2, 6 });
-//    figure.createShape({ 3, 7 });
-//
-//    world.getCamera()._lookAt = Vector{ {0,0,-1, 1} };
-//    world.getCamera()._position = Vector{ {0,0,0, 1} };
-//    world.getCamera().update();
-//
-//    world.draw(figure, { 255,255,255 });
-//    world.show();
-//
-//    while (true)
-//    {
-//        world.getCamera()._position[0] -= 0.01;
-//        world.getCamera().update();
-//
-//        world.draw(figure, { 255,255,255 });
-//        world.show();
-//    }
-//    return 0;
-//}
-
-//int main() {
-//    World world{ 1000,1000,1000 };
-//
-//    Vector p1{ {0,0,0} };
-//    Vector p2{ {0,500,500} };
-//    Vector p3{ {500,0,500} };
-//    Vector p4{ {500,500,500} };
-//    Triangle triangle1{ p1, p2, p3 };
-//    Figure figure({ triangle1 }, Vector{ {0.1,0,0} });
-//
-//    while (true)
-//    {
-//        //input.pollEvents();
-//        //input.handleEvents();
-//        figure.move();
-//        world.draw(figure, { 255,255,255 });
-//        world.show();
-//    }
-//
-//    SDL_Quit();
-//
-//    return 0;
-//}
-
 
 int main() {
 	World world{ 1000,1000,1000 };
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
-    //Vector p9{ {-0.5, -0.5,  -4.5 } };
-    //Vector p10{ { 0.5, -0.5,  -4.5 } };
-    //Vector p11{ { 0.5,  0.5,  -4.5 } };
-    //Vector p12{ {-0.5,  0.5,  -4.5 } };
+    Vector vA{ {-100,100,-100} };
+    Vector vB{ {-100,-100,-100} };
+    Vector vC{ {-100,-100,100} };
+    Triangle triangle1{ vA, vB, vC };
 
-    Vector p1{ {0,0,0} };
-    Vector p2{ {0,200,0} };
-    Vector p3{ {200,0,0} };
-    
-    Vector p4{ {500,0,0} };
-    Vector p5{ {800,0,0} };
-    Vector p6{ {500,300,0} };
-    Triangle triangle1{ p1, p2, p3 };
-    Triangle triangle2{ p4, p5, p6 };
-    //Triangle triangle2{ p4, p2, p3 };
-    //Vector p5{ {-50, -50, 50} };
-    //Vector p6{ {50, -50, 50} };
-    //Vector p7{ {50, 50, 50} };
-    //Vector p8{ {-50, 50, 50} };
+    Vector vD{ {-100,100,100} };
+    Triangle triangle2{ vA, vD, vC };
 
-    //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
-    //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
-    Figure figure({ triangle1 }, 0.01);
-    Figure figure2({ triangle2 }, -1 );
+    Vector vE{ {100,100,-100} };
+    Vector vF{ {100,-100,-100} };
+    Vector vG{ {100,-100,100} };
+    Triangle triangle3{ vE, vF, vG };
+
+    Vector vH{ {100,100,100} };
+    Triangle triangle4{ vE, vH, vG };
+
+    Triangle triangle5{ vD, vC, vG };
+    Triangle triangle6{ vD, vH, vG };
+    Triangle triangle7{ vA, vB, vF };
+    Triangle triangle8{ vA, vE, vF };
+
+    triangle1.translate(Vector{{500,500,500}});
+
+    // Figure figure({ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }, 0.1);
+    // Figure figure({ triangle1, triangle2, triangle3, triangle4}, 0.1);
+    Figure figure({ triangle1}, 0.1);
     CollisionHandler collision{world};
-    world.addFigure(figure);
-    world.addFigure(figure2);
-    //figure.createShape({ 0, 1, 2, 3 });
-    //figure.createShape({ 4, 5, 6, 7 });
-    //figure.createShape({ 0, 4});
-    //figure.createShape({ 1, 5});
-    //figure.createShape({ 2, 6});
-    //figure.createShape({ 3, 7});
-
-    //figure.translate(31.5, 31.5, 1);
+    world.addShip(figure);
+    auto& ship = world.getShip();
 
     std::function<void()> moveBack = [&]() {
-        //figure.move();
-        world.getFigures()[0]->grow(1.1);
+        ship->grow(1.1);
     };
 
     std::function<void()> moveForward = [&]() {
-        world.getFigures()[0]->move();
-        //world.getFigures()[0]->tick();
+        ship->move();
     };
 
     std::function<void()> rotateY = [&]() {
-        world.getFigures()[0]->pitch(5);
+        std::cout << ship->getYAxis()[0] << std::endl;
+        std::cout << ship->getYAxis()[1] << std::endl;
+        std::cout << ship->getYAxis()[2] << std::endl;
+        ship->yaw(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        world.getFigures()[0]->yaw(90);
+        std::cout << ship->getZAxis()[0] << std::endl;
+        std::cout << ship->getZAxis()[1] << std::endl;
+        std::cout << ship->getZAxis()[2] << std::endl;
+        ship->roll(5);
     };
 
     std::function<void()> rotateX = [&]() {
-        world.getFigures()[0]->roll(5);
+        std::cout << ship->getXAxis()[0] << std::endl;
+        std::cout << ship->getXAxis()[1] << std::endl;
+        std::cout << ship->getXAxis()[2] << std::endl;
+        ship->pitch(5);
     };
 
     std::function<void()> grow = [&]() {
-        world.getFigures()[0]->grow(1.2);
+        ship->grow(1.2);
     };
     
     std::function<void()> shrink = [&]() {
-        world.getFigures()[0]->shrink(1.2);
+        ship->shrink(1.2);
     };
     std::function<void()> print = [&]() {
         //std::cout << world.getCamera()._position[0] << "\t"
@@ -303,13 +214,14 @@ int main() {
 
         collision.checkForCollisions();
         
-        world.draw(world.getFigures()[0], { 255,255,0 });
-        world.draw(world.getFigures()[1], { 255,0,255 });
+        world.draw(ship, { 255,255,0 });
 
-        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[0]->getCenter(), { 0,255,255 });
-        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[1]->getCenter(), { 0,255,255 });
-        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getSphereRadius(), { 255,0,0 });
-        world.drawLine(world.getFigures()[1]->getCenter(), world.getFigures()[1]->getSphereRadius() , { 255,0,0 });
+        world.drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
+        world.drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
+        world.drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
+        world.drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });
+        
+        //world.drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
 
 		world.show();
 	}

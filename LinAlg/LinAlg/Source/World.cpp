@@ -7,7 +7,8 @@ World::World(unsigned int width, unsigned int height, unsigned int depth) :
 	_projectionMatrix{ width, height, 10, -0.1, -1000 },
 	_camera{},
 	view1{ {0,0,0} }, 
-	view2{{0,0,0}}
+	view2{{0,0,0}},
+	_ship{nullptr}
 {
 	_widthFactor	= width  / 2;
 	_heightFactor	= height / 2;
@@ -36,7 +37,7 @@ void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 	_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
 }
 
-void World::draw(const std::unique_ptr<Figure>& figure, const Color& color)
+void World::draw(const std::shared_ptr<Figure>& figure, const Color& color)
 {
 	for (const auto& triangle : figure->getTriangles())
 	{
@@ -56,16 +57,22 @@ Eye& World::getCamera()
 	return _camera;
 }
 
-void addShip(){
-
+void World::addShip(Figure newFigure){
+	if(_ship == nullptr){
+		_ship = std::make_unique<Figure>(newFigure);
+		_figures.push_back(_ship);
+	}
+	else {
+		std::cout << "Ship already added" << std::endl;
+	}
 }
 
-void addTarget(){
-
+void World::addTarget(Figure newFigure){
+	_figures.push_back(std::make_shared<Figure>(newFigure));
 }
 
-void addBullet(){
-
+void World::addBullet(Figure newFigure){
+	_figures.push_back(std::make_shared<Figure>(newFigure));
 }
 
 
@@ -74,8 +81,12 @@ void World::addFigure(Figure newFigure)
 	_figures.push_back(std::make_unique<Figure>(newFigure));
 }
 
-std::vector<std::unique_ptr<Figure>>& World::getFigures()
+std::vector<std::shared_ptr<Figure>>& World::getFigures()
 {
 	return _figures;
 }
 
+std::shared_ptr<Figure>& World::getShip() 
+{
+	return _ship;
+}

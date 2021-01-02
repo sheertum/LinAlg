@@ -5,7 +5,7 @@ CollisionHandler::CollisionHandler(World& world) : _world(world)
 
 }
 
-bool CollisionHandler::checkAABBCollisions(std::unique_ptr<Figure>& figA, std::unique_ptr<Figure>& figB)
+bool CollisionHandler::checkAABBCollisions(std::shared_ptr<Figure>& figA, std::shared_ptr<Figure>& figB)
 {
 	BoundingSphere boundingA = figA->getBoundingSphere();
 	BoundingSphere boundingB = figB->getBoundingSphere();

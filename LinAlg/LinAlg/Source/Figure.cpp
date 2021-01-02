@@ -145,5 +145,4 @@ BoundingSphere& Figure::getBoundingSphere(){
 
 void Figure::collide()
 {
-	std::cout << "COLLISION" << std::endl;
 }

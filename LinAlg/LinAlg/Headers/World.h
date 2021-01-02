@@ -10,22 +10,26 @@ public:
 	World(unsigned int width, unsigned int height, unsigned int depth);
 
 	void drawLine(const Vector&, const Vector&, const Color&);
-	void draw(const std::unique_ptr<Figure>&, const Color&);
+	void draw(const std::shared_ptr<Figure>&, const Color&);
 
 	void show();
 
 	Eye& getCamera();
 
-	std::vector<std::unique_ptr<Figure>>& getFigures();
+	std::vector<std::shared_ptr<Figure>>& getFigures();
 	void addFigure(Figure);
-	void addShip();
-	void addTarget();
-	void addBullet();
+	void addShip(Figure);
+	void addTarget(Figure);
+	void addBullet(Figure);
+	std::shared_ptr<Figure>& getShip();
+
 	Vector view1;
 	Vector view2;
 
 private:
-	std::vector<std::unique_ptr<Figure>> _figures;
+	std::vector<std::shared_ptr<Figure>> _figures;
+	std::shared_ptr<Figure> _ship;
+
 	double _widthFactor, _heightFactor, _depthFactor;
 	double _aspectRatio, _fieldOfView, _zNormalization;
 	Renderer _renderer;
