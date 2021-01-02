@@ -152,32 +152,32 @@ int main() {
 
     std::function<void()> moveBack = [&]() {
         //figure.move();
-        world.getFigures()[0].grow(1.1);
+        world.getFigures()[0]->grow(1.1);
     };
 
     std::function<void()> moveForward = [&]() {
-        world.getFigures()[0].move();
-        //world.getFigures()[0].tick();
+        world.getFigures()[0]->move();
+        //world.getFigures()[0]->tick();
     };
 
     std::function<void()> rotateY = [&]() {
-        world.getFigures()[0].pitch(5);
+        world.getFigures()[0]->pitch(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        world.getFigures()[0].yaw(90);
+        world.getFigures()[0]->yaw(90);
     };
 
     std::function<void()> rotateX = [&]() {
-        world.getFigures()[0].roll(5);
+        world.getFigures()[0]->roll(5);
     };
 
     std::function<void()> grow = [&]() {
-        world.getFigures()[0].grow(1.2);
+        world.getFigures()[0]->grow(1.2);
     };
     
     std::function<void()> shrink = [&]() {
-        world.getFigures()[0].shrink(1.2);
+        world.getFigures()[0]->shrink(1.2);
     };
     std::function<void()> print = [&]() {
         //std::cout << world.getCamera()._position[0] << "\t"
@@ -302,14 +302,14 @@ int main() {
         input.handleEvents();
 
         collision.checkForCollisions();
-        auto figures = world.getFigures()[0];
+        
         world.draw(world.getFigures()[0], { 255,255,0 });
         world.draw(world.getFigures()[1], { 255,0,255 });
 
-        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[0].getCenter(), { 0,255,255 });
-        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[1].getCenter(), { 0,255,255 });
-        world.drawLine(world.getFigures()[0].getCenter(), world.getFigures()[0].getSphereRadius(), { 255,0,0 });
-        world.drawLine(world.getFigures()[1].getCenter(), world.getFigures()[1].getSphereRadius() , { 255,0,0 });
+        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[0]->getCenter(), { 0,255,255 });
+        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[1]->getCenter(), { 0,255,255 });
+        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getSphereRadius(), { 255,0,0 });
+        world.drawLine(world.getFigures()[1]->getCenter(), world.getFigures()[1]->getSphereRadius() , { 255,0,0 });
 
 		world.show();
 	}

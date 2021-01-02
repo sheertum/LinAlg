@@ -36,9 +36,9 @@ void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 	_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
 }
 
-void World::draw(const Figure& figure, const Color& color)
+void World::draw(const std::unique_ptr<Figure>& figure, const Color& color)
 {
-	for (const auto& triangle : figure.getTriangles())
+	for (const auto& triangle : figure->getTriangles())
 	{
 		//TODO: perspective
 		_renderer.drawTriangle(triangle, color);
@@ -56,12 +56,25 @@ Eye& World::getCamera()
 	return _camera;
 }
 
-void World::addFigure(Figure newFigure)
-{
-	_figures.push_back(newFigure);
+void addShip(){
+
 }
 
-std::vector<Figure>& World::getFigures()
+void addTarget(){
+
+}
+
+void addBullet(){
+
+}
+
+
+void World::addFigure(Figure newFigure)
+{
+	_figures.push_back(std::make_unique<Figure>(newFigure));
+}
+
+std::vector<std::unique_ptr<Figure>>& World::getFigures()
 {
 	return _figures;
 }

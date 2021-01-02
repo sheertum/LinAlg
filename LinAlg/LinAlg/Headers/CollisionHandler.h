@@ -6,7 +6,7 @@
 class CollisionHandler {
 public:
 	CollisionHandler(World& world);
-	bool checkAABBCollisions(Figure&, Figure&);
+	bool checkAABBCollisions(std::unique_ptr<Figure>& figA, std::unique_ptr<Figure>& figB);
 	void checkForCollisions();
 	void collideFigures(std::vector<CollisionEvent>&);
 
