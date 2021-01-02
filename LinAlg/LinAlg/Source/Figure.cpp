@@ -76,11 +76,16 @@ void Figure::move(){
 }
 
 void Figure::accelerate(double acceleration){
+	if(_velocityFactor == 0){
+		_velocityFactor += 0.01;
+	}
+	
 	_velocityFactor = _velocityFactor *acceleration;
-}
-
-void Figure::deccelerate(double acceleration){
-	accelerate(1/acceleration);
+	
+	if (_velocityFactor < 0.01) {
+		_velocityFactor = 0;
+	}
+	std::cout << _velocityFactor << std::endl;
 }
 
 Vector Figure::calculateSpeed(){

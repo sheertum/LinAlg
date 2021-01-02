@@ -1,4 +1,5 @@
 #include "World.h"
+
 #include <math.h>
 #include <iostream>
 
@@ -57,10 +58,11 @@ Eye& World::getCamera()
 	return _camera;
 }
 
-void World::addShip(Figure newFigure){
+void World::addShip(const std::vector<Triangle>& newFigure){
 	if(_ship == nullptr){
-		_ship = std::make_unique<Figure>(newFigure);
-		_figures.push_back(_ship);
+		_ship = std::make_shared<Ship>(newFigure, this);
+		std::shared_ptr<Figure> figure = _ship;
+		_figures.push_back(figure);
 	}
 	else {
 		std::cout << "Ship already added" << std::endl;
@@ -71,7 +73,11 @@ void World::addTarget(Figure newFigure){
 	_figures.push_back(std::make_shared<Figure>(newFigure));
 }
 
-void World::addBullet(Figure newFigure){
+void World::addBullet(Vector startPosition){
+	std::shared_ptr<Bullet> _bullet = std::make_shared<Bullet>(newFigure, this);
+	std::shared_ptr<Figure> figure = _ship;
+	_figures.push_back(figure);
+
 	_figures.push_back(std::make_shared<Figure>(newFigure));
 }
 
@@ -86,7 +92,7 @@ std::vector<std::shared_ptr<Figure>>& World::getFigures()
 	return _figures;
 }
 
-std::shared_ptr<Figure>& World::getShip() 
+std::shared_ptr<Ship>& World::getShip() 
 {
 	return _ship;
 }

@@ -5,11 +5,11 @@
 
 class CollisionHandler {
 public:
-	CollisionHandler(World& world);
+	CollisionHandler(std::shared_ptr<World> world);
 	bool checkAABBCollisions(std::shared_ptr<Figure>& figA, std::shared_ptr<Figure>& figB);
 	void checkForCollisions();
 	void collideFigures(std::vector<CollisionEvent>&);
 
 private: 
-	World& _world;
+	std::shared_ptr<World> _world;
 };

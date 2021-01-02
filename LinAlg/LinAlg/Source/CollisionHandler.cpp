@@ -1,6 +1,6 @@
 #include "CollisionHandler.h"
 #include <iostream>
-CollisionHandler::CollisionHandler(World& world) : _world(world)
+CollisionHandler::CollisionHandler(std::shared_ptr<World> world) : _world(world)
 {
 
 }
@@ -21,7 +21,7 @@ bool CollisionHandler::checkAABBCollisions(std::shared_ptr<Figure>& figA, std::s
 
 void CollisionHandler::checkForCollisions()
 {
-	auto& figures = _world.getFigures();
+	auto& figures = _world->getFigures();
 	std::vector<CollisionEvent> collisions;
 
 	for (int i = 0; i < figures.size(); i++) {

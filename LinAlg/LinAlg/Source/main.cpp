@@ -21,7 +21,7 @@
 #include <iostream>
 
 int main() {
-	World world{ 1000,1000,1000 };
+	std::shared_ptr<World> world = std::make_shared<World>( 1000,1000,1000 );
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
     Vector vA{ {-100,100,-100} };
@@ -45,14 +45,15 @@ int main() {
     Triangle triangle7{ vA, vB, vF };
     Triangle triangle8{ vA, vE, vF };
 
-    triangle1.translate(Vector{{500,500,500}});
+    std::vector<Triangle> triangles{{ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }};
 
-    // Figure figure({ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }, 0.1);
-    // Figure figure({ triangle1, triangle2, triangle3, triangle4}, 0.1);
-    Figure figure({ triangle1}, 0.1);
+    for(auto& triangle : triangles){
+        triangle.translate(500,500,0);
+    }
+
     CollisionHandler collision{world};
-    world.addShip(figure);
-    auto& ship = world.getShip();
+    world->addShip(triangles);
+    auto& ship = world->getShip();
 
     std::function<void()> moveBack = [&]() {
         ship->grow(1.1);
@@ -63,23 +64,14 @@ int main() {
     };
 
     std::function<void()> rotateY = [&]() {
-        std::cout << ship->getYAxis()[0] << std::endl;
-        std::cout << ship->getYAxis()[1] << std::endl;
-        std::cout << ship->getYAxis()[2] << std::endl;
         ship->yaw(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        std::cout << ship->getZAxis()[0] << std::endl;
-        std::cout << ship->getZAxis()[1] << std::endl;
-        std::cout << ship->getZAxis()[2] << std::endl;
         ship->roll(5);
     };
 
     std::function<void()> rotateX = [&]() {
-        std::cout << ship->getXAxis()[0] << std::endl;
-        std::cout << ship->getXAxis()[1] << std::endl;
-        std::cout << ship->getXAxis()[2] << std::endl;
         ship->pitch(5);
     };
 
@@ -90,88 +82,97 @@ int main() {
     std::function<void()> shrink = [&]() {
         ship->shrink(1.2);
     };
+
+    std::function<void()> accelerate = [&]() {
+        ship->accelerate(1.1);
+    };
+
+    std::function<void()> decelerate = [&]() {
+        ship->accelerate(0.9);
+    };
+
     std::function<void()> print = [&]() {
-        //std::cout << world.getCamera()._position[0] << "\t"
-        //    << world.getCamera()._position[1] << "\t"
-        //    << world.getCamera()._position[2] << "\t" << "\n";
-        //std::cout << world.getCamera()._direction[0] << "\t"
-        //    << world.getCamera()._direction[1] << "\t"
-        //    << world.getCamera()._direction[2] << "\t" << "\n" << "\n";
+        //std::cout << world->getCamera()._position[0] << "\t"
+        //    << world->getCamera()._position[1] << "\t"
+        //    << world->getCamera()._position[2] << "\t" << "\n";
+        //std::cout << world->getCamera()._direction[0] << "\t"
+        //    << world->getCamera()._direction[1] << "\t"
+        //    << world->getCamera()._direction[2] << "\t" << "\n" << "\n";
     };
 
 #define CAMERA_MOVEMENT 0.1
 
     std::function<void()> camRotX = [&]() {
-        world.getCamera()._lookAt[0] += CAMERA_MOVEMENT;
-        world.getCamera().update();
+        world->getCamera()._lookAt[0] += CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camRotY = [&]() {
-        world.getCamera()._lookAt[1] += CAMERA_MOVEMENT;
-        world.getCamera().update();
+        world->getCamera()._lookAt[1] += CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camRotZ = [&]() {
-        world.getCamera()._lookAt[2] += CAMERA_MOVEMENT;
-        world.getCamera().update();
+        world->getCamera()._lookAt[2] += CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camRotXN = [&]() {
-        world.getCamera()._lookAt[0] -= CAMERA_MOVEMENT;
-        world.getCamera().update();
+        world->getCamera()._lookAt[0] -= CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camRotYN = [&]() {
-        world.getCamera()._lookAt[1] -= CAMERA_MOVEMENT;
-        world.getCamera().update();
+        world->getCamera()._lookAt[1] -= CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camRotZN = [&]() {
-        world.getCamera()._lookAt[2] -= CAMERA_MOVEMENT;
-        world.getCamera().update();
+        world->getCamera()._lookAt[2] -= CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
 
     std::function<void()> camXPos = [&]() {
-        // world.getCamera()._position[0] += CAMERA_MOVEMENT;
-        world.getCamera().update();
+        // world->getCamera()._position[0] += CAMERA_MOVEMENT;
+        world->getCamera().update();
         //print();
     };
 
     std::function<void()> camXNeg = [&]() {
-        // world.getCamera()._position[0] -= CAMERA_MOVEMENT;
-        world.getCamera().update();
+        // world->getCamera()._position[0] -= CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camYPos = [&]() {
-        // world.getCamera()._position[1] += CAMERA_MOVEMENT;
-        world.getCamera().update();
+        // world->getCamera()._position[1] += CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camYNeg = [&]() {
-        // world.getCamera()._position[1] -= CAMERA_MOVEMENT;
-        world.getCamera().update();
+        // world->getCamera()._position[1] -= CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
 
     std::function<void()> camZPos = [&]() {
-        // world.getCamera()._position[2] += CAMERA_MOVEMENT;
-        world.getCamera().update();
+        // world->getCamera()._position[2] += CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
     std::function<void()> camZNeg = [&]() {
-        // world.getCamera()._position[2] -= CAMERA_MOVEMENT;
-        world.getCamera().update();
+        // world->getCamera()._position[2] -= CAMERA_MOVEMENT;
+        world->getCamera().update();
         print();
     };
 
@@ -180,8 +181,8 @@ int main() {
     };
 
     Input input;
-    input.addBinding(SDLK_b, moveBack);
-    input.addBinding(SDLK_v, moveForward);
+    input.addBinding(SDLK_b, accelerate);
+    input.addBinding(SDLK_v, decelerate);
 
     input.addBinding(SDLK_y, rotateY);
     input.addBinding(SDLK_x, rotateX);
@@ -214,16 +215,17 @@ int main() {
 
         collision.checkForCollisions();
         
-        world.draw(ship, { 255,255,0 });
+        world->draw(ship, { 255,255,0 });
+        world->getShip()->move();
 
-        world.drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
-        world.drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
-        world.drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
-        world.drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });
+        world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
+        world->drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
+        world->drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
+        world->drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });
         
-        //world.drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
+        //world->drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
 
-		world.show();
+		world->show();
 	}
 
 	SDL_Quit();

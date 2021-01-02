@@ -1,6 +1,8 @@
 #pragma once
 #include <Rendering/Renderer.h>
 #include "ProjectionMatrix.h"
+#include "Ship.h"
+#include "Bullet.h"
 #include "Vector.h"
 #include "Figure.h"
 #include "newCamera.h"
@@ -18,17 +20,17 @@ public:
 
 	std::vector<std::shared_ptr<Figure>>& getFigures();
 	void addFigure(Figure);
-	void addShip(Figure);
+	void addShip(const std::vector<Triangle>& triangles);
 	void addTarget(Figure);
-	void addBullet(Figure);
-	std::shared_ptr<Figure>& getShip();
+	void addBullet(Vector);
+	std::shared_ptr<Ship>& getShip();
 
 	Vector view1;
 	Vector view2;
 
 private:
 	std::vector<std::shared_ptr<Figure>> _figures;
-	std::shared_ptr<Figure> _ship;
+	std::shared_ptr<Ship> _ship;
 
 	double _widthFactor, _heightFactor, _depthFactor;
 	double _aspectRatio, _fieldOfView, _zNormalization;

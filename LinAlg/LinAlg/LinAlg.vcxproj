@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Ship.cpp" />
     <ClCompile Include="Source\BottomOnesMatrix.cpp" />
     <ClCompile Include="Source\BoundingBox.cpp" />
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_framerate.c" />
@@ -168,7 +169,7 @@
     <ClCompile Include="Source\CollisionEvent.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\Figure.cpp" />
-    <ClCompile Include="Headers\Input.cpp" />
+    <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\FigureLoader.cpp" />
     <ClCompile Include="Source\Graph\Graph.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -305,6 +306,7 @@
     <ClInclude Include="Headers\YRotateMatrix.h" />
     <ClInclude Include="Headers\ZRotateMatrix.h" />
     <ClInclude Include="Headers\Triangle.h" />
+    <ClInclude Include="Headers\Ship.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

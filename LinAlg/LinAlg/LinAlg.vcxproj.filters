@@ -8,7 +8,6 @@
     <ClCompile Include="Dependencies\SDL_GFX\SDL2_rotozoom.c" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Figure.cpp" />
-    <ClCompile Include="Headers\Input.cpp" />
     <ClCompile Include="Source\Graph\Graph.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Matrix.cpp" />
@@ -32,6 +31,8 @@
     <ClCompile Include="Source\BoundingSphere.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\CollisionEvent.cpp" />
+    <ClCompile Include="Source\Ship.cpp" />
+    <ClCompile Include="Source\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BoundingBox.h" />
@@ -150,5 +151,6 @@
     <ClInclude Include="Headers\BoundingSphere.h" />
     <ClInclude Include="Headers\CollisionHandler.h" />
     <ClInclude Include="Headers\CollisionEvent.h" />
+    <ClInclude Include="Headers\Ship.h" />
   </ItemGroup>
 </Project>
