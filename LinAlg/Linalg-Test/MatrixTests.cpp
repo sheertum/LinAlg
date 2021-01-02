@@ -8,6 +8,8 @@ protected:
 		matrix3 = Matrix{ 3, 3, {1,2,3,4,5,6,7,8,9} };
 		matrix4 = Matrix{3, 3, {34,5,76,2,9,1,0,-9,-87}};
 
+		rotationTest = UnitaryMatrix(3, 3);
+
 		decimalMatrix1 = Matrix{3, 3, { 0.01, 0.002, 0, 0.01, 0.002, 0, 0.01, 0.002, 0 }};
 		decimalMatrix2 = Matrix{3, 3, { 0.01, 0.007, 1, 0.01, 0.007, 1, 0.01, 0.007, 1 }};
 
@@ -25,7 +27,7 @@ protected:
 	Matrix matrix2{ 3, 3, {0,0,0,0,0,0,0,0,0} };
 	Matrix matrix3{ 3, 3, {0,0,0,0,0,0,0,0,0} };
 	Matrix matrix4{3, 3, {0,0,0,0,0,0,0,0,0}};
-
+	Matrix rotationTest{ 3,3 };
 	Matrix growHeightMatrix = UnitaryMatrix(3, 4);
 	Matrix growWidthMatrix = UnitaryMatrix(4, 3);
 
@@ -296,20 +298,6 @@ TEST_F(MatrixTest, Rotate0DegThroughRandomVector) {
 	compareVector(expected, matrix3);
 }
 
-TEST_F(MatrixTest, Rotate45DegThroughVectorOn45Degrees) {
-	Vector vec{ {1,1,0,0} };
-	int angle = 45;
-	Matrix expected = matrix4;
-
-	expected.zRotate(45);
-	expected.xRotate(angle);
-	expected.zRotate(-45);
-
-	matrix4.originLineRotate(vec, angle);
-
-	compareVector(expected, matrix4);
-}
-
 TEST_F(MatrixTest, TranslateVector) {
 	Vector vec{ {10,1,2,1} };
 	TranslateMatrix translate{2,3,4};
@@ -325,4 +313,30 @@ TEST_F(MatrixTest, TranslateMatrix) {
 	Matrix expected{ 3,3, {2,2,2,1,1,1,1,1,1} };
 	
 	compareVector(expected, result);
+}
+
+TEST_F(MatrixTest, RotationThroughRandomLineLineShouldNotChange) {
+	Vector translation{ {500, 500, 500} };
+	rotationTest.translate(translation);
+	rotationTest.xRotate(13);
+	rotationTest.yRotate(13);
+	rotationTest.zRotate(13);
+
+	Vector rotationAxis = Vector{ {rotationTest(0,0), rotationTest(0,1), rotationTest(0,2)} };
+	rotationTest.randomLineRotate(translation, rotationAxis, 48);
+	Vector result = Vector{ {rotationTest(0,0), rotationTest(0,1), rotationTest(0,2)} };
+
+	compareVector(rotationAxis.toMatrix(), result.toMatrix());
+}
+
+TEST_F(MatrixTest, RotationThroughOriginLineLineShouldNotChange) {
+	rotationTest.xRotate(13);
+	rotationTest.yRotate(13);
+	rotationTest.zRotate(13);
+
+	Vector rotationAxis = Vector{ {rotationTest(0,0), rotationTest(0,1), rotationTest(0,2)} };
+	rotationTest.originLineRotate(rotationAxis, 48);
+	Vector result = Vector{ {rotationTest(0,0), rotationTest(0,1), rotationTest(0,2)} };
+
+	compareVector(rotationAxis.toMatrix(), result.toMatrix());
 }
