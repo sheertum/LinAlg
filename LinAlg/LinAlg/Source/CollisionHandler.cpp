@@ -5,10 +5,10 @@ CollisionHandler::CollisionHandler(World& world) : _world(world)
 
 }
 
-bool CollisionHandler::checkAABBCollisions(Figure& figA, Figure& figB)
+bool CollisionHandler::checkAABBCollisions(std::unique_ptr<Figure>& figA, std::unique_ptr<Figure>& figB)
 {
-	BoundingSphere boundingA = figA.getBoundingSphere();
-	BoundingSphere boundingB = figB.getBoundingSphere();
+	BoundingSphere boundingA = figA->getBoundingSphere();
+	BoundingSphere boundingB = figB->getBoundingSphere();
 	double touchingLength = boundingA.getRadius() + boundingB.getRadius();
 
 	Vector difference = boundingA.getCenter() - boundingB.getCenter();
@@ -21,7 +21,7 @@ bool CollisionHandler::checkAABBCollisions(Figure& figA, Figure& figB)
 
 void CollisionHandler::checkForCollisions()
 {
-	auto figures = _world.getFigures();
+	auto& figures = _world.getFigures();
 	std::vector<CollisionEvent> collisions;
 
 	for (int i = 0; i < figures.size(); i++) {
@@ -37,7 +37,7 @@ void CollisionHandler::checkForCollisions()
 void CollisionHandler::collideFigures(std::vector<CollisionEvent>& collisions)
 {
 	for (auto& collision : collisions) {
-		collision.figA.collide();
-		collision.figB.collide();
+		collision.figA->collide();
+		collision.figB->collide();
 	}
 }

@@ -1,3 +1,3 @@
 #include "CollisionEvent.h"
 
-CollisionEvent::CollisionEvent(Figure& A, Figure& B) : figA{ A }, figB{ B } {}
+CollisionEvent::CollisionEvent(std::unique_ptr<Figure>& A, std::unique_ptr<Figure>& B) : figA{ A }, figB{ B } {}

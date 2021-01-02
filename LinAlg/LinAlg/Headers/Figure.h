@@ -29,7 +29,7 @@ public:
 	Vector getZAxis();
 	Vector getSphereRadius();
 
-	BoundingSphere getBoundingSphere();
+	BoundingSphere& getBoundingSphere();
 
 	void collide();
 
