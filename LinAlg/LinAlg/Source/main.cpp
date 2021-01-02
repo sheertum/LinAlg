@@ -45,38 +45,50 @@ int main() {
     Triangle triangle7{ vA, vB, vF };
     Triangle triangle8{ vA, vE, vF };
 
+    triangle1.translate(Vector{{500,500,500}});
 
-
-    Figure figure({ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7 }, 0.1);
+    // Figure figure({ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }, 0.1);
+    // Figure figure({ triangle1, triangle2, triangle3, triangle4}, 0.1);
+    Figure figure({ triangle1}, 0.1);
     CollisionHandler collision{world};
-    world.addFigure(figure);
+    world.addShip(figure);
+    auto& ship = world.getShip();
 
     std::function<void()> moveBack = [&]() {
-        world.getFigures()[0]->grow(1.1);
+        ship->grow(1.1);
     };
 
     std::function<void()> moveForward = [&]() {
-        world.getFigures()[0]->move();
+        ship->move();
     };
 
     std::function<void()> rotateY = [&]() {
-        world.getFigures()[0]->pitch(5);
+        std::cout << ship->getYAxis()[0] << std::endl;
+        std::cout << ship->getYAxis()[1] << std::endl;
+        std::cout << ship->getYAxis()[2] << std::endl;
+        ship->yaw(5);
     };
 
     std::function<void()> rotateZ = [&]() {
-        world.getFigures()[0]->yaw(90);
+        std::cout << ship->getZAxis()[0] << std::endl;
+        std::cout << ship->getZAxis()[1] << std::endl;
+        std::cout << ship->getZAxis()[2] << std::endl;
+        ship->roll(5);
     };
 
     std::function<void()> rotateX = [&]() {
-        world.getFigures()[0]->roll(5);
+        std::cout << ship->getXAxis()[0] << std::endl;
+        std::cout << ship->getXAxis()[1] << std::endl;
+        std::cout << ship->getXAxis()[2] << std::endl;
+        ship->pitch(5);
     };
 
     std::function<void()> grow = [&]() {
-        world.getFigures()[0]->grow(1.2);
+        ship->grow(1.2);
     };
     
     std::function<void()> shrink = [&]() {
-        world.getFigures()[0]->shrink(1.2);
+        ship->shrink(1.2);
     };
     std::function<void()> print = [&]() {
         //std::cout << world.getCamera()._position[0] << "\t"
@@ -202,10 +214,14 @@ int main() {
 
         collision.checkForCollisions();
         
-        world.draw(world.getFigures()[0], { 255,255,0 });
+        world.draw(ship, { 255,255,0 });
 
-        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[0]->getCenter(), { 0,255,255 });
-        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getSphereRadius(), { 255,0,0 });
+        world.drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
+        world.drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
+        world.drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
+        world.drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });
+        
+        //world.drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
 
 		world.show();
 	}
