@@ -58,7 +58,7 @@ Eye& World::getCamera()
 }
 
 void World::addShip(Figure newFigure){
-	if(_ship != nullptr){
+	if(_ship == nullptr){
 		_ship = std::make_unique<Figure>(newFigure);
 		_figures.push_back(_ship);
 	}
@@ -86,3 +86,7 @@ std::vector<std::shared_ptr<Figure>>& World::getFigures()
 	return _figures;
 }
 
+std::shared_ptr<Figure>& World::getShip() 
+{
+	return _ship;
+}

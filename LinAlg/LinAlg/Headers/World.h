@@ -21,6 +21,8 @@ public:
 	void addShip(Figure);
 	void addTarget(Figure);
 	void addBullet(Figure);
+	std::shared_ptr<Figure>& getShip();
+
 	Vector view1;
 	Vector view2;
 
