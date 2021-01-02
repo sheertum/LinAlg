@@ -161,7 +161,7 @@ Vector Figure::getSphereRadius() {
 	return _center + Vector{ {_boundingSphere.getRadius(),0,0} };
 }
 
-BoundingSphere Figure::getBoundingSphere(){
+BoundingSphere& Figure::getBoundingSphere(){
 	return _boundingSphere;
 }
 
