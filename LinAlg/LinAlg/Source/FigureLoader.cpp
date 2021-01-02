@@ -14,8 +14,8 @@
 
 Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordinate, double scale)
 {
-	double objMin = -4;
-	double objMax = 4 + abs(objMin);
+	double objMin = -0.5;
+	double objMax = 0.5 + abs(objMin);
 	double factor = maxCoordinate / objMax;
 
 	std::vector<Vector> vectors;
@@ -28,7 +28,16 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 	while (std::getline(in, line))
 	{
 		if (line.substr(0, 2) == "v ") {
-			Vector vector = ((handleVertex(line) * factor)* scale) + 500;
+			Vector recieved = handleVertex(line);
+			Vector vector = recieved;// ((recieved * factor) * scale) + 500;
+			if (vector[2] == -0.5)
+			{
+				vector[2] = -5;
+			}
+			else {
+				vector[2] = -4.5;
+			}
+
 			vectors.push_back(vector);
 		}
 		else if (line.substr(0, 3) == "vn ") {

@@ -3,7 +3,7 @@
 #include "ProjectionMatrix.h"
 #include "Vector.h"
 #include "Figure.h"
-#include "newCamera.h"
+#include "Camera.h"
 
 class World {
 public:
@@ -14,7 +14,7 @@ public:
 
 	void show();
 
-	Eye& getCamera();
+	Camera& getCamera();
 
 	void addFigure(Figure);
 	std::vector<Figure> getFigures();
@@ -28,5 +28,5 @@ private:
 	double _aspectRatio, _fieldOfView, _zNormalization;
 	Renderer _renderer;
 	ProjectionMatrix _projectionMatrix;
-	Eye _camera;
+	Camera _camera;
 };

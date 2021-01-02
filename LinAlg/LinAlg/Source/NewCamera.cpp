@@ -4,8 +4,9 @@
 
 #include <iostream>
 
-Eye::Eye() : Matrix{ 3,3 }, _position { {0, 0, 0} }, _lookat{ {0.1,0.1,-10.1} }
+Eye::Eye() : Matrix{ 3,3 }, _position { {0, 0, 0} }, _lookat{ _position }
 {
+	_lookat[2] = -1;
 	_data = UnitaryMatrix{ 3,3 }.getData();
 }
 
@@ -34,64 +35,78 @@ void Eye::update() {
 	//_view.randomLineRotate(_position, xAxis, xAxis.getAngle(Vector{ {1,0,0} }));
 }
 
-Vector Eye::getPerspective(const Vector& v1, const Vector& offset)
+Matrix Eye::view(const Vector& inEye, double pitch, double yaw)
 {
+	Vector eye{ inEye };
+	eye.pushBack(0);
 
+	float cosPitch = std::cos(pitch);
+	float sinPitch = std::sin(pitch);
+	float cosYaw = std::cos(yaw);
+	float sinYaw = std::sin(yaw);
+
+	Vector xAxis{ {cosYaw,				0,		 -sinYaw,				0} };
+	Vector yAxis{ {sinYaw * sinPitch,	cosPitch, cosYaw * sinPitch,	0 } };
+	Vector zAxis{ {sinYaw * cosPitch,  -sinPitch, cosPitch * cosYaw,	0} };
+	
+	Vector newEye{ {0,0,0,1} };
+	newEye[0] = -(xAxis * eye);
+	newEye[1] = -(yAxis * eye);
+	newEye[2] = -(zAxis * eye);
+
+	Matrix result(4, 4);
+	result(0, 0, xAxis, false);
+	result(0, 1, yAxis, false);
+	result(0, 2, zAxis, false);
+	result(0, 3, newEye, false);
+
+	return result;
+}
+
+Matrix Eye::lookAt(const Vector& eye, const Vector& target, const Vector& up)
+{
+	Vector N = target;
+	N.normalise();
+
+	Vector U = up.crossProduct(target);
+	U.normalise();
+
+	Vector V = N.crossProduct(U);
+ 
+	Matrix result{ 4, 4 };
+
+	result(0, 0, U, false);
+	result(0, 1, V, false);
+	result(0, 2, N, false);
+	result(3, 3) = 1;
+
+	return result;
+}
+
+Vector Eye::getPerspective(const Vector& v1, const Vector& offset, const ProjectionMatrix& perspective)
+{
 	Vector vector{ v1 };
-	vector.pushBack(1);
+	//Vector position{ _position };
 
-	Vector position{ _position };
-	position.pushBack(1);
-
-	Vector lookat{ _lookat };
-	Matrix temp{ lookat.toMatrix() };
-	temp.xRotate(angle);
-	lookat = temp.toVector();
-	lookat.pushBack(1);
-
-	Vector direction = position - lookat;
-	direction.normalise();
-
-	Vector up{ {0,1,0,1} };
-
-	Vector right = up.crossProduct(direction);
-	right.normalise();
-
-	up = direction.crossProduct(right);
-	up.normalise();
-
-	Matrix m{ UnitaryMatrix{4} };
-	m(0, 0, right, false);
-	m(0, 1, up, false);
-	m(0, 2, direction, false);
-
-	Matrix toOrigin{ UnitaryMatrix{4} };
-	toOrigin(3, 0, (position * -1), true);
-	m = m * toOrigin;
-
-	vector = (m * vector).toVector();
-	//vector.translate(_position);
-
-	//Vector direction = _position - _lookat;
-	//direction.normalise();
-	////direction.pushBack(1);
-
-	//Vector up{ {0,1,0} };
-
-	//Vector right = up.crossProduct(direction);
-	//right.normalise();
-
-	//direction.translate(_position);
-	//up.translate(_position);
-	//right.translate(_position);
-
-	////Matrix temp{ vector.toMatrix() };
-	//Matrix rotate{ getRandomLineRotateMatrix(right, angle) };
 	//vector.pushBack(1);
-	//vector = (rotate * vector).toVector();
-	////temp.randomLineRotate(_position, right, angle);
 
+	//Matrix translation{ TranslateMatrix{_position*-1} };
+	//Matrix rotation = view(_position, 0, angle);//lookAt(Vector{ {0,0,0} }, _lookat, Vector{ {0,1,0} });
+	//Matrix total = rotation * translation;
+
+	//vector = (total * vector).toVector();
+
+	newRotate(vector,angle);
 	return vector;
+}
+
+void Eye::newRotate(Vector& vector, double xAngle)
+{
+	vector.translate(_position * -1);
+	Matrix temp = vector.toMatrix();
+	temp.xRotate(xAngle);
+
+	vector = temp.toVector();
 }
 
 void Eye::rotate(Vector& toRotate, const Vector& axes, double angle)

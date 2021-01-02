@@ -126,9 +126,9 @@ int main() {
     //Vector p11{ { 0.5,  0.5,  -4.5 } };
     //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
-    Vector p1{ {500,500,-10} };
-    Vector p2{ {500,700,-10} };
-    Vector p3{ {700,500,-10} };
+    Vector p1{ {500,500,-100} };
+    Vector p2{ {500,700,-100} };
+    Vector p3{ {700,500,-100} };
     Triangle triangle1{ p1, p2, p3 };
     //Triangle triangle2{ p4, p2, p3 };
     //Vector p5{ {-50, -50, 50} };
@@ -138,7 +138,9 @@ int main() {
 
     //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
     //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
-    Target figure({ triangle1}, 0.1, 10, true);
+    Figure figure{ FigureLoader::load("C:/Users/Terence/source/maths/perspectiveFIx/LinAlg/LinAlg/LinAlg/Resources/cubeZ.obj",
+    1000,0, 0.5) };
+    //Target figure(temp, 0.1, 10, true);
     //figure.createShape({ 0, 1, 2, 3 });
     //figure.createShape({ 4, 5, 6, 7 });
     //figure.createShape({ 0, 4});
@@ -150,18 +152,38 @@ int main() {
 
     std::function<void()> moveBack = [&]() {
         //figure.move();
-        figure.tick();
+        //figure.tick();
     };
 
-    std::function<void()> rotateCheck = [&]() {
-        world.getCamera().angle += 10;
+    std::function<void()> rotatePositive = [&]() {
+        if (world.getCamera().angle < 90)
+        {
+            world.getCamera().angle += 10;
+        }
+        //if (world.getCamera().angle <= 3.14159265359)
+        //{
+        //    world.getCamera().angle += 3.14159265359 / 180;
+        //}
+
+        std::cout << "angle: " << world.getCamera().angle << "\n";
+    };
+
+    std::function<void()> rotateNegative = [&]() {
+        if (world.getCamera().angle > -90)
+        {
+            world.getCamera().angle -= 10;
+        }
+        //if (world.getCamera().angle >= -3.14159265359)
+        //{
+        //    world.getCamera().angle -= 3.14159265359 / 180;
+        //}
 
         std::cout << "angle: " << world.getCamera().angle << "\n";
     };
 
     std::function<void()> moveForward = [&]() {
         //figure.move();
-        figure.tick();
+        //figure.tick();
     };
 
     std::function<void()> rotateY = [&]() {
@@ -300,7 +322,8 @@ int main() {
     input.addBinding(SDLK_KP_PLUS, grow);
     input.addBinding(SDLK_KP_MINUS, shrink);
 
-    input.addBinding(SDLK_r, rotateCheck);
+    input.addBinding(SDLK_m, rotatePositive);
+    input.addBinding(SDLK_n, rotateNegative);
 
 	while (true)
 	{

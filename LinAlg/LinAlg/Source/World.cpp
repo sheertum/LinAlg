@@ -4,8 +4,8 @@
 
 World::World(unsigned int width, unsigned int height, unsigned int depth, double start, double end) :
 	_renderer{ width, height, start, end },
-	_projectionMatrix{ width, height, 10, -0.1, -1000 },
-	_camera{},
+	_projectionMatrix{ width, height, 90, -0.1, -1000 },
+	_camera{ Vector{{0.01, -0.1, -0.1, 1}}, Vector{{0, 0, -0.001, 1}}, Limit{-0.1, 1000} },
 	view1{ {0,0,0} }, 
 	view2{{0,0,0}}
 {
@@ -35,11 +35,18 @@ void World::draw(const Figure& figure, const Color& color)
 
 		for (const auto& vector : triangle.getVectors()) {
 			Vector copy{ vector };
-			copy.pushBack(1);
-			//copy = _projectionMatrix * copy;
-			vectors.push_back(_camera.getPerspective(vector, figure.getCenter()));
+			//copy[2] /= 10;
+			//copy.pushBack(1);
+			//copy.translate(Vector{ {} });
+			copy = _projectionMatrix * (copy);
+			copy[0] += 1;
+			copy[1] += 1;
+			//std::vector<Vector> result = _camera.toCameraPerspective(copy, Vector{ {1,1,1} });
+			//result[0].translate(figure.getCenter());
+			
+			vectors.push_back(copy);
 		}
-		Triangle viewed{ vectors[0], vectors[1], vectors[2] };
+		Triangle viewed{ vectors[0], vectors[1], vectors[2]};
 		_renderer.drawTriangle(triangle, Color{255,0,0});
 		_renderer.drawTriangle(viewed, color);
 	}
@@ -51,7 +58,7 @@ void World::show()
 	_renderer.startDrawing();
 }
 
-Eye& World::getCamera()
+Camera& World::getCamera()
 {
 	return _camera;
 }

@@ -18,7 +18,7 @@ public:
     Vector operator-(double) const;
 
     Matrix operator*(const Matrix&) const;
-    double operator*(const Vector) const;
+    double operator*(const Vector&) const;
     Vector operator*(const double) const;
 
     Vector operator%(double) const;

@@ -19,7 +19,7 @@ Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _ax
 	}
 
 	calculateCenter(dataPoints, columnIndex);
-	_boundingSphere.calculateRadius(dataPoints);
+	//_boundingSphere.calculateRadius(dataPoints);
 }
 
 Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _boundingSphere{ _center }

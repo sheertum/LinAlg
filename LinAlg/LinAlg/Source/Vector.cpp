@@ -149,7 +149,7 @@ bool Vector::operator!=(const Vector& other) const
     return !(coordinates == other.coordinates);
 }
 
-double Vector::operator*(const Vector inproductVector) const
+double Vector::operator*(const Vector& inproductVector) const
 {
     double result= 0;
     for(int i = 0; i < this->getDimension(); i++){
