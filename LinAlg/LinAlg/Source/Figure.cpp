@@ -1,27 +1,6 @@
 #include "Figure.h"
 #include <iostream>
 #include "UnitaryMatrix.h"
-Figure::Figure(const std::vector<Triangle>& triangles) : _velocityFactor{0}, _axis{3,3}, _boundingSphere{_center}
-{
-	std::vector<double> dataPoints{};
-	int columnIndex = 0;
-
-	for(auto triangle : triangles){
-		auto vectors = triangle.getVectors();
-		for(auto vector:vectors){
-			if(!containtsVector(vector, dataPoints)){
-				for (int i = 0; i < vector.coordinates.size(); i++) {
-					dataPoints.push_back(vector[i]);
-				}
-				columnIndex++;
-			}
-		}
-		_triangles.push_back(triangle);
-	}
-
-	calculateCenter(dataPoints, columnIndex);
-	//_boundingSphere.calculateRadius(dataPoints);
-}
 
 Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _center{ Vector{{0,0,0}} }, _boundingSphere{ _center }
 {
@@ -154,7 +133,8 @@ Vector Figure::getYAxis(){
 }
 
 Vector Figure::getZAxis(){
-	return Vector{{_axis(2,0), _axis(2,1), _axis(2,2)}};
+	Vector result{ {_axis(2,0), _axis(2,1), _axis(2,2)} };
+	return result;
 }
 
 Vector Figure::getSphereRadius() {

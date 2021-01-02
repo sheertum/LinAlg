@@ -37,6 +37,8 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 			else {
 				vector[2] = -4.5;
 			}
+			vector = vector * 100;
+			vector.translate(Vector{ {500,500,0} });
 
 			vectors.push_back(vector);
 		}

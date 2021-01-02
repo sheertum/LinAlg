@@ -119,37 +119,15 @@ int main() {
 
 int main() {
 	World world{ 1000,1000,1000, 0, 1000};
-    //Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
-    //Vector p9{ {-0.5, -0.5,  -4.5 } };
-    //Vector p10{ { 0.5, -0.5,  -4.5 } };
-    //Vector p11{ { 0.5,  0.5,  -4.5 } };
-    //Vector p12{ {-0.5,  0.5,  -4.5 } };
 
-    Vector p1{ {500,500,-100} };
-    Vector p2{ {500,700,-100} };
-    Vector p3{ {700,500,-100} };
-    Triangle triangle1{ p1, p2, p3 };
-    Triangle triangle2{ p4, p5, p6 };
-    //Triangle triangle2{ p4, p2, p3 };
-    //Vector p5{ {-50, -50, 50} };
-    //Vector p6{ {50, -50, 50} };
-    //Vector p7{ {50, 50, 50} };
-    //Vector p8{ {-50, 50, 50} };
-
-    //Figure figure({ p1, p2, p3, p4 });//, p5, p6, p7, p8 });
-    //Figure figure({ triangle1, triangle2 }, Vector{ {0.1,0,0} });
     Figure figure{ FigureLoader::load("C:/Users/Terence/source/maths/perspectiveFIx/LinAlg/LinAlg/LinAlg/Resources/cubeZ.obj",
     1000,0, 0.5) };
-    //Target figure(temp, 0.1, 10, true);
-    //figure.createShape({ 0, 1, 2, 3 });
-    //figure.createShape({ 4, 5, 6, 7 });
-    //figure.createShape({ 0, 4});
-    //figure.createShape({ 1, 5});
-    //figure.createShape({ 2, 6});
-    //figure.createShape({ 3, 7});
-
-    //figure.translate(31.5, 31.5, 1);
+    //for (auto& triangle : figure.getTriangles()) {
+    //    tr
+    //}
+    //figure.
+    world.addFigure(figure);
 
     std::function<void()> moveBack = [&]() {
         //figure.move();
@@ -166,7 +144,7 @@ int main() {
     };
 
     std::function<void()> rotateZ = [&]() {
-        world.getFigures()[0]->yaw(90);
+        world.getFigures()[0]->yaw(5);
     };
 
     std::function<void()> rotateX = [&]() {
@@ -297,23 +275,24 @@ int main() {
     input.addBinding(SDLK_KP_PLUS, grow);
     input.addBinding(SDLK_KP_MINUS, shrink);
 
-    input.addBinding(SDLK_m, rotatePositive);
-    input.addBinding(SDLK_n, rotateNegative);
 
 	while (true)
 	{
 		input.pollEvents();
         input.handleEvents();
 
-        collision.checkForCollisions();
+        //collision.checkForCollisions();
         
         world.draw(world.getFigures()[0], { 255,255,0 });
-        world.draw(world.getFigures()[1], { 255,0,255 });
+        //world.draw(world.getFigures()[1], { 255,0,255 });
 
         world.drawLine(Vector{ {0,0,0} }, world.getFigures()[0]->getCenter(), { 0,255,255 });
-        world.drawLine(Vector{ {0,0,0} }, world.getFigures()[1]->getCenter(), { 0,255,255 });
-        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getSphereRadius(), { 255,0,0 });
-        world.drawLine(world.getFigures()[1]->getCenter(), world.getFigures()[1]->getSphereRadius() , { 255,0,0 });
+        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getXAxis(), { 0,255,0 });
+        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getYAxis(), { 125,125,0 });
+        world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getZAxis(), { 0,125,125 });
+        //world.drawLine(Vector{ {0,0,0} }, world.getFigures()[1]->getCenter(), { 0,255,255 });
+        //world.drawLine(world.getFigures()[0]->getCenter(), world.getFigures()[0]->getSphereRadius(), { 255,0,0 });
+        //world.drawLine(world.getFigures()[1]->getCenter(), world.getFigures()[1]->getSphereRadius() , { 255,0,0 });
 
 		world.show();
 	}

@@ -23,6 +23,7 @@ void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 
 	//_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
 	//_renderer.drawLine(projected1[0], projected1[1], projected2[0], projected2[1], color);
+	_renderer.drawLine(v1[0], v1[1], v2[0], v2[1], color);
 }
 
 void World::draw(const std::unique_ptr<Figure>& figure, const Color& color)
@@ -35,19 +36,21 @@ void World::draw(const std::unique_ptr<Figure>& figure, const Color& color)
 
 		for (const auto& vector : triangle.getVectors()) {
 			Vector copy{ vector };
+			//copy = copy * 100;
+			//copy.translate(Vector{ {500,500,0} });
 			//copy[2] /= 10;
 			//copy.pushBack(1);
 			//copy.translate(Vector{ {} });
-			copy = _projectionMatrix * (copy);
-			copy[0] += 1;
-			copy[1] += 1;
+			//copy = _projectionMatrix * (copy);
+			//copy[0] += 1;
+			//copy[1] += 1;
 			//std::vector<Vector> result = _camera.toCameraPerspective(copy, Vector{ {1,1,1} });
 			//result[0].translate(figure.getCenter());
 			
 			vectors.push_back(copy);
 		}
 		Triangle viewed{ vectors[0], vectors[1], vectors[2]};
-		_renderer.drawTriangle(triangle, Color{255,0,0});
+		//_renderer.drawTriangle(triangle, Color{255,0,0});
 		_renderer.drawTriangle(viewed, color);
 	}
 }
