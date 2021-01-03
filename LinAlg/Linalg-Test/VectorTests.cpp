@@ -91,6 +91,15 @@ TEST_F(VectorTest, CrossProduct2) {
     EXPECT_EQ(result[2], 8);
 }
 
+TEST_F(VectorTest, CrossProduct3) {
+    V1 = Vector{ {12, 34 ,56} };
+    Vector V2 = Vector{ {45, -23 ,234} };
+    result = V1.crossProduct(V2);
+    EXPECT_EQ(result[0], 9244);
+    EXPECT_EQ(result[1], -288);
+    EXPECT_EQ(result[2], -1806);
+}
+
 TEST_F(VectorTest, Length1) {
     V1 = Vector {{1,0,-3}};
     double length = V1.getLength();

@@ -225,18 +225,17 @@ int main() {
         world->draw(ship, { 255,255,0 });
         for(auto& bullet : world->getBullets())
         {
-            world->drawLine(Vector{ {0,0,0} }, bullet->getCenter(), { 255,255,255 });
+            //world->drawLine(Vector{ {0,0,0} }, bullet->getCenter(), { 255,255,255 });
             world->drawLine(bullet->getCenter(), bullet->getXAxis(), { 0,0,255 });
             world->drawLine(bullet->getCenter(), bullet->getZAxis(), { 0,255,0 });
-            world->drawLine(bullet->getCenter(), bullet->getYAxis(), { 255,0,0 });            
+            world->drawLine(bullet->getCenter(), bullet->getYAxis(), { 255,0,0 }); 
+            //world->draw(bullet, { 255,0,255 });
         }
 
-        world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
+        //world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
         world->drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
         world->drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
-        world->drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });
-
-        
+        world->drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });       
         //world->drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
 
 		world->show();
