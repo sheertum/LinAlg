@@ -216,7 +216,7 @@ int main() {
         collision.checkForCollisions();
         
         world->draw(ship, { 255,255,0 });
-        world->getShip()->move();
+        world->tick();
 
         world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
         world->drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });

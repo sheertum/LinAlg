@@ -33,18 +33,14 @@ public:
 
 	void collide();
 
-private:
-	// void addUniqueCoordinates(Vector, int&, );
+protected:
 	bool containtsVector(Vector vector, std::vector<double> collection);
 	Vector calculateSpeed();
 	void calculateCenter(std::vector<double> collection, int columnCount);
 
-private:
+protected:
 	std::vector<Triangle> _triangles;
 	std::vector<Shape> _shapes;
-
-protected:
-	//public:
 	Vector _center;
 	Matrix _axis;
 	double _velocityFactor = 0;
