@@ -2,7 +2,7 @@
 #include "UnitaryMatrix.h"
 #include "TranslateMatrix.h"
 
-Bullet::Bullet(const std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor }, _world{world}
+Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor }, _world{world}
 {
 	//TODO: figue loader gebruiken om de triangles in te laden die bij het juiste figuur horen
 	Vector direction{{axis(2,0),axis(2,1),axis(2,2)}};
@@ -51,9 +51,13 @@ void Bullet::allignWithOriginator(Vector direction){
 	Matrix result = M2 * M1;
     
 	for(auto& triangle : _triangles){
+		triangle.upsize();
 		triangle.itirativeMultiply(result);
+		triangle.downsize();
 	}
+	_axis.upsize();
 	_axis.itirativeMultiply(result);
+	_axis.downsize();
 }
 
 void Bullet::setAtOriginatorPosition(Vector position){

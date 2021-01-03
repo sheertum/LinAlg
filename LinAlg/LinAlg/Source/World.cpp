@@ -58,7 +58,7 @@ Eye& World::getCamera()
 	return _camera;
 }
 
-void World::addShip(const std::vector<Triangle>& newFigure){
+void World::addShip(std::vector<Triangle>& newFigure){
 	if(_ship == nullptr){
 		_ship = std::make_shared<Ship>(newFigure, this);
 		std::shared_ptr<Figure> figure = _ship;
@@ -69,14 +69,14 @@ void World::addShip(const std::vector<Triangle>& newFigure){
 	}
 }
 
-void World::addTarget(Figure newFigure, Vector position double velocity, int growthLimit, bool isGrowing){
-	std::shared_ptr<Target> target = std::make_shared<Bullet>(newFigure, this, position, axis, velocity);
-	_targets.push_back(target);
-	std::shared_ptr<Figure> figure = target;
-	_figures.push_back(figure);
+void World::addTarget(std::vector<Triangle>& newFigure, Vector position, double velocity, int growthLimit, bool isGrowing = true){
+	//std::shared_ptr<Target> target = std::make_shared<Target>(newFigure, this, position, velocity);
+	//_targets.push_back(target);
+	//std::shared_ptr<Figure> figure = target;
+	//_figures.push_back(figure);
 }
 
-void World::addBullet(Figure newFigure, Vector startPosition, Matrix axis, double velocity){
+void World::addBullet(std::vector<Triangle>& newFigure, Vector startPosition, Matrix axis, double velocity){
 	std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(newFigure, this, startPosition, axis, velocity);
 	_bullets.push_back(bullet);
 	std::shared_ptr<Figure> figure = bullet;
@@ -97,6 +97,11 @@ std::vector<std::shared_ptr<Figure>>& World::getFigures()
 std::shared_ptr<Ship>& World::getShip() 
 {
 	return _ship;
+}
+
+std::vector<std::shared_ptr<Bullet>>& World::getBullets() 
+{
+	return _bullets;
 }
 
 void World::tick(){

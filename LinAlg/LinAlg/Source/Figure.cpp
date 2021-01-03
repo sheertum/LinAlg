@@ -1,7 +1,7 @@
 #include "Figure.h"
 #include <iostream>
 #include "UnitaryMatrix.h"
-Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _center{ Vector{{0,0,0}} }, _boundingSphere{ _center }
+Figure::Figure(std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _center{ Vector{{0,0,0}} }, _boundingSphere{ _center }
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;

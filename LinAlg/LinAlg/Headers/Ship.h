@@ -8,12 +8,15 @@ class World;
 class Ship : public Figure
 {
 public:
-	Ship(const std::vector<Triangle>&, World*);
+	Ship(std::vector<Triangle>&, World*);
 	void shoot();
 	Vector getAim();
+	Vector getBulletStartPosition();
+
 private:
 	World* _world;
 	Vector _gunMuzzle;
 	Vector _aim;
+	std::vector<Triangle> _bulletTriangles;
 };
 

@@ -1,6 +1,10 @@
 #include "Target.h"
 
-Target::Target(const std::vector<Triangle>& triangles, double velocity, int growthLimit, bool isGrowing) : Figure{ triangles, velocity }, _growLimit { growthLimit }, _isGrowing{ isGrowing }, _grow{ 0 }{}
+Target::Target(std::vector<Triangle>& triangles, World* world, Vector position, double velocity, int growthLimit, bool isGrowing) : Figure{ triangles, velocity }, _growLimit { growthLimit }, _isGrowing{ isGrowing }, _grow{ 0 }, _world{world}{
+	for(auto& triangle : _triangles){
+		triangle.translate(position);
+	}
+}
 
 void Target::tick()
 {

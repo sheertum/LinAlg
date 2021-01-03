@@ -10,7 +10,7 @@
 
 class Figure {
 public:
-	Figure(const std::vector<Triangle>& triangles, double velocity);
+	explicit Figure(std::vector<Triangle>& triangles, double velocity);
 	void roll(double angle);
 	void pitch(double angle);
 	void yaw(double angle);

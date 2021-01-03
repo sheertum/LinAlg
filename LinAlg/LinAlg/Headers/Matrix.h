@@ -43,8 +43,6 @@ public:
     //Only for rotation and translation matrices
     Matrix simpleInverse() const;
 
-
-private:
     void upsize();
     void downsize();
 

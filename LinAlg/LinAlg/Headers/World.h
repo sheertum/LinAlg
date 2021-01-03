@@ -21,11 +21,12 @@ public:
 
 	std::vector<std::shared_ptr<Figure>>& getFigures();
 	void addFigure(Figure);
-	void addShip(const std::vector<Triangle>& triangles);
-	void addTarget(Figure, Vector);
-	void addBullet(Figure, Vector, Matrix, double);
+	void addShip(std::vector<Triangle>&);
+	void addTarget(std::vector<Triangle>&, Vector, double, int, bool);
+	void addBullet(std::vector<Triangle>&, Vector, Matrix, double);
 	void tick();
 	std::shared_ptr<Ship>& getShip();
+	std::vector<std::shared_ptr<Bullet>>& getBullets();
 
 	Vector view1;
 	Vector view2;

@@ -91,6 +91,10 @@ int main() {
         ship->accelerate(0.9);
     };
 
+    std::function<void()> shoot = [&]() {
+        ship->shoot();
+    };
+
     std::function<void()> print = [&]() {
         //std::cout << world->getCamera()._position[0] << "\t"
         //    << world->getCamera()._position[1] << "\t"
@@ -181,6 +185,8 @@ int main() {
     };
 
     Input input;
+    input.addBinding(SDLK_s, shoot);
+
     input.addBinding(SDLK_b, accelerate);
     input.addBinding(SDLK_v, decelerate);
 
@@ -215,13 +221,21 @@ int main() {
 
         collision.checkForCollisions();
         
-        world->draw(ship, { 255,255,0 });
         world->tick();
+        world->draw(ship, { 255,255,0 });
+        for(auto& bullet : world->getBullets())
+        {
+            world->drawLine(Vector{ {0,0,0} }, bullet->getCenter(), { 255,255,255 });
+            world->drawLine(bullet->getCenter(), bullet->getXAxis(), { 0,0,255 });
+            world->drawLine(bullet->getCenter(), bullet->getZAxis(), { 0,255,0 });
+            world->drawLine(bullet->getCenter(), bullet->getYAxis(), { 255,0,0 });            
+        }
 
         world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
         world->drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
         world->drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
         world->drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });
+
         
         //world->drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
 
