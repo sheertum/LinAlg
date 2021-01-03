@@ -39,6 +39,11 @@ const std::vector<Triangle>& Figure::getTriangles() const
 	return _triangles;
 }
 
+std::vector<Triangle>& Figure::getTriangles()
+{
+	return _triangles;
+}
+
 void Figure::roll(double angle){
 	for(auto& triangle : _triangles){
 		triangle.randomLineRotate(getCenter(), getZAxis(), angle);

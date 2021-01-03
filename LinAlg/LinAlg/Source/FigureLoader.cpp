@@ -14,9 +14,8 @@
 
 Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordinate, double scale)
 {
-	double objMin = -4;
-	double objMax = 4 + abs(objMin);
-	double factor = maxCoordinate / objMax;
+	double objMin = DBL_MAX;
+	double objMax = -DBL_MAX;
 
 	std::vector<Vector> vectors;
 	std::vector<Vector> normals;
@@ -28,15 +27,27 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 	while (std::getline(in, line))
 	{
 		if (line.substr(0, 2) == "v ") {
-			Vector vector = ((handleVertex(line) * factor)* scale) + 500;
+			Vector vector = handleVertex(line);
+
+			for (const auto& i : vector.coordinates) {
+				if (i < objMin)
+				{
+					objMin = i;
+				}
+				if (i > objMax)
+				{
+					objMax = i;
+				}
+			}
 			vectors.push_back(vector);
+
 		}
 		else if (line.substr(0, 3) == "vn ") {
 			Vector normal = handleVertex(line);
 			normals.push_back(normal);
 		}
 		else if (line.substr(0, 2) == "f ") {
-			handleTriangle(line, vectors, normals, triangles);
+			handleTriangle(line, vectors, normals, triangles, objMin, objMax, scale, maxCoordinate);
 		}
 	}
 
@@ -61,7 +72,7 @@ Vector FigureLoader::handleVertex(const std::string& line)
 	return Vector{ vector };
 }
 
-void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vector>& vectors, const std::vector<Vector>& normals, std::vector<Triangle>& triangles)
+void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vector>& vectors, const std::vector<Vector>& normals, std::vector<Triangle>& triangles, double min, double max, double scale, double maxCoordinate)
 {
 	std::string data = line.substr(2);
 	std::vector<Vector> vectorIndices;
@@ -81,7 +92,7 @@ void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vec
 
 	while (index != END && data.size() > 0)
 	{
-		vectorIndices.push_back(vectors[fileterIndex(data, index)-1]);
+		vectorIndices.push_back(FigureLoader::scale(vectors[fileterIndex(data, index)-1],min,max,scale, maxCoordinate));
 
 		//normalIndices.push_back(normals[fileterIndex(data, findNth(data," ", 1), findNth(data, "/", 2) - 1)]);
 
@@ -128,4 +139,13 @@ size_t FigureLoader::fileterIndex(const std::string& line, size_t last, size_t f
 
 	//std::cout << vectorIndex << "\n";
 	return vectorIndex;
+}
+
+Vector FigureLoader::scale(const Vector& target, double min, double max, double scale, double maxCoordinate)
+{
+	double objMin = min;
+	double objMax = max + abs(objMin);
+	double factor = maxCoordinate / objMax;
+
+	return ((target * factor) * scale) + 500;
 }

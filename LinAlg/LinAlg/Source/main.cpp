@@ -47,12 +47,18 @@ int main() {
 
     std::vector<Triangle> triangles{{ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }};
 
+    Figure figureTest{ FigureLoader::load("C:\\Users\\Terence\\source\\maths\\perspectiveFIx\\LinAlg\\LinAlg\\LinAlg\\Resources\\SpaceShip.obj", 1000, 0, 0.5) };
     for(auto& triangle : triangles){
         triangle.translate(500,500,0);
     }
 
+    //for (auto& triangle : figureTest.getTriangles()) {
+    //    triangle.translate(500, 500, 0);
+    //}
+
     CollisionHandler collision{world};
-    world->addShip(triangles);
+    //world->addShip(triangles);
+    world->addShip(figureTest.getTriangles());
     auto& ship = world->getShip();
 
     std::function<void()> moveBack = [&]() {
