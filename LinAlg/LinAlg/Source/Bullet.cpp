@@ -18,9 +18,14 @@ void Bullet::allignWithOriginator(Vector direction){
 	double pi = 3.14159265359;
 	Vector originalDirection{ {0,0,-1} };
 	Vector rotationAxis{ {0,0,0} };
+	
+	Vector angleCopy = direction;
+	Vector angleZcopy = originalDirection;
 
+	angleCopy.normalise();
+	angleZcopy.normalise();
+	double angle = angleCopy * angleCopy;
 
-	double angle = std::fmod(direction * originalDirection, 2 * pi);
 	if (abs(angle) > pi) {
 		rotationAxis = originalDirection.crossProduct(direction);
 	}
