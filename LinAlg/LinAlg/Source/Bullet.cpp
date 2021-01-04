@@ -10,7 +10,6 @@ Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosit
 	Vector direction{{axis(2,0),axis(2,1),axis(2,2)}};
 	allignWithOriginator(direction);
 	setAtOriginatorPosition(startPosition);
-	
 }
 
 void Bullet::allignWithOriginator(Vector direction){

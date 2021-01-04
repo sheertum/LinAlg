@@ -11,7 +11,6 @@ public:
 	Ship(std::vector<Triangle>&, World*);
 	void shoot();
 	Vector getAim();
-	Vector getBulletStartPosition();
 
 private:
 	World* _world;

@@ -36,6 +36,7 @@ public:
 protected:
 	bool containtsVector(Vector vector, std::vector<double> collection);
 	Vector calculateSpeed();
+	void calulateAxis();
 	void calculateCenter(std::vector<double> collection, int columnCount);
 
 protected:

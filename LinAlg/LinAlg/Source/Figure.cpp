@@ -20,6 +20,7 @@ Figure::Figure(std::vector<Triangle>& triangles, double velocity) : _velocityFac
 	}
 
 	calculateCenter(dataPoints, columnIndex);
+	calulateAxis();
 	_boundingSphere.calculateRadius(dataPoints);
 }
 
@@ -123,6 +124,9 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 	{
 		_center[i] = _center[i] / coordinateCounter;
 	}
+}
+
+void Figure::calulateAxis(){
 	_axis = UnitaryMatrix{ 3 };
 	_axis.scale(100);
 	_axis.translate(_center);
