@@ -9,6 +9,8 @@ public:
 	void allignWithOriginator(Vector zAxis);
 	void setAtOriginatorPosition(Vector position);
 
+	void collide() override;
+
 private:
 	World* _world;
 };

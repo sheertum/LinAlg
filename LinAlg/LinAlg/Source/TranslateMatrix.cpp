@@ -11,7 +11,7 @@ TranslateMatrix::TranslateMatrix(double x, double y, double z) : UnitaryMatrix{4
     _data[getIndex(_columnCount -1, 2)] = z;
 }
 
-TranslateMatrix::TranslateMatrix(Vector vec) : UnitaryMatrix{vec.getDimension()+1}{
+TranslateMatrix::TranslateMatrix(Vector vec) : UnitaryMatrix{4/*vec.getDimension()+1*/}{
     _data[getIndex(_columnCount -1, 0)] = vec[0];
     _data[getIndex(_columnCount -1, 1)] = vec[1];
     _data[getIndex(_columnCount -1, 2)] = vec[2];

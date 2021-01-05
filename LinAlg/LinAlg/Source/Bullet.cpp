@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "UnitaryMatrix.h"
 #include "TranslateMatrix.h"
+#include "World.h"
 
 #include <iostream>
 #include <cmath>
@@ -49,5 +50,30 @@ void Bullet::setAtOriginatorPosition(Vector position){
 	_center = _center + position;
 	for(auto& triangle : _triangles){
 		triangle.translate(position);
+	}
+}
+
+void Bullet::collide()
+{
+	auto& figures = _world->getFigures();
+	int i = 0;
+	for (const auto& figure : figures) {
+		if (figure.get() == this)
+		{
+			figures.erase(figures.begin() + i);
+			break;
+		}
+		i++;
+	}
+
+	auto& bullets = _world->getBullets();
+	i = 0;
+	for (const auto& bullet : bullets) {
+		if (bullet.get() == this)
+		{
+			bullets.erase(bullets.begin() + i);
+			break;
+		}
+		i++;
 	}
 }

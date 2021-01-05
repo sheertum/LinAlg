@@ -22,6 +22,7 @@ public:
 	void grow(double factor);
 	void shrink(double factor);
 	const std::vector<Triangle>& getTriangles() const;
+	std::vector<Triangle>& getTriangles();
 
 	Vector getCenter();
 	Vector getXAxis();
@@ -34,7 +35,7 @@ public:
 
 	BoundingSphere& getBoundingSphere();
 
-	void collide();
+	virtual void collide();
 
 protected:
 	bool containtsVector(Vector vector, std::vector<double> collection);

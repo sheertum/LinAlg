@@ -27,6 +27,7 @@ public:
 	void tick();
 	std::shared_ptr<Ship>& getShip();
 	std::vector<std::shared_ptr<Bullet>>& getBullets();
+	std::vector<std::shared_ptr<Target>>& getTargets();
 
 	Vector view1;
 	Vector view2;

@@ -17,7 +17,15 @@ Vector::Vector(std::vector<double> coordinateArgs){
         throw("NoSingleDimensionVectorsAllowed");
     }
 
-    coordinates = coordinateArgs;
+    coordinates.resize(4,0);
+    for (int i = 0; i < coordinateArgs.size() && i < 4; i++)
+    {
+        coordinates[i] = coordinateArgs[i];
+    }
+    if (coordinateArgs.size() < 4)
+    {
+        coordinates[3] = 1;
+    }
 }
 
 Vector Vector::operator+ (const Vector& target) const
@@ -198,7 +206,7 @@ void Vector::normalise()
 
 void Vector::pushBack(double data)
 {
-    coordinates.push_back(data);
+    //coordinates.push_back(data);
 }
 
 double Vector::length() const
