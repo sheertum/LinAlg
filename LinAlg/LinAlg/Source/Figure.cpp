@@ -10,7 +10,7 @@ Figure::Figure(std::vector<Triangle>& triangles, double velocity) : _velocityFac
 		auto vectors = triangle.getVectors();
 		for(auto vector:vectors){
 			if(!containtsVector(vector, dataPoints)){
-				for (int i = 0; i < 3; i++) {
+				for (int i = 0; i < vector.coordinates.size(); i++) {
 					dataPoints.push_back(vector[i]);
 				}
 				columnIndex++;
@@ -36,11 +36,6 @@ bool Figure::containtsVector(Vector vector, std::vector<double> collection){
 }
 
 const std::vector<Triangle>& Figure::getTriangles() const
-{
-	return _triangles;
-}
-
-std::vector<Triangle>& Figure::getTriangles()
 {
 	return _triangles;
 }

@@ -22,7 +22,6 @@ public:
 	void grow(double factor);
 	void shrink(double factor);
 	const std::vector<Triangle>& getTriangles() const;
-	std::vector<Triangle>& getTriangles();
 
 	Vector getCenter();
 	Vector getXAxis();
