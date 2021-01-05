@@ -18,9 +18,9 @@ _bulletTriangles{}
 }
 
 void Ship::shoot(){
-	Matrix originAxis = _axis*UnitaryMatrix(3,4);
+	Matrix originAxis = _axis;
 	originAxis.translate(_center*-1);
-	Vector 
+	
 	_world->addBullet(_bulletTriangles, getCenter(), originAxis, 0.1);
 }
 

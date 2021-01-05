@@ -36,8 +36,7 @@ void Bullet::allignWithOriginator(Vector direction){
 		return;
 	}
 	_axis.randomLineRotate(Vector{ { 0,0,0 } }, rotationAxis, angle);
-
-
+	
 	for(auto& triangle : _triangles){
 		triangle.randomLineRotate(Vector{{ 0,0,0 }}, rotationAxis, angle);
 	}

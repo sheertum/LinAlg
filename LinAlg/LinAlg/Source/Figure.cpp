@@ -128,7 +128,7 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 
 void Figure::calulateAxis(){
 	_axis = UnitaryMatrix{ 3 };
-	_axis.scale(100);
+	// _axis.scale(100);
 	_axis.translate(_center);
 }
 
