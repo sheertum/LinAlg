@@ -2,6 +2,7 @@
 #include "UnitaryMatrix.h"
 #include "TranslateMatrix.h"
 
+#include <iostream>
 #include <cmath>
 
 Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor }, _world{world}
@@ -23,9 +24,10 @@ void Bullet::allignWithOriginator(Vector direction){
 
 	angleCopy.normalise();
 	angleZcopy.normalise();
-	double angle = angleCopy * angleCopy;
+	double angle = acos(angleCopy * angleZcopy);
+	std::cout << angle << std::endl;
 
-	if (abs(angle) > pi) {
+	if (angle > pi || angle < 0) {
 		rotationAxis = originalDirection.crossProduct(direction);
 	}
 	else {

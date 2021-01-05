@@ -60,15 +60,15 @@ int main() {
     };
 
     std::function<void()> rotateY = [&]() {
-        ship->yaw(5);
+        ship->yaw(3.14 / 10);
     };
 
     std::function<void()> rotateZ = [&]() {
-        ship->roll(5);
+        ship->roll(3.14 / 10);
     };
 
     std::function<void()> rotateX = [&]() {
-        ship->pitch(5);
+        ship->pitch(3.14 / 10);
     };
 
     std::function<void()> grow = [&]() {
@@ -222,10 +222,10 @@ int main() {
         for(auto& bullet : world->getBullets())
         {
             //world->drawLine(Vector{ {0,0,0} }, bullet->getCenter(), { 255,255,255 });
+            world->draw(bullet, { 255,255,255 });
             world->drawLine(bullet->getCenter(), bullet->getBigXAxis(), { 0,0,255 });
             world->drawLine(bullet->getCenter(), bullet->getBigZAxis(), { 0,255,0 });
             world->drawLine(bullet->getCenter(), bullet->getBigYAxis(), { 255,0,0 }); 
-            world->draw(bullet, { 255,0,255 });
         }
 
         //world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });

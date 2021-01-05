@@ -146,7 +146,7 @@ Vector Figure::getZAxis(){
 Vector Figure::getBigXAxis()
 {
 	Vector bigX = getXAxis()- getCenter();
-	bigX = bigX * 100;
+	bigX = bigX * 1000;
 	bigX = bigX  + getCenter();
 	return bigX;
 }
@@ -154,7 +154,7 @@ Vector Figure::getBigXAxis()
 Vector Figure::getBigYAxis()
 {
 	Vector bigY = getYAxis() - getCenter();
-	bigY = bigY * 100;
+	bigY = bigY * 1000;
 	bigY = bigY + getCenter();
 	return bigY;
 }
@@ -162,7 +162,7 @@ Vector Figure::getBigYAxis()
 Vector Figure::getBigZAxis()
 {
 	Vector bigZ = getZAxis() - getCenter();
-	bigZ = bigZ * 100;
+	bigZ = bigZ * 1000;
 	bigZ = bigZ + getCenter();
 	return bigZ;
 }
