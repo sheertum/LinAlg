@@ -9,14 +9,23 @@ _aim{ {{0,0,0}} },
 _world{ world },
 _bulletTriangles{ bullettriangles }
 {
-
+	Figure temp{ _bulletTriangles, 0 };
+	_bulletRadius = temp.getBoundingSphere().getRadius();
 }
 
 void Ship::shoot(){
 	Matrix originAxis = _axis;
 	originAxis.translate(_center*-1);
 
-	std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(_bulletTriangles, _world, getCenter(), originAxis, 100 + _velocityFactor);
+	double total = getBoundingSphere().getRadius() + _bulletRadius;
+	Vector direction = getZAxis();
+	direction.translate(getCenter() * -1);
+	direction.normalise();
+	direction = direction * total;
+	direction.translate(getCenter());
+
+	std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(_bulletTriangles, _world, direction, originAxis, 100 + _velocityFactor);
+
 	_world->addBullet(bullet);
 }
 

@@ -7,7 +7,7 @@ class World;
 class Bullet : public Figure {
 public:
 	Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor);
-	void allignWithOriginator(Vector zAxis);
+	void allignWithOriginator(const Vector& zAxis, const Vector& xAxis);
 	void setAtOriginatorPosition(Vector position);
 
 	void tick();

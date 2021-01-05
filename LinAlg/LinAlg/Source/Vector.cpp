@@ -137,6 +137,13 @@ Vector Vector::operator%(double value) const
     return result;
 }
 
+void Vector::translate(const Vector& vec)
+{
+    Matrix result = this->toMatrix();
+    result.translate(vec);
+    *this = result.toVector();
+}
+
 bool Vector::operator!=(const Vector& other) const
 {
     return !(coordinates == other.coordinates);

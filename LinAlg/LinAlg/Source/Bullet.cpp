@@ -9,18 +9,18 @@
 Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor/3 }, _world{world}
 {
 	//TODO: figue loader gebruiken om de triangles in te laden die bij het juiste figuur horen
-	Vector direction{{axis(2,0),axis(2,1),axis(2,2)}};
+	Vector zAxis{{axis(2,0),axis(2,1),axis(2,2)}};
 	allignWithOriginator(direction);
 	setAtOriginatorPosition(startPosition);
 }
 
-void Bullet::allignWithOriginator(Vector direction){
+void Bullet::allignWithOriginator(const Vector& zAxis, const Vector& xAxis){
 
 	double pi = 3.14159265359;
 	Vector originalDirection{ {0,0,-1} };
 	Vector rotationAxis{ {0,0,0} };
 	
-	Vector angleCopy = direction;
+	Vector angleCopy = zAxis;
 	Vector angleZcopy = originalDirection;
 
 	angleCopy.normalise();
@@ -29,10 +29,10 @@ void Bullet::allignWithOriginator(Vector direction){
 	std::cout << angle << std::endl;
 
 	if (angle > pi || angle < 0) {
-		rotationAxis = originalDirection.crossProduct(direction);
+		rotationAxis = originalDirection.crossProduct(zAxis);
 	}
 	else {
-		rotationAxis = direction.crossProduct(originalDirection);
+		rotationAxis = zAxis.crossProduct(originalDirection);
 	}
 	
 	if (rotationAxis[0] == 0 && rotationAxis[1] == 0 && rotationAxis[2] == 0) {
