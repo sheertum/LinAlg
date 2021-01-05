@@ -65,7 +65,7 @@ void Renderer::drawTriangle(const Triangle& triangle, const Color& color)
     Vector colorFinal = colorSurface.crossProduct(colorLight) * (triangle.getNormal() * lightDirection);
     Uint32 hexColor = convertRGBtoHex(color);//convertRGBtoHex(Color{ (uint8_t)colorFinal[0], (uint8_t)colorFinal[1], (uint8_t)colorFinal[2] });
 
-    filledPolygonColor(_renderer.get(), vx, vy, n, hexColor);
+    polygonColor(_renderer.get(), vx, vy, n, hexColor);
 }
 
 void Renderer::draw(SDL_Texture& texture)

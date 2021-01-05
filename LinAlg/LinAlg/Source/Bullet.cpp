@@ -1,11 +1,12 @@
 #include "Bullet.h"
 #include "UnitaryMatrix.h"
 #include "TranslateMatrix.h"
+#include "World.h"
 
 #include <iostream>
 #include <cmath>
 
-Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor }, _world{world}
+Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor/3 }, _world{world}
 {
 	//TODO: figue loader gebruiken om de triangles in te laden die bij het juiste figuur horen
 	Vector direction{{axis(2,0),axis(2,1),axis(2,2)}};
@@ -50,4 +51,43 @@ void Bullet::setAtOriginatorPosition(Vector position){
 	for(auto& triangle : _triangles){
 		triangle.translate(position);
 	}
+}
+
+void Bullet::tick()
+{
+	if ((float(clock() - beginTime) / CLOCKS_PER_SEC) > lifeTime)
+	{
+		remove();
+	}
+}
+
+void Bullet::remove()
+{
+	auto& figures = _world->getFigures();
+	auto& bullets = _world->getBullets();
+
+	int i = 0;
+	for (const auto& bullet : bullets) {
+		if (bullet.get() == this)
+		{
+			_world->removeBullet(i);
+			break;
+		}
+		i++;
+	}
+
+	i = 0;
+	for (const auto& figure : figures) {
+		if (figure.get() == this)
+		{
+			_world->removeFigure(i);
+			break;
+		}
+		i++;
+	}
+}
+
+void Bullet::collide()
+{
+	remove();
 }

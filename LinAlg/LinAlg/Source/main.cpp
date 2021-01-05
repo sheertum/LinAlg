@@ -45,10 +45,13 @@ int main() {
     Triangle triangle7{ vA, vB, vF };
     Triangle triangle8{ vA, vE, vF };
 
-    std::vector<Triangle> triangles{{ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }};
+    std::vector<Triangle> bulletFigure{{ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }};
+
+    std::vector<Triangle> shipFigure = FigureLoader::load("Resources\\SpaceShip.obj", 1000, 0, 0.5);
+    std::vector<Triangle> targetFigure = FigureLoader::load("Resources\\cubeZ.obj", 1000, 0, 0.5);
 
     CollisionHandler collision{world};
-    world->addShip(triangles, triangles);
+    world->addShip(shipFigure, bulletFigure);
     auto& ship = world->getShip();
 
     std::function<void()> moveBack = [&]() {
@@ -92,12 +95,6 @@ int main() {
     };
 
     std::function<void()> print = [&]() {
-        //std::cout << world->getCamera()._position[0] << "\t"
-        //    << world->getCamera()._position[1] << "\t"
-        //    << world->getCamera()._position[2] << "\t" << "\n";
-        //std::cout << world->getCamera()._direction[0] << "\t"
-        //    << world->getCamera()._direction[1] << "\t"
-        //    << world->getCamera()._direction[2] << "\t" << "\n" << "\n";
     };
 
 #define CAMERA_MOVEMENT 0.1
