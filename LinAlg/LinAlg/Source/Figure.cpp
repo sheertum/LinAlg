@@ -1,7 +1,7 @@
 #include "Figure.h"
 #include <iostream>
 #include "UnitaryMatrix.h"
-Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _center{ Vector{{0,0,0}} }, _boundingSphere{ _center }
+Figure::Figure(std::vector<Triangle>& triangles, double velocity) : _velocityFactor{ velocity }, _axis{ 3,3 }, _center{ Vector{{0,0,0}} }, _boundingSphere{ _center }
 {
 	std::vector<double> dataPoints{};
 	int columnIndex = 0;
@@ -20,6 +20,7 @@ Figure::Figure(const std::vector<Triangle>& triangles, double velocity) : _veloc
 	}
 
 	calculateCenter(dataPoints, columnIndex);
+	calulateAxis();
 	_boundingSphere.calculateRadius(dataPoints);
 }
 
@@ -123,8 +124,11 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 	{
 		_center[i] = _center[i] / coordinateCounter;
 	}
+}
+
+void Figure::calulateAxis(){
 	_axis = UnitaryMatrix{ 3 };
-	_axis.scale(100);
+	// _axis.scale(100);
 	_axis.translate(_center);
 }
 

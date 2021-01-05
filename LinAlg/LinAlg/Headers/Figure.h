@@ -10,7 +10,7 @@
 
 class Figure {
 public:
-	Figure(const std::vector<Triangle>& triangles, double velocity);
+	explicit Figure(std::vector<Triangle>& triangles, double velocity);
 	void roll(double angle);
 	void pitch(double angle);
 	void yaw(double angle);
@@ -33,18 +33,15 @@ public:
 
 	void collide();
 
-private:
-	// void addUniqueCoordinates(Vector, int&, );
+protected:
 	bool containtsVector(Vector vector, std::vector<double> collection);
 	Vector calculateSpeed();
+	void calulateAxis();
 	void calculateCenter(std::vector<double> collection, int columnCount);
 
-private:
+protected:
 	std::vector<Triangle> _triangles;
 	std::vector<Shape> _shapes;
-
-protected:
-	//public:
 	Vector _center;
 	Matrix _axis;
 	double _velocityFactor = 0;

@@ -5,6 +5,7 @@
 #include "Bullet.h"
 #include "Vector.h"
 #include "Figure.h"
+#include "Target.h"
 #include "newCamera.h"
 
 class World {
@@ -20,16 +21,20 @@ public:
 
 	std::vector<std::shared_ptr<Figure>>& getFigures();
 	void addFigure(Figure);
-	void addShip(const std::vector<Triangle>& triangles);
-	void addTarget(Figure);
-	void addBullet(Vector);
+	void addShip(std::vector<Triangle>&);
+	void addTarget(std::vector<Triangle>&, Vector, double, int, bool);
+	void addBullet(std::vector<Triangle>&, Vector, Matrix, double);
+	void tick();
 	std::shared_ptr<Ship>& getShip();
+	std::vector<std::shared_ptr<Bullet>>& getBullets();
 
 	Vector view1;
 	Vector view2;
 
 private:
 	std::vector<std::shared_ptr<Figure>> _figures;
+	std::vector<std::shared_ptr<Bullet>> _bullets;
+	std::vector<std::shared_ptr<Target>> _targets;
 	std::shared_ptr<Ship> _ship;
 
 	double _widthFactor, _heightFactor, _depthFactor;

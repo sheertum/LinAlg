@@ -29,6 +29,8 @@ public:
     void originLineRotate(Vector, double);
     void randomLineRotate(Vector, Vector, double);
 
+    void itirativeMultiply(Matrix);
+
     double& operator()(int row, int column);
     double operator()(int row, int column) const;
     void operator()(int row, int column, const Vector&, bool vertical = true);
@@ -41,9 +43,6 @@ public:
     //Only for rotation and translation matrices
     Matrix simpleInverse() const;
 
-
-private:
-    void itirativeMultiply(Matrix);
     void upsize();
     void downsize();
 
