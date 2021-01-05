@@ -15,8 +15,9 @@ _bulletTriangles{ bullettriangles }
 void Ship::shoot(){
 	Matrix originAxis = _axis;
 	originAxis.translate(_center*-1);
-	
-	_world->addBullet(_bulletTriangles, getCenter(), originAxis, 100);
+
+	std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(_bulletTriangles, _world, getCenter(), originAxis, 1);
+	_world->addBullet(bullet);
 }
 
 Vector Ship::getAim(){
