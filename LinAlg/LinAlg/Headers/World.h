@@ -23,7 +23,7 @@ public:
 	void addFigure(Figure);
 	void addShip(std::vector<Triangle>&, std::vector<Triangle>&);
 	void addTarget(std::vector<Triangle>&, Vector, double, int, bool);
-	void addBullet(std::vector<Triangle>&, Vector, Matrix, double);
+	void addBullet(std::shared_ptr<Bullet>);
 	void tick();
 	std::shared_ptr<Ship>& getShip();
 	std::vector<std::shared_ptr<Bullet>>& getBullets();

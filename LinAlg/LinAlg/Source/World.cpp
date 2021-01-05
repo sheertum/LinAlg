@@ -81,11 +81,8 @@ void World::addTarget(std::vector<Triangle>& newFigure, Vector position, double 
 	//_figures.push_back(figure);
 }
 
-void World::addBullet(std::vector<Triangle>& newFigure, Vector startPosition, Matrix axis, double velocity){
-	std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(newFigure, this, startPosition, axis, velocity);
+void World::addBullet(std::shared_ptr<Bullet> bullet){
 	_bullets.push_back(bullet);
-	//std::shared_ptr<Figure> figure = bullet;
-	//_figures.push_back(figure);
 }
 
 
