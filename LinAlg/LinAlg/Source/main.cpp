@@ -47,12 +47,8 @@ int main() {
 
     std::vector<Triangle> triangles{{ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }};
 
-    for(auto& triangle : triangles){
-        triangle.translate(500,500,0);
-    }
-
     CollisionHandler collision{world};
-    world->addShip(triangles);
+    world->addShip(triangles, triangles);
     auto& ship = world->getShip();
 
     std::function<void()> moveBack = [&]() {
@@ -226,16 +222,16 @@ int main() {
         for(auto& bullet : world->getBullets())
         {
             //world->drawLine(Vector{ {0,0,0} }, bullet->getCenter(), { 255,255,255 });
-            world->drawLine(bullet->getCenter(), bullet->getXAxis(), { 0,0,255 });
-            world->drawLine(bullet->getCenter(), bullet->getZAxis(), { 0,255,0 });
-            world->drawLine(bullet->getCenter(), bullet->getYAxis(), { 255,0,0 }); 
-            //world->draw(bullet, { 255,0,255 });
+            world->drawLine(bullet->getCenter(), bullet->getBigXAxis(), { 0,0,255 });
+            world->drawLine(bullet->getCenter(), bullet->getBigZAxis(), { 0,255,0 });
+            world->drawLine(bullet->getCenter(), bullet->getBigYAxis(), { 255,0,0 }); 
+            world->draw(bullet, { 255,0,255 });
         }
 
         //world->drawLine(Vector{ {0,0,0} }, ship->getCenter(), { 0,255,255 });
-        world->drawLine(ship->getCenter(), ship->getXAxis(), { 0,0,255 });
-        world->drawLine(ship->getCenter(), ship->getZAxis(), { 0,255,0 });
-        world->drawLine(ship->getCenter(), ship->getYAxis(), { 255,0,0 });       
+        world->drawLine(ship->getCenter(), ship->getBigXAxis(), { 0,0,255 });
+        world->drawLine(ship->getCenter(), ship->getBigZAxis(), { 0,255,0 });
+        world->drawLine(ship->getCenter(), ship->getBigYAxis(), { 255,0,0 });       
         //world->drawLine(ship->getCenter(), ship->getSphereRadius(), { 255,0,0 });
 
 		world->show();

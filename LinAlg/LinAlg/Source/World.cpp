@@ -58,9 +58,14 @@ Eye& World::getCamera()
 	return _camera;
 }
 
-void World::addShip(std::vector<Triangle>& newFigure){
+void World::addShip(std::vector<Triangle>& newFigure, std::vector<Triangle>& bullet){
 	if(_ship == nullptr){
-		_ship = std::make_shared<Ship>(newFigure, this);
+		std::vector<Triangle> _bullet = bullet;
+		for (auto& triangle : newFigure) {
+			triangle.translate(500, 500, 0);
+		}
+
+		_ship = std::make_shared<Ship>(newFigure, this, _bullet);
 		std::shared_ptr<Figure> figure = _ship;
 		_figures.push_back(figure);
 	}

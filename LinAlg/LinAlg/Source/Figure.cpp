@@ -128,7 +128,6 @@ void Figure::calculateCenter(std::vector<double> collection, int columnCount)
 
 void Figure::calulateAxis(){
 	_axis = UnitaryMatrix{ 3 };
-	// _axis.scale(100);
 	_axis.translate(_center);
 }
 
@@ -142,6 +141,30 @@ Vector Figure::getYAxis(){
 
 Vector Figure::getZAxis(){
 	return Vector{{_axis(2,0), _axis(2,1), _axis(2,2)}};
+}
+
+Vector Figure::getBigXAxis()
+{
+	Vector bigX = getXAxis()- getCenter();
+	bigX = bigX * 100;
+	bigX = bigX  + getCenter();
+	return bigX;
+}
+
+Vector Figure::getBigYAxis()
+{
+	Vector bigY = getYAxis() - getCenter();
+	bigY = bigY * 100;
+	bigY = bigY + getCenter();
+	return bigY;
+}
+
+Vector Figure::getBigZAxis()
+{
+	Vector bigZ = getZAxis() - getCenter();
+	bigZ = bigZ * 100;
+	bigZ = bigZ + getCenter();
+	return bigZ;
 }
 
 Vector Figure::getSphereRadius() {

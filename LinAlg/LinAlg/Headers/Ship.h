@@ -8,7 +8,7 @@ class World;
 class Ship : public Figure
 {
 public:
-	Ship(std::vector<Triangle>&, World*);
+	Ship(std::vector<Triangle>&, World*, std::vector<Triangle>&);
 	void shoot();
 	Vector getAim();
 
