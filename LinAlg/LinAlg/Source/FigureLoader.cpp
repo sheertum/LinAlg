@@ -98,7 +98,7 @@ void FigureLoader::handleTriangle(const std::string& line, const std::vector<Vec
 	}
 
 	triangles.push_back(Triangle{ vectorIndices[0], vectorIndices[1], vectorIndices[2], Vector{{0,0,-1}} });//  normalIndices[0]});
-	if (vectorIndices.size() > 3)
+	if (vectorIndices.size() < 3)
 	{
 		//triangles.push_back(Triangle{ vectorIndices[1], vectorIndices[2], vectorIndices[3], Vector{{0,0,-1}} });
 	}

@@ -20,7 +20,19 @@
 #undef main
 #include <iostream>
 
+#include <windows.h>
+
+std::string workingdir()
+{
+    char buf[256];
+    GetCurrentDirectoryA(256, buf);
+    return std::string(buf) + '\\';
+}
+
 int main() {
+    std::string objShip = (workingdir() + "Resources\\SpaceShip.obj");
+    std::string objBullet = (workingdir() + "Resources\\bullet.obj");
+
 	std::shared_ptr<World> world = std::make_shared<World>( 1000,1000,1000 );
     Camera camera{ Vector{{0, 0, 0, 0}}, Vector{{1,1,1,1}}, {-10, 20} };
 
@@ -50,6 +62,12 @@ int main() {
     std::vector<Triangle> shipFigure = FigureLoader::load("Resources\\SpaceShip.obj", 1000, 0, 0.5);
     std::vector<Triangle> targetFigure = FigureLoader::load("Resources\\cubeZ.obj", 1000, 0, 0.5);
 
+    for(auto& triangle : triangles){
+        triangle.translate(500,500,0);
+    }
+
+    Figure bulletFigure{ FigureLoader::load(objShip.c_str(),1000,0,0.5) };
+    Figure shipFigure{ FigureLoader::load(objShip.c_str(),1000,0,0.5) };
     CollisionHandler collision{world};
     world->addShip(shipFigure, bulletFigure);
     auto& ship = world->getShip();
@@ -100,9 +118,10 @@ int main() {
 #define CAMERA_MOVEMENT 0.1
 
     std::function<void()> camRotX = [&]() {
-        world->getCamera()._lookAt[0] += CAMERA_MOVEMENT;
-        world->getCamera().update();
-        print();
+        world->getTargets()[0]->collide();
+        //world->getCamera()._lookAt[0] += CAMERA_MOVEMENT;
+        //world->getCamera().update();
+        //print();
     };
 
     std::function<void()> camRotY = [&]() {

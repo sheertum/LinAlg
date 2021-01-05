@@ -122,10 +122,10 @@ void World::addShip(std::vector<Triangle>& newFigure, std::vector<Triangle>& bul
 }
 
 void World::addTarget(std::vector<Triangle>& newFigure, Vector position, double velocity, int growthLimit, bool isGrowing = true){
-	//std::shared_ptr<Target> target = std::make_shared<Target>(newFigure, this, position, velocity);
-	//_targets.push_back(target);
-	//std::shared_ptr<Figure> figure = target;
-	//_figures.push_back(figure);
+	std::shared_ptr<Target> target = std::make_shared<Target>(newFigure, this, position, velocity, 0, false);
+	_targets.push_back(target);
+	std::shared_ptr<Figure> figure = target;
+	_figures.push_back(figure);
 }
 
 void World::addBullet(std::shared_ptr<Bullet> bullet){
