@@ -167,6 +167,13 @@ Vector Figure::getBigZAxis()
 	return bigZ;
 }
 
+Vector Figure::getLaserSight(){
+	Vector bigZ = getZAxis() - getCenter();
+	bigZ = bigZ * 10000;
+	bigZ = bigZ + getCenter();
+	return bigZ;
+}
+
 Vector Figure::getSphereRadius() {
 	return _center + Vector{ {_boundingSphere.getRadius(),0,0} };
 }

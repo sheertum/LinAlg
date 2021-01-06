@@ -30,6 +30,7 @@ public:
 	Vector getBigXAxis();
 	Vector getBigYAxis();
 	Vector getBigZAxis();
+	Vector getLaserSight();
 	Vector getSphereRadius();
 
 	BoundingSphere& getBoundingSphere();
