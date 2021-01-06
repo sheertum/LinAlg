@@ -32,3 +32,24 @@ void Ship::shoot(){
 Vector Ship::getAim(){
 	return getZAxis()*1000;
 }
+
+void Ship::collide()
+{
+	remove();
+}
+
+void Ship::remove()
+{
+	auto& figures = _world->getFigures();
+
+	int i = 0;
+	for (const auto& figure : figures) {
+		if (figure.get() == this)
+		{
+			_world->removeFigure(i);
+			break;
+		}
+		i++;
+	}
+	_world->removeShip();
+}

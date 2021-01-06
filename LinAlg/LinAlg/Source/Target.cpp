@@ -2,9 +2,6 @@
 #include "World.h"
 
 Target::Target(std::vector<Triangle>& triangles, World* world, Vector position, double velocity, int growthLimit, bool isGrowing) : Figure{ triangles, velocity }, _growLimit { growthLimit }, _isGrowing{ isGrowing }, _grow{ 0 }, _world{world}{
-	for(auto& triangle : _triangles){
-		triangle.translate(position);
-	}
 }
 
 void Target::tick()
@@ -40,7 +37,7 @@ void Target::remove()
 	for (const auto& target : targets) {
 		if (target.get() == this)
 		{
-			_world->removeFigure(i);
+			_world->removeTarget(i);
 			break;
 		}
 		i++;

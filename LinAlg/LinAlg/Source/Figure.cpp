@@ -94,10 +94,10 @@ Vector Figure::calculateSpeed(){
 }
 
 void Figure::grow(double factor){
+	_boundingSphere.scaleRadius(factor);
 	for(auto& triangle : _triangles){
 		triangle.translate(_center * -1);
 		triangle.scale(factor);
-		_boundingSphere.scaleRadius(factor);
 		triangle.translate(_center);
 	}
 }

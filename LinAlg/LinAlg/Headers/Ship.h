@@ -11,6 +11,8 @@ public:
 	Ship(std::vector<Triangle>&, World*, std::vector<Triangle>&);
 	void shoot();
 	Vector getAim();
+	void collide() override;
+	void remove();
 
 private:
 	double _bulletRadius;

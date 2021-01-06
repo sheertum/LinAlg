@@ -33,6 +33,7 @@
     <ClCompile Include="Source\CollisionEvent.cpp" />
     <ClCompile Include="Source\Ship.cpp" />
     <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Headers\ShipControls.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BoundingBox.h" />
@@ -152,5 +153,6 @@
     <ClInclude Include="Headers\CollisionHandler.h" />
     <ClInclude Include="Headers\CollisionEvent.h" />
     <ClInclude Include="Headers\Ship.h" />
+    <ClInclude Include="Headers\ShipControls.hpp" />
   </ItemGroup>
 </Project>

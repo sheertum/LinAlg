@@ -10,7 +10,7 @@ Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosit
 {
 	//TODO: figue loader gebruiken om de triangles in te laden die bij het juiste figuur horen
 	Vector zAxis{{axis(2,0),axis(2,1),axis(2,2)}};
-	allignWithOriginator(direction);
+	//allignWithOriginator(direction);
 	setAtOriginatorPosition(startPosition);
 }
 
