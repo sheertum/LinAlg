@@ -14,7 +14,7 @@ public:
 	Input& getInput();
 
 private:
-	#define rollAngle 3.14159265359 / 10
+	#define rollAngle 3.14159265359 / 20
 	std::weak_ptr<Ship> _ship;
 	std::map<SDL_KeyCode, std::function<void()>> _controls;
 	Input _input;

@@ -49,11 +49,11 @@ int main() {
     std::vector<Triangle> bulletFigure{{ triangle1, triangle2, triangle3, triangle4, triangle5, triangle6, triangle7, triangle8 }};
 
     std::vector<Triangle> shipFigure = FigureLoader::load("Resources\\SpaceShip.obj", 1000, 0, 0.5);
-    std::vector<Triangle> targetFigure = FigureLoader::load("Resources\\target.obj", 1000, 0, 0.5);
+    std::vector<Triangle> targetFigure = FigureLoader::load("Resources\\target.obj", 1000, 0, 0.8);
 
     CollisionHandler collision{world};
     world->addShip(shipFigure, bulletFigure);
-    world->addTarget(targetFigure, Vector{ {500,-200, 500} }, 1.5, 0);
+    world->addTarget(targetFigure, Vector{ {500,-200, 800} }, 1.5, 0);
     auto& ship = world->getShip();
 
 
