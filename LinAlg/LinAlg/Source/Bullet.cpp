@@ -8,14 +8,13 @@
 
 Bullet::Bullet(std::vector<Triangle>& triangles, World* world, Vector startPosition, Matrix axis, double velocityFactor) : Figure{ triangles, velocityFactor/3 }, _world{world}
 {
-	//TODO: figue loader gebruiken om de triangles in te laden die bij het juiste figuur horen
 	Vector zAxis{{axis(2,0),axis(2,1),axis(2,2)}};
-	//allignWithOriginator(direction);
+	Vector xAxis{{axis(0,0),axis(0,1),axis(0,2)}};
+	allignWithOriginator(zAxis, xAxis);
 	setAtOriginatorPosition(startPosition);
 }
 
 void Bullet::allignWithOriginator(const Vector& zAxis, const Vector& xAxis){
-
 	double pi = 3.14159265359;
 	Vector originalDirection{ {0,0,-1} };
 	Vector rotationAxis{ {0,0,0} };
@@ -26,19 +25,14 @@ void Bullet::allignWithOriginator(const Vector& zAxis, const Vector& xAxis){
 	angleCopy.normalise();
 	angleZcopy.normalise();
 	double angle = acos(angleCopy * angleZcopy);
-	std::cout << angle << std::endl;
 
-	if (angle > pi || angle < 0) {
-		rotationAxis = originalDirection.crossProduct(zAxis);
-	}
-	else {
-		rotationAxis = zAxis.crossProduct(originalDirection);
-	}
+	rotationAxis = originalDirection.crossProduct(zAxis);
 	
 	if (rotationAxis[0] == 0 && rotationAxis[1] == 0 && rotationAxis[2] == 0) {
 		return;
 	}
 	_axis.randomLineRotate(Vector{ { 0,0,0 } }, rotationAxis, angle);
+	_axis.randomLineRotate(Vector{ { 0,0,0 } }, rotationAxis, pi);
 	
 	for(auto& triangle : _triangles){
 		triangle.randomLineRotate(Vector{{ 0,0,0 }}, rotationAxis, angle);
