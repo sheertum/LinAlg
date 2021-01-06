@@ -1,5 +1,7 @@
 #pragma once
 #include <Rendering/Renderer.h>
+#include <set>
+
 #include "ProjectionMatrix.h"
 #include "Ship.h"
 #include "Bullet.h"
@@ -15,6 +17,12 @@ public:
 	void drawLine(const Vector&, const Vector&, const Color&);
 	void draw(const std::shared_ptr<Figure>&, const Color&);
 
+	void removeFigure(int index);
+	void removeBullet(int index);
+	void removeTarget(int index);
+
+	//Remove all the items that where added by remove"X"(int index)
+	void cleanup();
 	void show();
 
 	Eye& getCamera();
@@ -27,11 +35,15 @@ public:
 	void tick();
 	std::shared_ptr<Ship>& getShip();
 	std::vector<std::shared_ptr<Bullet>>& getBullets();
+	std::vector<std::shared_ptr<Target>>& getTargets();
 
 	Vector view1;
 	Vector view2;
 
 private:
+	std::set<int> _removeBullets;
+	std::set<int> _removeTargets;
+	std::set<int> _removeFigures;
 	std::vector<std::shared_ptr<Figure>> _figures;
 	std::vector<std::shared_ptr<Bullet>> _bullets;
 	std::vector<std::shared_ptr<Target>> _targets;

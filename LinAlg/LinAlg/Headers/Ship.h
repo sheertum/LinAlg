@@ -13,6 +13,7 @@ public:
 	Vector getAim();
 
 private:
+	double _bulletRadius;
 	World* _world;
 	Vector _gunMuzzle;
 	Vector _aim;

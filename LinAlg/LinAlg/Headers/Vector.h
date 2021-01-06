@@ -22,7 +22,7 @@ public:
 
     Vector operator%(double) const;
 
-    void translate (Vector vec);
+    void translate (const Vector& vec);
 
     bool operator!=(const Vector&) const;
 

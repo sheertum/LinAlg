@@ -34,7 +34,7 @@ public:
 
 	BoundingSphere& getBoundingSphere();
 
-	void collide();
+	virtual void collide();
 
 protected:
 	bool containtsVector(Vector vector, std::vector<double> collection);

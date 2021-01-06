@@ -5,7 +5,7 @@
 
 World::World(unsigned int width, unsigned int height, unsigned int depth) : 
 	_renderer{ width, height },
-	_projectionMatrix{ width, height, 10, -0.1, -1000 },
+	_projectionMatrix{ width, height, 90, -0.1, -1000 },
 	_camera{},
 	view1{ {0,0,0} }, 
 	view2{{0,0,0}},
@@ -42,9 +42,56 @@ void World::draw(const std::shared_ptr<Figure>& figure, const Color& color)
 {
 	for (const auto& triangle : figure->getTriangles())
 	{
-		//TODO: perspective
-		_renderer.drawTriangle(triangle, color);
+		std::vector<Vector> vectors;
+		vectors.reserve(3);
+		for (auto& vector : triangle.getVectors())
+		{
+			vectors.push_back(_projectionMatrix * vector);
+		}
+		if (!_projectionMatrix.correctMultiply())
+		{
+			continue;
+		}
+		_renderer.drawTriangle(Triangle{ vectors[0], vectors[1], vectors[2] }, color);
 	}
+}
+
+void World::removeFigure(int index)
+{
+	_removeFigures.insert(index);
+}
+
+void World::removeBullet(int index)
+{
+	_removeBullets.insert(index);
+}
+
+void World::removeTarget(int index)
+{
+	_removeTargets.insert(index);
+}
+
+void World::cleanup()
+{
+	int removed = 0;
+	for (const auto& it : _removeTargets) {
+		_targets.erase(_targets.begin() + it - removed);
+		removed++;
+	}
+
+	removed = 0;
+	for (const auto& it : _removeBullets) {
+		_bullets.erase(_bullets.begin() + it - removed);
+	}
+
+	removed = 0;
+	for (const auto& it : _removeFigures) {
+		_figures.erase(_figures.begin() + it - removed);
+	}
+
+	_removeBullets.clear();
+	_removeFigures.clear();
+	_removeTargets.clear();
 }
 
 void World::show()
@@ -62,7 +109,7 @@ void World::addShip(std::vector<Triangle>& newFigure, std::vector<Triangle>& bul
 	if(_ship == nullptr){
 		std::vector<Triangle> _bullet = bullet;
 		for (auto& triangle : newFigure) {
-			triangle.translate(500, 500, 0);
+			triangle.translate(500, 500, 600);
 		}
 
 		_ship = std::make_shared<Ship>(newFigure, this, _bullet);
@@ -106,13 +153,22 @@ std::vector<std::shared_ptr<Bullet>>& World::getBullets()
 	return _bullets;
 }
 
+std::vector<std::shared_ptr<Target>>& World::getTargets()
+{
+	return _targets;
+}
+
 void World::tick(){
 	_ship->move();
+	
 	for(auto& bullet : _bullets){
 		bullet->move();
+		bullet->tick();
 	}
 
 	for(auto& target : _targets){
 		target->tick();
 	}
+
+	cleanup();
 }

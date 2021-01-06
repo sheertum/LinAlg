@@ -12,7 +12,7 @@
 
 #define END std::string::npos
 
-Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordinate, double scale)
+std::vector<Triangle> FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordinate, double scale)
 {
 	double objMin = -4;
 	double objMax = 4 + abs(objMin);
@@ -28,7 +28,7 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 	while (std::getline(in, line))
 	{
 		if (line.substr(0, 2) == "v ") {
-			Vector vector = ((handleVertex(line) * factor)* scale) + 500;
+			Vector vector = ((handleVertex(line) * factor)* scale);
 			vectors.push_back(vector);
 		}
 		else if (line.substr(0, 3) == "vn ") {
@@ -40,7 +40,7 @@ Figure FigureLoader::load(const char* fileName, int maxCoordinate, int minCoordi
 		}
 	}
 
-	return Figure{ triangles , 0};
+	return triangles;
 }
 
 Vector FigureLoader::handleVertex(const std::string& line)
