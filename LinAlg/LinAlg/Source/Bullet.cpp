@@ -28,7 +28,7 @@ void Bullet::allignWithOriginator(const Vector& zAxis, const Vector& xAxis){
 
 	rotationAxis = originalDirection.crossProduct(zAxis);
 	
-	if (rotationAxis[0] == 0 && rotationAxis[1] == 0 && rotationAxis[2] == 0) {
+	if (rotationAxis[0] == 0 && rotationAxis[1] == 0 && rotationAxis[2] == 0 || angle == 0) {
 		return;
 	}
 	_axis.randomLineRotate(Vector{ { 0,0,0 } }, rotationAxis, angle);

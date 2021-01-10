@@ -75,7 +75,7 @@ int main() {
         {
             world->draw(ship, { 255,255,0 });
             world->drawLine(ship->getCenter(), ship->getBigXAxis(), { 0,0,255 });
-            world->drawLine(ship->getCenter(), ship->getBigZAxis(), { 0,255,0 });
+            world->drawLine(ship->getCenter(), ship->getLaserSight(), { 0,255,0 });
             world->drawLine(ship->getCenter(), ship->getBigYAxis(), { 255,0,0 });
         }
 

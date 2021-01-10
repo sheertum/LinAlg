@@ -80,17 +80,17 @@ void World::cleanup()
 {
 	int removed = 0;
 	for (const auto& it : _removeTargets) {
-		_targets.erase(_targets.begin() + it - removed++);
+		_targets.erase(_targets.begin() + (it - removed++));
 	}
 
 	removed = 0;
 	for (const auto& it : _removeBullets) {
-		_bullets.erase(_bullets.begin() + it - removed++);
+		_bullets.erase(_bullets.begin() + (it - removed++));
 	}
 
 	removed = 0;
 	for (const auto& it : _removeFigures) {
-		_figures.erase(_figures.begin() + it - removed++);
+		_figures.erase(_figures.begin() + (it - removed++));
 	}
 
 	_removeBullets.clear();
@@ -118,6 +118,8 @@ void World::addShip(std::vector<Triangle>& newFigure, std::vector<Triangle>& bul
 		}
 
 		_ship = std::make_shared<Ship>(newFigure, this, _bullet);
+		_ship->pitch(3.14 / 50);
+
 		std::shared_ptr<Figure> figure = _ship;
 		_figures.push_back(figure);
 	}
@@ -141,6 +143,7 @@ void World::addTarget(std::vector<Triangle>& newFigure, Vector position, double 
 
 void World::addBullet(std::shared_ptr<Bullet> bullet){
 	_bullets.push_back(bullet);
+	_figures.push_back(bullet);
 }
 
 

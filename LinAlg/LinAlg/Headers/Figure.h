@@ -17,7 +17,6 @@ public:
 	
 	void move();
 	void accelerate(double acceleration);
-	void deccelerate(double acceleration);
 
 	void grow(double factor);
 	void shrink(double factor);

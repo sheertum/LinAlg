@@ -1,5 +1,9 @@
 #include "CollisionHandler.h"
 #include <iostream>
+#include <typeinfo>
+#include "Ship.h"
+#include "Bullet.h"
+
 CollisionHandler::CollisionHandler(std::shared_ptr<World> world) : _world(world)
 {
 
@@ -37,7 +41,12 @@ void CollisionHandler::checkForCollisions()
 void CollisionHandler::collideFigures(std::vector<CollisionEvent>& collisions)
 {
 	for (auto& collision : collisions) {
-		collision.figA->collide();
-		collision.figB->collide();
+		bool ship = (dynamic_cast<Ship*>(collision.figA.get())) || (dynamic_cast<Ship*>(collision.figB.get()));
+		bool bullet = (dynamic_cast<Bullet*>(collision.figA.get())) || (dynamic_cast<Bullet*>(collision.figB.get()));
+		if (!(ship && bullet))
+		{
+			collision.figA->collide();
+			collision.figB->collide();
+		}
 	}
 }
