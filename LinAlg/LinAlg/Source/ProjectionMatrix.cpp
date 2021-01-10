@@ -27,9 +27,9 @@ Vector ProjectionMatrix::operator*(const Vector& vector)
 	if (w > 0)
 	{
 		Vector result{ {tempResult(0,0), tempResult(0,1), tempResult(0,2)} };
-		result[0] = _width / 2 + (result[0]/w) * (_width/2);
+		result[0] = _width + (result[0]/w) * (_width/2);
 		result[1] = _height / 2 + (result[1] / w) * (_height / 2);
-		//result[2] /= w;
+		
 		return result;
 	}
 

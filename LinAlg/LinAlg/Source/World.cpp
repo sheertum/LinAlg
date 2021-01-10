@@ -18,15 +18,9 @@ World::World(unsigned int width, unsigned int height, unsigned int depth) :
 
 void World::drawLine(const Vector& v1, const Vector& v2, const Color& color)
 {
-	Vector newV1 = v1 - 500;
-	newV1[2] = 0;
-	Vector newV2 = v2 - 500;
-	newV2[2] = 0;
 
-	std::array<Vector, 2> viewed{ _camera.getPerspective(newV1, newV2) };
-
-	Vector projected1 = v1 /*viewed[0] + 500*/;//_projectionMatrix * viewed[0];
-	Vector projected2 = v2 /*viewed[1] + 500*/;// _projectionMatrix * viewed[1];
+	Vector projected1 = _projectionMatrix * v1;
+	Vector projected2 = _projectionMatrix * v2; 
 
 	//projected1[0] += 1;
 	//projected1[1] += 1;
@@ -71,22 +65,32 @@ void World::removeTarget(int index)
 	_removeTargets.insert(index);
 }
 
+void World::removeShip()
+{
+	_hasShip = false;
+	_ship.reset();
+}
+
+bool World::hasShip()
+{
+	return _hasShip;
+}
+
 void World::cleanup()
 {
 	int removed = 0;
 	for (const auto& it : _removeTargets) {
-		_targets.erase(_targets.begin() + it - removed);
-		removed++;
+		_targets.erase(_targets.begin() + it - removed++);
 	}
 
 	removed = 0;
 	for (const auto& it : _removeBullets) {
-		_bullets.erase(_bullets.begin() + it - removed);
+		_bullets.erase(_bullets.begin() + it - removed++);
 	}
 
 	removed = 0;
 	for (const auto& it : _removeFigures) {
-		_figures.erase(_figures.begin() + it - removed);
+		_figures.erase(_figures.begin() + it - removed++);
 	}
 
 	_removeBullets.clear();
@@ -106,6 +110,7 @@ Eye& World::getCamera()
 }
 
 void World::addShip(std::vector<Triangle>& newFigure, std::vector<Triangle>& bullet){
+	_hasShip = true;
 	if(_ship == nullptr){
 		std::vector<Triangle> _bullet = bullet;
 		for (auto& triangle : newFigure) {
@@ -121,11 +126,17 @@ void World::addShip(std::vector<Triangle>& newFigure, std::vector<Triangle>& bul
 	}
 }
 
-void World::addTarget(std::vector<Triangle>& newFigure, Vector position, double velocity, int growthLimit, bool isGrowing = true){
-	//std::shared_ptr<Target> target = std::make_shared<Target>(newFigure, this, position, velocity);
-	//_targets.push_back(target);
-	//std::shared_ptr<Figure> figure = target;
-	//_figures.push_back(figure);
+void World::addTarget(std::vector<Triangle>& newFigure, Vector position, double velocity, int growthLimit, bool isGrowing){
+	double pi = 3.14159265359;
+
+	for (auto& triangle : newFigure) {
+		triangle.yRotate(pi / 4 * -1);
+		triangle.translate(position);
+	}
+	std::shared_ptr<Target> target = std::make_shared<Target>(newFigure, this, position, velocity, growthLimit, isGrowing);
+	_targets.push_back(target);
+	std::shared_ptr<Figure> figure = target;
+	_figures.push_back(figure);
 }
 
 void World::addBullet(std::shared_ptr<Bullet> bullet){
@@ -159,7 +170,10 @@ std::vector<std::shared_ptr<Target>>& World::getTargets()
 }
 
 void World::tick(){
-	_ship->move();
+	if (_hasShip)
+	{
+		_ship->move();
+	}
 	
 	for(auto& bullet : _bullets){
 		bullet->move();

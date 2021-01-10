@@ -20,6 +20,9 @@ public:
 	void removeFigure(int index);
 	void removeBullet(int index);
 	void removeTarget(int index);
+	void removeShip();
+
+	bool hasShip();
 
 	//Remove all the items that where added by remove"X"(int index)
 	void cleanup();
@@ -30,7 +33,7 @@ public:
 	std::vector<std::shared_ptr<Figure>>& getFigures();
 	void addFigure(Figure);
 	void addShip(std::vector<Triangle>&, std::vector<Triangle>&);
-	void addTarget(std::vector<Triangle>&, Vector, double, int, bool);
+	void addTarget(std::vector<Triangle>&, Vector, double, int, bool isGrowing = true);
 	void addBullet(std::shared_ptr<Bullet>);
 	void tick();
 	std::shared_ptr<Ship>& getShip();
@@ -54,4 +57,5 @@ private:
 	Renderer _renderer;
 	ProjectionMatrix _projectionMatrix;
 	Eye _camera;
+	bool _hasShip{ false };
 };

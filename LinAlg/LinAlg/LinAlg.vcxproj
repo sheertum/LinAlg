@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Headers\ShipControls.cpp" />
     <ClCompile Include="Source\Ship.cpp" />
     <ClCompile Include="Source\BottomOnesMatrix.cpp" />
     <ClCompile Include="Source\BoundingBox.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="Headers\Rendering\Renderer.h" />
     <ClInclude Include="Headers\ScalarMatrix.h" />
     <ClInclude Include="Headers\Shape.h" />
+    <ClInclude Include="Headers\ShipControls.hpp" />
     <ClInclude Include="Headers\Target.h" />
     <ClInclude Include="Headers\TranslateMatrix.h" />
     <ClInclude Include="Headers\UnitaryMatrix.h" />

@@ -94,10 +94,10 @@ Vector Figure::calculateSpeed(){
 }
 
 void Figure::grow(double factor){
+	_boundingSphere.scaleRadius(factor);
 	for(auto& triangle : _triangles){
 		triangle.translate(_center * -1);
 		triangle.scale(factor);
-		_boundingSphere.scaleRadius(factor);
 		triangle.translate(_center);
 	}
 }
@@ -163,6 +163,13 @@ Vector Figure::getBigZAxis()
 {
 	Vector bigZ = getZAxis() - getCenter();
 	bigZ = bigZ * 100;
+	bigZ = bigZ + getCenter();
+	return bigZ;
+}
+
+Vector Figure::getLaserSight(){
+	Vector bigZ = getZAxis() - getCenter();
+	bigZ = bigZ * 10000;
 	bigZ = bigZ + getCenter();
 	return bigZ;
 }
